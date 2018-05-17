@@ -32,6 +32,7 @@
 \captionsetup[algorithm]{style=algori}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 
 \author[1,2,3]{Oliver M. Crook\thanks{\url{omc25@cam.ac.uk}}~}
 \author[2]{Claire M. Mulvey}
@@ -412,7 +413,8 @@ addLegend(andyhlMAP$object, cex=0.5, where="topleft")
   \caption{PCA plot of the protein quantitation data with colours
     representing the predicted class (5032 proteins). The pointer size
     of a protein is scaled to the probability that particular protein
-    was assigned to that organelle. Markers are automatically assigned
+    was assigned to that organelle. Markers, proteins whose localisations
+    are already known, are automatically assigned
     a probability of $1$ and the size of the pointer reflects this.}
   \label{fig:assignmentPCAMAP}
 \end{figure}
@@ -438,12 +440,12 @@ Bayesian setting using standard MCMC methods.  We run $6$ chains of
 our Gibbs sampler in parallel for $15,000$ iterations, throwing away
 the first $4,000$ iterations for burn-in and retain every $10^{th}$
 sample for thinning.  Thus 1,100 sample are retained from each
-chain. We then visualise our trace plots of our chains; in particular,
+chain. We then visualise trace plots of our chains; in particular,
 we monitor the number of proteins allocated to the known components
-(see appendix \ref{app:mcmc}). We throw away $1$ chain because we do
+(see appendix \ref{app:mcmc}). We discard $1$ chain because we do
 not considered it to have converged.  For the remaining $5$ chains we
 further discard the first $500$ samples by visual inspection.  We then
-have $600$ retained samples from $5$ seperate chains. For further
+have $600$ retained samples from $5$ separate chains. For further
 analysis, we compute the Gelman-Rubin convergence diagnostic
 \citep{Gelman:1992, Brooks:1998}, which is computed as
 $\hat{R} \approx 1.05$.  Values of $\hat{R}$ far from 1 indicate
@@ -453,7 +455,7 @@ pooled to produce a single chain containing $3000$ samples.
 
 We produce point estimates of the posterior localisation probabilities
 by summarising samples by their Monte-Carlo average.  These summmaries
-are then visualised on figure \ref{fig:assignmentPCAMCMC}, where the
+are then visualised in figure \ref{fig:assignmentPCAMCMC}, where the
 pointer is scaled according to the localisation
 probabilities. Monte-Carlo based inference also provides us with
 additional information; in particular, we can interrogate individual
@@ -566,15 +568,14 @@ In previous sections, we have demonstrated that we can assign proteins
 probabilitically to sub-cellular compartment and quantify the
 uncertainty in these assignments. Some proteins cannot be well
 described as belonging to any known component and we modelled this
-using an additional outlier component described mathematically as a
-t-distribution.
+using an additional t-distribution outlier component.
 
 It is biologically interesting to decipher what functional role
 proteins that are far away from known components play. We perform an
 over-representation analysis of gene ontology (GO) terms to asses the
-biological relevance of this component \citep{Boyle:2004, Yu:2012}.
+biological relevance of the outlier component \citep{Boyle:2004, Yu:2012}.
 We take proteins that were allocated to known components with
-probability less than $0.95$, a total of 1111 protein.  Note that,
+probability less than $0.95$, a total of 1111 protein.  Note that
 these 1111 proteins exclude proteins that are likely to belong to a
 known location, but we are uncertain about which localisation.  We
 then performed enrichment analysis against the set of all proteins
@@ -586,8 +587,7 @@ Supplementary figure \ref{fig:GOenrich} shows this outlier component
 is enriched for cytoskeletal part ($p <10^{-7}$) and microtuble
 cytoskeleton ($p <10^{-7}$). Cytoskeleton proteins are found
 throughout the cell and therefore we would expect them to be found in
-every fraction along the density gradient, this manifests as these
-proteins not forming a tight cluster. We also observe enrichment for
+every fraction along the density gradient. We also observe enrichment for
 highly dynamic sub-cellular processes such as cell division
 ($p <10^{-6}$) and cell cycle processes ($p <10^{-6}$), again these
 proteins are unlikely to have steady-state locations within a single
@@ -602,7 +602,7 @@ component in our mixture model.
 \subsection{Comparison with other classifiers}
 
 In this section, we assess the generalisation performance of our
-methods on several datasets, by computing the performance metrics
+methods on several datasets, by computing performance metrics
 associated with each classifier as detailed in section
 \ref{section::assessment}. We compare the SVM and KNN classifiers
 alongside the MAP and MCMC approaches detailed in the methods
@@ -724,10 +724,10 @@ further modelling of this dataset in this manuscript. For the U2-OS
 all classifiers are significantly different at a significant level of
 $0.01$ except for the SVM classifier and the MCMC method, with the MAP
 method performing the best. Figure \ref{figure::f1scores1} shows that
-for this datset all classifiers are performing extremely well. In the
+for this dataset all classifiers are performing extremely well. In the
 three Hirst datasets the MAP method significantly outperforms all
 other methods $(p < 0.01)$, whilst in the wild type HeLa and in the
-CRISPR-CAS9 KO1 there are no significant difference between the KNN
+CRISPR-CAS9 KO1 there is no significant difference between the KNN
 and MCMC method. In the CRISPR-CAS9 KO2 the MCMC method outperforms
 the SVM and KNN methods (p < 0.01). In the interest of brevity, the
 remaining results for the t-tests can be found in tables in appendix
@@ -880,10 +880,11 @@ gg <- ggplot(data = dfmetrics, aes(x=variable, y=value)) +
 
 \clearpage
 
-However, the Macro-F1 scores do not take into account that whilst the
-TAGM model may misclassify, it may do so with low confidence. We use
-the probabilistic information that the classifiers output to compute
-the quadratic loss. The lower the quadratic loss the closer the
+The Macro-F1 scores do not take into account that whilst the
+TAGM model may misclassify, it may do so with low confidence. We
+therefore additionally compute the quadratic loss, which allows
+us to make use of the probabilitic information provided
+by the classifiers. The lower the quadratic loss the closer the
 probabilitic predicition is to the true value. We plot the
 distributions of quadratic losses for each classifier in figures
 \ref{figure::quadloss1} and \ref{figure::quadloss2}. We observe highly
@@ -893,7 +894,7 @@ testing correction.
 
 We find that in 16 out of 19 datasets the MCMC methods achieves the
 lowest quadratic loss at a signifiance level $<0.0001$ over the SVM
-and KNN classifiers. In 6 out of these 16 datasets there are no
+and KNN classifiers. In 6 out of these 16 datasets there is no
 significant difference between the MCMC and the MAP methods. In the
 three Hirst datasets in which the MCMC did not acheive the lowest
 quadratic loss, the SVM outperformed. However, in two of these
@@ -901,14 +902,15 @@ datasets (HeLa Wild and KO1) the MAP method and SVM classifier were
 not significantly different. In the Hirst KO2 dataset there were no
 signicant differences between the MAP and MCMC methods.
 
-In the vast majority of cases, we asserts that if the TAGM model,
+In the vast majority of cases, we observe that if the TAGM model,
 using the MCMC methdology, makes an incorrect classification it does
 so with lower confidence than the SVM classifier, the KNN classifier
 and the MAP based classifier, whilst if it is correct in its assertion
 it does so with greater confidence. Additionally, a fully Bayesian
 methodology provides us with not only with point estimates of
 classification probabilities but uncertainty quantification in these
-allocations, and thus is is the most useful classifier.
+allocations, and we show in the following section that this provides
+deeper insights into protein localisation.
 
 <<echo = FALSE, message=FALSE>>=
 
@@ -990,8 +992,8 @@ large disagreement between classifiers when prediction is performed on
 proteins for which we have no withheld localisation information. This
 informs us about a systematic bias for a particular classifier or
 whether a classifier ensemble could increase performance. To maintain
-a common set of proteins we set thresholds for each classifiers in turn
-and compare to the other classifier without thresholing. Firstly, we
+a common set of proteins we set thresholds for each classifier in turn
+and compare to the other classifier without thresholding. Firstly, we
 set a global threshold of 0.95 for the TAGM and then for these
 proteins plot a contingency table against the classification results
 from the SVM. Secondly, we set a 5\% FDR for the SVM and then for
@@ -1074,7 +1076,7 @@ levelplot(df4, xlab="SVM", ylab="TAGM (MCMC)", main=" ", scales = list(x = list(
 
 In general, we see an extremely high level of coherence between the
 TAGM and the SVM, with almost all proteins predicted to concordant
-sub-cellular compartments. Figure \ref{figure:contigencytables} shows,
+sub-cellular compartments. Figure \ref{figure:contigencytables} shows
 there is some disagreement between assigning proteins to the lysosome
 and plasma membrane, to the cytosol and proteasome,and between the
 large and small ribosomal subunits.  However, we have not used the
