@@ -32,7 +32,6 @@
 \captionsetup[algorithm]{style=algori}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
 
 \author[1,2,3]{Oliver M. Crook\thanks{\url{omc25@cam.ac.uk}}~}
 \author[2]{Claire M. Mulvey}
@@ -164,6 +163,8 @@ files2 <- c("hallknnqloss.rda", "hallsvmqloss.rda", "hallcvalmcmc-01.Rda", "hall
 for (f in paste0("./data/", files2))
  load(f)
 
+
+setStockcol(paste0(getStockcol(), 90))
 @
 
 \section{Introduction}\label{Intro}
@@ -303,29 +304,30 @@ Gaussian density.  The outer ellipse contains $99\%$ of the total
 probability whilst the middle and inner ellipses contain $95\%$ and
 $90\%$ of the probability respectively. Visualising only the first two
 principle components can be misleading, since protein can be more (or
-less) seperated in higher principle components.  We visualise the
+less) separated in higher principle components.  We visualise the
 first two principle components along with the first and fourth
 principle component as a representive example. For the TAGM model, we
 derive probability ellipses from the MAP estimates of the parameters.
 
 \begin{figure}[ht]
-  \begin{subfigure}[t]{0.5\textwidth}
+  \begin{subfigure}[t]{0.45\textwidth}
         \centering
-<<fig=TRUE, echo=FALSE, fig.width = 3, fig.height = 3,fig.align="center">>=
-
+<<echo=FALSE>>=
 par(mar = c(4,4,2,0))
-plotEllipse(hl, method = "MAP", components = c(1,2), main = "Visualisation of probability ellipses", xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
+plotEllipse(hl, method = "MAP", components = c(1,2),
+            main = "Visualisation of probability ellipses",
+            xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
 addLegend(hl, cex=0.7, where="bottomleft")
 @
         \caption{}
 \end{subfigure}%
 \hfill
-\begin{subfigure}[t]{0.5\textwidth}
+\begin{subfigure}[t]{0.45\textwidth}
         \centering
-<<fig=TRUE, echo=FALSE, fig.width = 3, fig.height = 3,fig.align="center">>=
-
+<<echo=FALSE>>=
 par(mar = c(4,4,2,0))
-plotEllipse(hl, method = "MAP", components = c(1,4), main = "Visualisation along 1st and 4th principle components")
+plotEllipse(hl, method = "MAP", components = c(1,4),
+            main = "Visualisation along 1st and 4th principle components")
 addLegend(hl, cex=0.7, where="topleft")
 @
         \caption{}
@@ -346,8 +348,6 @@ addLegend(hl, cex=0.7, where="topleft")
 \label{figure::pcaellipse}
 \end{figure}
 
-
-\clearpage
 
 <<echo=FALSE>>=
 # ouptut to check result below
@@ -378,14 +378,12 @@ article focus on analysis of spatial proteomics in a fully Bayesian framework.
 
 
 \begin{figure}[ht]
-\setkeys{Gin}{width=1\textwidth}
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 3,fig.align="center", out.width = 0.4>>=
+<<echo = FALSE, fig.align = "center", out.width = '0.5\\linewidth'>>=
 ptsze <- as.numeric(fData(andyhlMAP$object)$predicted.probability)
 par(mfrow = c(1,1))
-setStockcol(paste0(getStockcol(), 90))
+
 plot2D(object = andyhlMAP$object, fcol="predicted.allocation", dims = c(1,2), cex = ptsze, main="Prediction of the localisation of proteins", mirrorY = TRUE )
 addLegend(andyhlMAP$object, cex=0.5, where="topleft")
-setStockcol(getLisacol())
 @
 
   \centering
@@ -438,9 +436,9 @@ This could suggest a dynamic role for
 this protein, which could be further explored with a more targeted experiment.
 
 \begin{figure}[ht]
-  \begin{subfigure}[t]{0.5\textwidth}
+  \begin{subfigure}[t]{0.45\textwidth}
         \centering
-<<fig=TRUE, echo=FALSE, fig.width = 3, fig.height = 3,fig.align="center">>=>>=
+<<echo=FALSE>>=
 par(mar = c(4,4,2,0))
 plotEllipse(hl, method = "MCMC", components = c(1,2), main = "Visualisation of probability ellipses", xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
 addLegend(hl, cex=0.5, where="bottomleft")
@@ -448,10 +446,11 @@ addLegend(hl, cex=0.5, where="bottomleft")
         \caption{}
 \end{subfigure}%
 \hfill
-\begin{subfigure}[t]{0.5\textwidth}
-<<fig=TRUE, echo=FALSE, fig.width = 3, fig.height = 3,fig.align="center">>=>>=
+\begin{subfigure}[t]{0.45\textwidth}
+<<echo=FALSE>>=
 par(mar = c(4,4,2,0))
-plotEllipse(hl, method = "MCMC", components = c(1,4), main = "Visualisation along the 1st and 4th principle component")
+plotEllipse(hl, method = "MCMC",
+            components = c(1,4), main = "Visualisation along the 1st and 4th principle component")
 addLegend(hl, cex=0.5, where="topleft")
 @
         \centering
@@ -466,18 +465,16 @@ addLegend(hl, cex=0.5, where="topleft")
 \end{figure}
 
 \begin{figure}[ht]
-\setkeys{Gin}{width=1\textwidth}
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=>>=
+<<echo = FALSE, fig.align="center">>=
 
 ptsze <- as.numeric(fData(andyMCMChl)$predicted.probability)
 names(ptsze) <- rownames(fData(andyMCMChl))
 ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.9999] <- 0.01
 
 par(mfrow = c(1,1))
-setStockcol(paste0(getStockcol(), 90))
-.pca <- plot2D(andyMCMChl, fcol="predicted.allocation", cex = ptsze, main="Prediction of Protein Localisation", mirrorY = TRUE)
+.pca <- plot2D(andyMCMChl, fcol="predicted.allocation", cex = ptsze,
+               main="Prediction of Protein Localisation", mirrorY = TRUE)
 addLegend(andyMCMChl, cex=0.6, where="topleft")
-setStockcol(getLisacol())
 @
 
   \centering
@@ -491,7 +488,7 @@ are automatically assigned a probability of $1$ and the size of the pointer refl
 
 \begin{figure}[ht]
 \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
 
 colnames(dfG5E870) <- getMarkerClasses(andyMCMChl)
 dfG5E870 <- melt(dfG5E870)
@@ -885,7 +882,7 @@ df4 <- df3/rowSums(df3)
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.5\textwidth}
         \centering
-<<fig=TRUE, echo=FALSE, fig.width = 4, fig.height = 2,fig.align="center">>=
+<<echo=FALSE, fig.width = 4, fig.height = 2,fig.align="center">>=
 par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
 lattice.options(
   layout.heights=list(bottom.padding=list(x=0), top.padding=list(x=0)),
@@ -899,7 +896,7 @@ levelplot(cont, xlab="SVM", ylab="TAGM (MCMC)", main=" ", scales = list(x = list
 \end{subfigure}%
 \begin{subfigure}[t]{0.5\textwidth}
 \centering
-<<fig=TRUE, echo=FALSE, fig.width = 2 , fig.height = 2, fig.align="center">>=
+<<echo=FALSE, fig.width = 2 , fig.height = 2, fig.align="center">>=
 par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
 lattice.options(
   layout.heights=list(bottom.padding=list(x=0), top.padding=list(x=0)),
@@ -996,7 +993,7 @@ to a single location.
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
 colnames(dfQ924C1) <- getMarkerClasses(andyMCMChl)
 dfQ924C1melt <- melt(dfQ924C1)
 colnames(dfQ924C1melt) <- c("One","Organelle","Probability")
@@ -1019,7 +1016,7 @@ print(gg2)
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
 par(mar=c(5,6,4,2)+1, las = 2)
 par(mai = c(2,0,1,0), oma = c(0,0,0,0))
 hlo <- andyMCMChl[, order(andyMCMChl$Iodixonal.Density)]
@@ -1037,7 +1034,7 @@ par(las = 1)
   \vspace{1cm}
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
 par(mai = c(2,0,0,0), oma = c(0,0,0,0))
 gg <- ggplot(dfQ924C1melt[dfQ924C1melt$Organelle == c("Cytosol","Nucleus - Non-chromatin"),],
              aes(Probability, fill = Organelle)) +
@@ -1058,19 +1055,17 @@ print(gg)
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
 prots <- "Q924C1"
 par(oma = c(0,0,0,0))
 foi13s <- FeaturesOfInterest(description = "",
                              fnames = prots,
                              object = andyMCMChl)
 
-setStockcol(paste0(getStockcol(), 90))
 ptsze <- exp(as.numeric(fData(andyMCMChl)$predicted.probability)) - 1
 names(ptsze) <- rownames(fData(andyMCMChl))
 ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.99995] <- 0.01
 plot2D(andyMCMChl, fcol = "predicted.allocation", cex = ptsze, dims = c(1,2), main = "PCA plot with Protein Q924C1 indicated")
-setStockcol(getLisacol())
 addLegend(where = "bottomleft", andyMCMChl, cex = .7)
 highlightOnPlot(andyMCMChl, foi13s, cex = 1.5, col = "black", pch = 19)
 highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2, col = "black", pch = 19, pos = 4)
@@ -1094,7 +1089,7 @@ highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2, col = "black", pch =
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
 colnames(dfQ9WUA2) <- getMarkerClasses(andyMCMChl)
 dfQ9WUA2melt <- melt(dfQ9WUA2)
 colnames(dfQ9WUA2melt) <- c("One","Organelle","Probability")
@@ -1117,7 +1112,7 @@ print(gg2)
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
 par(mar=c(5,6,4,2)+1, las = 2)
 par(mai = c(2,0,1,0), oma = c(0,0,0,0))
 hlo <- andyMCMChl[, order(andyMCMChl$Iodixonal.Density)]
@@ -1135,7 +1130,7 @@ par(las = 1)
   \vspace{1cm}
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
 par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
 gg <- ggplot(dfQ9WUA2melt[dfQ9WUA2melt$Organelle == c("40S Ribosome","Nucleus - Non-chromatin"),],
              aes(Probability, fill = Organelle)) +
@@ -1154,19 +1149,17 @@ print(gg)
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
 prots <- "Q9WUA2"
 par(oma = c(0,0,0,0))
 foi13s <- FeaturesOfInterest(description = "",
                              fnames = prots,
                              object = andyMCMChl)
 
-setStockcol(paste0(getStockcol(), 90))
 ptsze <- exp(as.numeric(fData(andyMCMChl)$predicted.probability)) - 1
 names(ptsze) <- rownames(fData(andyMCMChl))
 ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.99995] <- 0.01
 plot2D(andyMCMChl, fcol = "predicted.allocation", cex = ptsze, dims = c(1,2), main = "PCA plot with Protein Q9WUA2 indicated")
-setStockcol(getLisacol())
 addLegend(where = "bottomleft", andyMCMChl, cex = .7)
 highlightOnPlot(andyMCMChl, foi13s, cex = 1.5, col = "black", pch = 19)
 highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2, col = "black", pch = 19, pos = 4)
@@ -1191,7 +1184,7 @@ beta subunit protein (Q9WUA2) showing localisation to the
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
 colnames(dfQ8VDR9) <- getMarkerClasses(andyMCMChl)
 dfQ8VDR9melt <- melt(dfQ8VDR9)
 colnames(dfQ8VDR9melt) <- c("One","Organelle","Probability")
@@ -1215,7 +1208,7 @@ print(gg2)
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
 par(mar=c(5,6,4,2)+1, las = 2)
 par(mai = c(2,0,1,0), oma = c(0,0,0,0))
 hlo <- andyMCMChl[, order(andyMCMChl$Iodixonal.Density)]
@@ -1233,7 +1226,7 @@ par(las = 1)
   \vspace{1cm}
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
 par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
 gg <- ggplot(dfQ8VDR9melt[dfQ8VDR9melt$Organelle == c("Endoplasmic reticulum/Golgi apparatus", "Extracellular matrix" ),],
              aes(Probability, fill = Organelle)) +
@@ -1253,19 +1246,17 @@ print(gg)
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
 prots <- "Q8VDR9"
 par(oma = c(0,0,0,0))
 foi13s <- FeaturesOfInterest(description = "",
                              fnames = prots,
                              object = andyMCMChl)
 
-setStockcol(paste0(getStockcol(), 90))
 ptsze <- exp(as.numeric(fData(andyMCMChl)$predicted.probability)) - 1
 names(ptsze) <- rownames(fData(andyMCMChl))
 ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.99995] <- 0.01
 plot2D(andyMCMChl, fcol = "predicted.allocation", cex = ptsze, dims = c(1,2), main = "PCA plot with Protein Q8VDR9 indicated")
-setStockcol(getLisacol())
 addLegend(where = "bottomleft", andyMCMChl, cex = .7)
 highlightOnPlot(andyMCMChl, foi13s, cex = 1.5, col = "black", pch = 19)
 highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2, col = "black", pch = 19, pos = 4)
@@ -1321,32 +1312,27 @@ these assignments to make conclusions.
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE, fig.width = 3, fig.height = 2, fig.align="center">>=
 par(mar = c(4,4,2,0))
 ptsze <- 2*fData(andyMCMChl)$meanshannon
 par(mfrow = c(1,1))
-setStockcol(paste0(getStockcol(), 90))
 .pca <- plot2D(andyMCMChl, fcol="predicted.allocation", cex = ptsze, main="Visualising whole proteome uncertainty", mirrorY = TRUE)
 addLegend(andyMCMChl, cex=0.6, where="topleft")
-setStockcol(getLisacol())
 @
     \caption{}
   \end{subfigure}%
 ~
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
-
+<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
 par(mar = c(4,4,2,0))
 ptsze <- as.numeric(fData(andyMCMChl)$predicted.probability)
 names(ptsze) <- rownames(fData(andyMCMChl))
 ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.9999] <- 0.01
 
 par(mfrow = c(1,1))
-setStockcol(paste0(getStockcol(), 90))
 .pca <- plot2D(andyMCMChl, fcol="predicted.allocation", cex = ptsze, main="Prediction of Protein Localisation", mirrorY = TRUE)
 addLegend(andyMCMChl, cex=0.6, where="topleft")
-setStockcol(getLisacol())
 @
     \caption{}
   \end{subfigure}%
@@ -1354,7 +1340,7 @@ setStockcol(getLisacol())
 
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<fig = TRUE, echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
 par(mar = c(4,4,2,0))
 plot(as.numeric(fData(andyMCMChl)$predicted.probability), fData(andyMCMChl)$meanshannon, col = getStockcol()[as.factor(fData(andyMCMChl)$predicted.allocation)], pch = 19, xlab = "Localisation Probability", ylab = "Shannon Entropy", main = "Protein localistaion probability and Shannon Entropy")
 @
@@ -2171,7 +2157,7 @@ S'_k = & S_0 + T' + \lambda_0\boldsymbol{\mu}_0^T\boldsymbol{\mu}_0 - \lambda_km
 \begin{figure}[h]
   \centering
   \setkeys{Gin}{width=0.9\textwidth}
-<<fig=TRUE, echo=FALSE>>=
+<<echo=FALSE>>=
 plot(resandyhl$loglike, cex = 1, col = "blue", type = "b", xlab = "Iteration", ylab = "log-posterior",
           main = "The log-posterior at each iteration of the EM algorithm")
 @
@@ -2195,7 +2181,7 @@ gd <- gelman.diag(x = listmcmc, autoburnin = F)
 \begin{figure}[ht]
   \centering
   \setkeys{Gin}{width=0.8\textwidth}
-<<fig=TRUE, echo=FALSE>>=
+<<echo=FALSE>>=
 par(mfrow = c(2,3))
 plot(colSums(andydiag$andymcmc1), type = "b", cex = 0.1, col = "blue", ylim = c(3200,3450), xlab = "iteration", ylab = "Number of proteins allocated to known components", main = "Chain 1")
 plot(colSums(andydiag$andymcmc2), type = "b", cex = 0.1, col = "blue", ylim = c(3200,3450), xlab = "iteration", ylab = "Number of proteins allocated to known components", main = "Chain 2")
@@ -2246,7 +2232,7 @@ for(j in 1:14){
 
 @
 
-<<echo = FALSE, results = tex>>=
+<<echo = FALSE, results = 'asis'>>=
 xtb <- xtable(f1ttesttan$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Drosophila dataset")
 print(xtb, floating=TRUE)
@@ -2361,7 +2347,7 @@ for(j in 1:14){
 @
 
 
-<<echo = FALSE, results = tex>>=
+<<echo = FALSE, results = 'asis'>>=
 xtb <- xtable(ttesttanquad$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Drosphila dataset")
 print(xtb, floating=TRUE)

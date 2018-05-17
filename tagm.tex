@@ -1,4 +1,54 @@
-\documentclass[12pt,english]{article}
+\documentclass[12pt,english]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
 \usepackage{natbib}
 \usepackage{amsmath,mathtools,amssymb,mathrsfs,dsfont,amsthm}
 \usepackage[margin=1in]{geometry}
@@ -30,10 +80,8 @@
   \textbf{#1#2}#3\offinterlineskip\hrulefill}
 \DeclareCaptionStyle{algori}{singlelinecheck=off,format=algor,labelsep=space}
 \captionsetup[algorithm]{style=algori}
-
-\usepackage{Sweave}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
-\input{tagm-concordance}
 
 \author[1,2,3]{Oliver M. Crook\thanks{\url{omc25@cam.ac.uk}}~}
 \author[2]{Claire M. Mulvey}
@@ -113,6 +161,7 @@ method is competitive with state-of-the-art machine learning methods
 and is also capable of uncertainty quantification. With this
 additional information, we can make deeper insights into the
 fundamental biochemistry of the cell.
+
 
 
 \section{Introduction}\label{Intro}
@@ -209,11 +258,14 @@ that were unable to be assigned using traditional machine-learning classifiers a
 the full posterior distribution of localisation probabilites, we can draw meaningful biological results and
 make powerful conclusions. We then turn our hand to a more global perspective, visualising uncertainty quantification for over 5,000 proteins, simultanously. This approach reveals global patterns of protein organisation and their distribution across sub-cellular compartments.
 
-We make extensive use of the R programming language \citep{R}
-and existing MS packages \citep{MSnbase:2012, pRoloc:2014}. We are highly committed to creating
-open software tools for high quality processing, visualisation, and analysis of spatial protoemics data.
-We build upon an already extensive set of open software tools \citep{pRoloc:2014} as part of the Bioconductor
-project \citep{Bioconductor::2004, Huber::2015} and our methods are made available as part of this project.
+We make extensive use of the R programming language \citep{R} and
+existing MS and proteomics packages \citep{MSnbase:2012,
+  pRoloc:2014}. We are highly committed to creating open software
+tools for high quality processing, visualisation, and analysis of
+spatial protoemics data.  We build upon an already extensive set of
+open software tools \citep{pRoloc:2014} as part of the Bioconductor
+project \citep{Bioconductor::2004, Huber::2015} and our methods are
+made available as part of this project.
 
 This article is laid out as follows: section 3 describes our probabilistic model and
 how we perform inference; section 4 describes the results of applying our methods to a dataset of interest
@@ -249,21 +301,29 @@ Gaussian density.  The outer ellipse contains $99\%$ of the total
 probability whilst the middle and inner ellipses contain $95\%$ and
 $90\%$ of the probability respectively. Visualising only the first two
 principle components can be misleading, since protein can be more (or
-less) seperated in higher principle components.  We visualise the
+less) separated in higher principle components.  We visualise the
 first two principle components along with the first and fourth
 principle component as a representive example. For the TAGM model, we
 derive probability ellipses from the MAP estimates of the parameters.
 
 \begin{figure}[ht]
-  \begin{subfigure}[t]{0.5\textwidth}
+  \begin{subfigure}[t]{0.45\textwidth}
         \centering
-\includegraphics{tagm-002}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-1-1} 
+
+\end{knitrout}
         \caption{}
 \end{subfigure}%
 \hfill
-\begin{subfigure}[t]{0.5\textwidth}
+\begin{subfigure}[t]{0.45\textwidth}
         \centering
-\includegraphics{tagm-003}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-2-1} 
+
+\end{knitrout}
         \caption{}
 \end{subfigure}
   \centering
@@ -283,7 +343,6 @@ derive probability ellipses from the MAP estimates of the parameters.
 \end{figure}
 
 
-\clearpage
 
 
 
@@ -310,8 +369,16 @@ article focus on analysis of spatial proteomics in a fully Bayesian framework.
 
 
 \begin{figure}[ht]
-\setkeys{Gin}{width=1\textwidth}
-\includegraphics{tagm-005}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=0.5\linewidth]{figure/unnamed-chunk-4-1} 
+
+}
+
+
+
+\end{knitrout}
 
   \centering
   \caption{PCA plot of the protein quantitation data with colours representing
@@ -363,14 +430,22 @@ This could suggest a dynamic role for
 this protein, which could be further explored with a more targeted experiment.
 
 \begin{figure}[ht]
-  \begin{subfigure}[t]{0.5\textwidth}
+  \begin{subfigure}[t]{0.45\textwidth}
         \centering
-\includegraphics{tagm-006}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-5-1} 
+
+\end{knitrout}
         \caption{}
 \end{subfigure}%
 \hfill
-\begin{subfigure}[t]{0.5\textwidth}
-\includegraphics{tagm-007}
+\begin{subfigure}[t]{0.45\textwidth}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-6-1} 
+
+\end{knitrout}
         \centering
         \caption{}
 \end{subfigure}
@@ -383,8 +458,16 @@ this protein, which could be further explored with a more targeted experiment.
 \end{figure}
 
 \begin{figure}[ht]
-\setkeys{Gin}{width=1\textwidth}
-\includegraphics{tagm-008}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-7-1} 
+
+}
+
+
+
+\end{knitrout}
 
   \centering
   \caption{PCA plot of the protein quantitation data with colours representing
@@ -397,7 +480,45 @@ are automatically assigned a probability of $1$ and the size of the pointer refl
 
 \begin{figure}[ht]
 \centering
-\includegraphics{tagm-009}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}\end{kframe}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-8-1} 
+
+}
+
+
+
+\end{knitrout}
 
   \caption{Violin plot revealing the posterior distribution of localisation probabilities
          of protein E3 ubiquitin-protein ligase (G5E870) to organelles and sub-cellular niches.
@@ -517,6 +638,14 @@ In the \textit{Drosophila} dataset only the KNN algorithm outpeforms the SVM at 
 difference exist between the classifiers. In the chicken DT40 dataset only the MCMC method outperforms the KNN classifier at significance level of $0.01$, no other significant conclusion can be drawn. In the mouse dataset the MAP based method outperforms the MCMC method at significant level of $0.01$, no other significant conclusions can be drawn. In the HeLa dataset all classifiers are significantly different at a $0.01$ level. These difference may exist because the dataset does not fit well with our modelling assumptions; in particular, this dataset set has been curated to have a class called "Large Protein Complex", which likely describes several sub-cellular structures. These might include nuclear compartments and ribosomes, as well as any cytosolic complex and large protein complex which pellets during the centrifugation conditions used to capture
 this mixed sub-cellular fraction. Moreover, the cytosolic and nuclear fraction were processed separatly leading to possible imbalance with comparisions with other datasets. Thus, the large protein complex component might be better described as itself a mixture model or more detailed curation of these data may be required. We do not consider further modelling of this dataset in this manuscript. For the U2-OS all classifiers are significantly different at a significant level of $0.01$ except for the SVM classifier and the MCMC method, with the MAP method performing the best. Figure \ref{figure::f1scores1} shows that for this datset all classifiers are performing extremely well. In the three Hirst datasets the MAP method significantly outperforms all other methods $(p < 0.01)$, whilst in the wild type HeLa and in the CRISPR-CAS9 KO1 there are no significant difference between the KNN and MCMC method. In the CRISPR-CAS9 KO2 the MCMC method outperforms the SVM and KNN methods (p < 0.01). In the interest of brevity, the remaining results for the t-tests can be found in tables in appendix \ref{app::ttestf1}.
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Using\ \ as id variables\\\#\# Using\ \ as id variables\\\#\# Using\ \ as id variables\\\#\# Using\ \ as id variables\\\#\# Using\ \ as id variables}}\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-9-1} 
+
+\end{knitrout}
 
 \begin{figure}[ht]
   \centering
@@ -550,6 +679,14 @@ the lowest quadratic loss, the SVM outperformed. However, in two of these datase
 
 In the vast majority of cases, we asserts that if the TAGM model, using the MCMC methdology, makes an incorrect classification it does so with lower confidence than the SVM classifier, the KNN classifier and the MAP based classifier, whilst if it is correct in its assertion it does so with greater confidence. Additionally, a fully Bayesian methodology provides us with not only with point estimates of classification probabilities but uncertainty quantification in these allocations, and thus is is the most useful classifier.
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Using\ \ as id variables\\\#\# Using\ \ as id variables\\\#\# Using\ \ as id variables\\\#\# Using\ \ as id variables\\\#\# Using\ \ as id variables}}\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-10-1} 
+
+\end{knitrout}
 
 \begin{figure}[ht]
   \centering
@@ -593,15 +730,34 @@ plots in figure \ref{figure:contigencytables}.
 
 
 
+
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.5\textwidth}
         \centering
-\includegraphics{tagm-013}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-12-1} 
+
+}
+
+
+
+\end{knitrout}
         \caption{}
 \end{subfigure}%
 \begin{subfigure}[t]{0.5\textwidth}
 \centering
-\includegraphics{tagm-014}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-13-1} 
+
+}
+
+
+
+\end{knitrout}
         \caption{}
 \end{subfigure}
   \caption{A heatmap representation of a contingency table,
@@ -690,23 +846,92 @@ to a single location.
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-\includegraphics{tagm-015}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}\end{kframe}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-14-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-\includegraphics{tagm-016}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot.new(): figure margins too large}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in title(main = "{}Profile of Protein Q924C1 with marker distributions"{}): plot.new has not been called yet}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in strwidth(legend, units = "{}user"{}, cex = cex, font = text.font): plot.new has not been called yet}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet}}\end{kframe}
+\end{knitrout}
     \caption{}
   \end{subfigure}
   \vspace{1cm}
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-\includegraphics{tagm-017}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-16-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-\includegraphics{tagm-018}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-17-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}
 
@@ -726,23 +951,92 @@ to a single location.
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-\includegraphics{tagm-019}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}\end{kframe}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-18-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-\includegraphics{tagm-020}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot.new(): figure margins too large}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in title(main = "{}Profile of Protein Q9WUA2 with marker distributions"{}): plot.new has not been called yet}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in strwidth(legend, units = "{}user"{}, cex = cex, font = text.font): plot.new has not been called yet}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet}}\end{kframe}
+\end{knitrout}
     \caption{}
   \end{subfigure}
   \vspace{1cm}
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-\includegraphics{tagm-021}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-20-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-\includegraphics{tagm-022}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-21-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}
 
@@ -763,23 +1057,92 @@ beta subunit protein (Q9WUA2) showing localisation to the
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-\includegraphics{tagm-023}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : sum(weights) != 1\ \ -- will not get true density}}\end{kframe}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-22-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-\includegraphics{tagm-024}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot.new(): figure margins too large}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in title(main = "{}Profile of Protein Q8VDR9 with marker distributions "{}): plot.new has not been called yet}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in strwidth(legend, units = "{}user"{}, cex = cex, font = text.font): plot.new has not been called yet}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet}}\end{kframe}
+\end{knitrout}
     \caption{}
   \end{subfigure}
   \vspace{1cm}
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-\includegraphics{tagm-025}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-24-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-\includegraphics{tagm-026}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-25-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}
 
@@ -831,20 +1194,47 @@ these assignments to make conclusions.
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-\includegraphics{tagm-027}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-26-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
 ~
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-\includegraphics{tagm-028}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-27-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
 ~
 
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-\includegraphics{tagm-029}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-28-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}
 
@@ -1658,7 +2048,11 @@ S'_k = & S_0 + T' + \lambda_0\boldsymbol{\mu}_0^T\boldsymbol{\mu}_0 - \lambda_km
 \begin{figure}[h]
   \centering
   \setkeys{Gin}{width=0.9\textwidth}
-\includegraphics{tagm-030}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-29-1} 
+
+\end{knitrout}
 
 \caption{Plot of the log-posterior at each iteration of the EM algorithm to demonstrate monotonicity and convergence}
   \label{figure::emconvergence}
@@ -1667,10 +2061,15 @@ S'_k = & S_0 + T' + \lambda_0\boldsymbol{\mu}_0^T\boldsymbol{\mu}_0 - \lambda_km
 \clearpage
 \subsection{Appendix 4: Trace plots for assessing MCMC convergence}\label{app:mcmc}
 
+
 \begin{figure}[ht]
   \centering
   \setkeys{Gin}{width=0.8\textwidth}
-\includegraphics{tagm-032}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-31-1} 
+
+\end{knitrout}
   \caption{Trace plots of the number of proteins allocated to the known components in each of 6 parallel MCMC runs. Chain $4$ is discarded because of lack of convergence. $600$ samples are retained from remaining chains and pooled.}
   \label{figure::mcmcchains}
 \end{figure}
@@ -1683,8 +2082,9 @@ S'_k = & S_0 + T' + \lambda_0\boldsymbol{\mu}_0^T\boldsymbol{\mu}_0 - \lambda_km
 \subsection{Appendix 5: F1 t-tests}\label{app::ttestf1}
 
 
+
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:20 2018
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1697,8 +2097,9 @@ KNN & 2.7E-03 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Drosophila dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:20 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1711,8 +2112,9 @@ KNN & 1.2E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Chicken DT40 dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:20 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1725,8 +2127,9 @@ KNN & 1.0E+00 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the mouse dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:20 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1739,8 +2142,9 @@ KNN & 1.4E-35 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:20 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1753,8 +2157,9 @@ KNN & 1.3E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the U2-OS dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1767,8 +2172,9 @@ KNN & 2.2E-08 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa wild (Hirst et al.) dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1781,8 +2187,9 @@ KNN & 5.3E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa KO1 (Hirst et al.) dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1795,8 +2202,9 @@ KNN & 1.3E-01 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa KO2 (Hirst et al.) dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1809,8 +2217,9 @@ KNN & 9.6E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 24hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1823,8 +2232,9 @@ KNN & 6.6E-07 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 48hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1837,8 +2247,9 @@ KNN & 3.9E-03 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 72hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1851,8 +2262,9 @@ KNN & 8.6E-03 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 96hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1865,8 +2277,9 @@ KNN & 1.9E-23 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 120hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1879,8 +2292,9 @@ KNN & 4.6E-01 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 24hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1893,8 +2307,9 @@ KNN & 1.0E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 48hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1907,8 +2322,9 @@ KNN & 5.5E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 72hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1921,8 +2337,9 @@ KNN & 2.8E-01 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 96hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1935,8 +2352,9 @@ KNN & 2.3E-04 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 120hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1950,13 +2368,16 @@ KNN & 6.7E-06 &  &  \\
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the E14TG2a dataset} 
 \end{table}
+
+
 \clearpage
 \subsection{Appendix 6: Quadratic loss t-tests}
 
 
 
+
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1969,8 +2390,9 @@ KNN & 5.9E-13 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Drosphila dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1983,8 +2405,9 @@ KNN & 3.2E-08 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Chicken DT40 dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1997,8 +2420,9 @@ KNN & 5.5E-14 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the mouse dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2011,8 +2435,9 @@ KNN & 1.2E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2025,8 +2450,9 @@ KNN & 6.8E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the U2-OS dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2039,8 +2465,9 @@ KNN & 2.3E-92 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa wild (Hirst et al.) dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2053,8 +2480,9 @@ KNN & 5.2E-97 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa KO1 (Hirst et al.) dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2067,8 +2495,9 @@ KNN & 8.9E-93 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa KO2 (Hirst et al.) dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2081,8 +2510,9 @@ KNN & 6.1E-13 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 24hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2095,8 +2525,9 @@ KNN & 6.1E-18 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 48hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2109,8 +2540,9 @@ KNN & 1.2E-15 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 72hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2123,8 +2555,9 @@ KNN & 1.8E-13 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 96hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2137,8 +2570,9 @@ KNN & 6.7E-14 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 120hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2151,8 +2585,9 @@ KNN & 6.0E-22 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 24hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2165,8 +2600,9 @@ KNN & 1.9E-26 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 48hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2179,8 +2615,9 @@ KNN & 6.3E-20 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 72hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2193,8 +2630,9 @@ KNN & 1.7E-25 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 96hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2207,8 +2645,9 @@ KNN & 6.5E-25 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 120hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}
+% latex table generated in R 3.6.0 by xtable 1.8-2 package
+% Thu May 17 13:11:07 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2222,9 +2661,12 @@ KNN & 4.7E-04 &  &  \\
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the E14TG2a dataset} 
 \end{table}
+
+
 \clearpage
 
 \subsection{Appendix 7: GO enrichment analysis figures}
+
 
 
 \begin{figure}[h]
