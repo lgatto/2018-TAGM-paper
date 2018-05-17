@@ -1448,10 +1448,10 @@ highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2, col = "black", pch =
 \subsection{Visualising whole sub-cellular proteome uncertainty}
 
 The advantage of the TAGM is its ability to provide proteome wide
-uncertain quantification. Regions where organelle assignments overlap
+uncertainy quantification. Regions where organelle assignments overlap
 are areas were uncertainty is expected to be the greatest, as well
 as areas with no dominant component. We take an information
-theoretic approach to perform this analysis by computing
+theoretic approach to summarising uncertainty in protein localisation by computing
 the Shannon entropy \citep{shannon:1948} for each Monte-Carlo sample $t = 1,...,T$ of
 the posterior localisation probabilities of each protein
 
@@ -1539,14 +1539,14 @@ plot(as.numeric(fData(andyMCMChl)$predicted.probability),
  sub-cellular localisations; that is, not only are some proteins
  assigned to organelles with high probability but also with low
  uncertainty. Secondly, there are well defined regions with high
- uncertainty, for example proteins in the secretary pathway or
+ uncertainty, for example proteins in the secretory pathway or
  proteins on the boundary between cytosol and proteasome. Finally,
  some organelles, such as the mitochondria, are extremely well
  resolved. This observed uncertainty in the secretory pathway and
  cytosol could be attributed to the dynamic nature of these parts of
  the cell with numerous examples of proteins that traffic in and out
  of these sub-cellular compartments as part of their biological
- role. Moreover, the organelles of the secretary pathway share similar
+ role. Moreover, the organelles of the secretory pathway share similar
  and overlapping physical properties making their separation from one
  another using biochemical fractionation more challenging.
  Furthermore, there is a region located in the centre of the plot
@@ -1554,8 +1554,8 @@ plot(as.numeric(fData(andyMCMChl)$predicted.probability),
  any organelle and high uncertainty in their localisation probability.
  This suggests that these proteins are poorly described by any single
  location. These proteins could belong to multiple locations or belong
- to undescribed sub-cellular compartments. The information portrayed
- by these plots and the conclusion therein would be extremely
+ to undescribed sub-cellular compartments. The information displayed
+ in these plots and the conclusion therein would be extremely
  challenging to obtain without the use of Bayesian methodology.
 
 
@@ -1582,7 +1582,7 @@ As well as the local uncertainty seen by exploring individual
 proteins, we further explored using a Monte-Carlo averaged Shannon
 entropy to visualise global uncertainty. Regions of high uncertainty,
 as measured using this Shannon entropy, reflect highly dynamics
-regions of the sub-cellular environment.  Hence, biologist can now
+regions of the sub-cellular environment.  Hence, biologists can now
 explore uncertainty at different levels and then are able to make
 quantifiable conclusions and insights about their data.  Furthermore,
 our Bayesian model is interpretable and our inferences are fully
@@ -1599,7 +1599,7 @@ the macro-F1 score as a performace metric, no single classifier
 outperformed another across all datasets. However, using MCMC based
 inference our method significantly outperforms the SVM and KNN
 classifiers with respect to the quadratic loss in $16$ our of $19$
-datasets. This allows us to have stronger faith in our conclusions
+datasets. This allows us to have greater confidence in our conclusions
 when they are draw from our Bayesian inferences. Furthermore, using
 MCMC provides a wealth of additional information, and so becomes the
 mothod of choice for analysing spatial proteomics data.
@@ -1607,7 +1607,7 @@ mothod of choice for analysing spatial proteomics data.
 Analysis of a \textit{hyper}LOPIT experiment applied to mouse
 pluripotent embryonic stem cells demonstrated that the additional
 layer of information that our model provides is biologically
-intriguing and provides further avenues for additional
+relevant and provides further avenues for additional
 exploration. Moreover, applying our method to a biologically
 significant dataset now provides the scientific community with
 localisation information on up to 4,000 proteins for the mouse
