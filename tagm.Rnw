@@ -237,7 +237,7 @@ assignment of proteins to sub-cellular localisations, and thus
 quantifying this uncertainty is of vital importance \citep{Kirk:2015}.
 
 To overcome the task of uncertainty quantification, this article
-presents a probabalistic generative model for MS-based spatial
+presents a probabilistic generative model for MS-based spatial
 proteomics data. Our model posits that each annotated sub-cellular
 niche can be modelled by a multivariate Gaussian distribution. Thus,
 the full complement of annotated proteins is captured by a mixture of
