@@ -260,11 +260,14 @@ that were unable to be assigned using traditional machine-learning classifiers a
 the full posterior distribution of localisation probabilites, we can draw meaningful biological results and
 make powerful conclusions. We then turn our hand to a more global perspective, visualising uncertainty quantification for over 5,000 proteins, simultanously. This approach reveals global patterns of protein organisation and their distribution across sub-cellular compartments.
 
-We make extensive use of the R programming language \citep{R}
-and existing MS packages \citep{MSnbase:2012, pRoloc:2014}. We are highly committed to creating
-open software tools for high quality processing, visualisation, and analysis of spatial protoemics data.
-We build upon an already extensive set of open software tools \citep{pRoloc:2014} as part of the Bioconductor
-project \citep{Bioconductor::2004, Huber::2015} and our methods are made available as part of this project.
+We make extensive use of the R programming language \citep{R} and
+existing MS and proteomics packages \citep{MSnbase:2012,
+  pRoloc:2014}. We are highly committed to creating open software
+tools for high quality processing, visualisation, and analysis of
+spatial protoemics data.  We build upon an already extensive set of
+open software tools \citep{pRoloc:2014} as part of the Bioconductor
+project \citep{Bioconductor::2004, Huber::2015} and our methods are
+made available as part of this project.
 
 This article is laid out as follows: section 3 describes our probabilistic model and
 how we perform inference; section 4 describes the results of applying our methods to a dataset of interest
