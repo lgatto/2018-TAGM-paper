@@ -1628,7 +1628,7 @@ the Bioconductor project \citep{Bioconductor::2004, Huber::2015} with
 inclusion of our methods within the pRoloc package
 \citep{pRoloc:2014}. The underlying source code used to generate this
 document is available at
-\url{https://github.com/lgatto/2018-bioRXiv-TAGM}.
+\url{https://github.com/lgatto/2018-TAGM-paper}.
 
 Currently, our model cannot integrate localisation information from
 different data sources nor can it explicity model proteins with
