@@ -920,7 +920,7 @@ biologically relevant thresholds is important for any
 classifier and exploring uncertainty is of vital importance
 when drawing biological conclusions.
 
-\clearpage
+
 \subsection{Interpreting and exploring uncertainty}
 
 Protein sub-cellular localisation can be uncertain for a number of
@@ -1379,75 +1379,99 @@ to obtain without the use of Bayesian methodology.
 \clearpage
 \section{Discussion}
 
-We have demonstrated that a Bayesian framework, based on Gaussian mixture models, for spatial proteomics
-can provide whole sub-cellular proteome uncertainty quantification
-on the assignment of proteins to organelles and such information is
-invaluable. Performing MAP inference using our generative model provides
-an empirical Bayes approach, which is vital for quality control and early data
-exploration. Full posterior inference using
-MCMC provides not only point estimates of the posterior probability that a
-protein belongs to a particular sub-cellular niche, but uncertainty in this
-assignment. Then, this uncertainty can be summarised in several ways, including,
-but not limited to, equi-tailed credible intervals of the Monte-Carlo samples of posterior localisation probabilities.
-Posterior distributions for indivdual proteins can then be rigorously interrogated
-to shed light on their biological mechanisms; such as, transport, signalling and interactions.
+We have demonstrated that a Bayesian framework, based on Gaussian
+mixture models, for spatial proteomics can provide whole sub-cellular
+proteome uncertainty quantification on the assignment of proteins to
+organelles and such information is invaluable. Performing MAP
+inference using our generative model provides an empirical Bayes
+approach, which is vital for quality control and early data
+exploration. Full posterior inference using MCMC provides not only
+point estimates of the posterior probability that a protein belongs to
+a particular sub-cellular niche, but uncertainty in this
+assignment. Then, this uncertainty can be summarised in several ways,
+including, but not limited to, equi-tailed credible intervals of the
+Monte-Carlo samples of posterior localisation probabilities.
+Posterior distributions for indivdual proteins can then be rigorously
+interrogated to shed light on their biological mechanisms; such as,
+transport, signalling and interactions.
 \\
 \\
-As well as the local uncertainty seen by exploring individual proteins, we further explored
-using a Monte-Carlo averaged Shannon entropy to visualise global uncertainty. Regions of high uncertainty,
-as measured using this Shannon entropy, reflect highly dynamics regions of the sub-cellular environment.
-Hence, biologist can now explore uncertainty at different levels and then are able to
-make quantifiable conclusions and insights about their data.
-Furthermore, our Bayesian model is interpretable and our inferences are fully conditional
-on our data, allowing them to be easily modified with changing experimental design.
+As well as the local uncertainty seen by exploring individual
+proteins, we further explored using a Monte-Carlo averaged Shannon
+entropy to visualise global uncertainty. Regions of high uncertainty,
+as measured using this Shannon entropy, reflect highly dynamics
+regions of the sub-cellular environment.  Hence, biologist can now
+explore uncertainty at different levels and then are able to make
+quantifiable conclusions and insights about their data.  Furthermore,
+our Bayesian model is interpretable and our inferences are fully
+conditional on our data, allowing them to be easily modified with
+changing experimental design.
 \\
 \\
-In addition, we produced competitive classifier performance to the state-of-the-art
-classifiers. We considered two traditional machine-learning methods: the SVM and KNN classifiers;
-as well as two classifiers based on our model: an empiral Bayes MAP classifier and classification
-based on MCMC. We compared all methods on 19 different spatial proteomics datasets, across
-four different organisms. When considering the macro-F1 score as a performace metric, no single classifier outperformed another across all datasets. However, using MCMC based inference our method significantly outperforms the SVM and KNN classifiers with respect to the quadratic loss in $16$ our of $19$
-datasets. This allows us to have stronger faith in our conclusions when they are draw from our Bayesian inferences. Furthermore, using MCMC provides a wealth of additional information,
-and so becomes the mothod of choice for analysing spatial proteomics data.
+In addition, we produced competitive classifier performance to the
+state-of-the-art classifiers. We considered two traditional
+machine-learning methods: the SVM and KNN classifiers; as well as two
+classifiers based on our model: an empiral Bayes MAP classifier and
+classification based on MCMC. We compared all methods on 19 different
+spatial proteomics datasets, across four different organisms. When
+considering the macro-F1 score as a performace metric, no single
+classifier outperformed another across all datasets. However, using
+MCMC based inference our method significantly outperforms the SVM and
+KNN classifiers with respect to the quadratic loss in $16$ our of $19$
+datasets. This allows us to have stronger faith in our conclusions
+when they are draw from our Bayesian inferences. Furthermore, using
+MCMC provides a wealth of additional information, and so becomes the
+mothod of choice for analysing spatial proteomics data.
 \\
 \\
-Analysis of a \textit{hyper}LOPIT experiment applied to mouse pluripotent embryonic stem cells
-demonstrated that the additional layer  of information that our model provides is biologically intriguing
-and provides further avenues for additional exploration. Moreover, applying
-our method to a biologically significant dataset now provides the scientific community
-with localisation information on up to 4,000 proteins for the mouse pluripotent
-stem cell proteome. Figure \ref{figure:ConcludePlot} demonstrates that from an initial input of
-roughly 1,000 marker proteins with \textit{a priori} known location and 4,000 unknown proteins
-with unknown location, both methods can provide rigorous
-localisation information on roughly 2,000 proteins. However, our methodology, by also
-considering uncertainty, allows us to obtain information on another 1,000 proteins.
-Thus, we have augmented this dataset by providing uncertainty quantification on the
-localisation of proteins to their sub-cellular niches, which had been previously unavailable.
+Analysis of a \textit{hyper}LOPIT experiment applied to mouse
+pluripotent embryonic stem cells demonstrated that the additional
+layer of information that our model provides is biologically
+intriguing and provides further avenues for additional
+exploration. Moreover, applying our method to a biologically
+significant dataset now provides the scientific community with
+localisation information on up to 4,000 proteins for the mouse
+pluripotent stem cell proteome. Figure \ref{figure:ConcludePlot}
+demonstrates that from an initial input of roughly 1,000 marker
+proteins with \textit{a priori} known location and 4,000 unknown
+proteins with unknown location, both methods can provide rigorous
+localisation information on roughly 2,000 proteins. However, our
+methodology, by also considering uncertainty, allows us to obtain
+information on another 1,000 proteins.  Thus, we have augmented this
+dataset by providing uncertainty quantification on the localisation of
+proteins to their sub-cellular niches, which had been previously
+unavailable.
 \\
 \\
-We have also provided a new set of visualisation methods to accompany our
-model, which allow us to easily interrogate our data. High quality visualisation tools are
-essential for rigorous quality control and sound biological conclusions.
-Our methods have been developed in the R statistical programming language and
-we continue to contribute to the Bioconductor project \citep{Bioconductor::2004, Huber::2015} with
-inclusion of our methods within the pRoloc package \citep{pRoloc:2014}.
+We have also provided a new set of visualisation methods to accompany
+our model, which allow us to easily interrogate our data. High quality
+visualisation tools are essential for rigorous quality control and
+sound biological conclusions.  Our methods have been developed in the
+R statistical programming language and we continue to contribute to
+the Bioconductor project \citep{Bioconductor::2004, Huber::2015} with
+inclusion of our methods within the pRoloc package
+\citep{pRoloc:2014}. The underlying source code used to generate this
+document is available at
+\url{https://github.com/lgatto/2018-bioRXiv-TAGM}.
 \\
 \\
-Currently, our model cannot integrate localisation information
-from different data sources nor can it explicity model proteins with multiple
-localisation. In addition, extensions to semi-supervised methods
-are under consideration to detect novel sub-cellular
+Currently, our model cannot integrate localisation information from
+different data sources nor can it explicity model proteins with
+multiple localisation. In addition, extensions to semi-supervised
+methods are under consideration to detect novel sub-cellular
 niches. These are the subjects of further work.
 
 \begin{figure}[h]
 
 \centering
 \includegraphics[width=\textwidth]{ConcludePlot.pdf}
-        \caption{The barplot demonstrates the effect of applying different methodologies
-        on protein assignment when applied the mouse pluripotent embryonic stem cell data. Roughly
-        2000 proteins are classified using either methodology; however, TAGM can draw additional conclusions
-        about an extra 1000 proteins by quantifying uncertainty.}
-        \label{figure:ConcludePlot}
+\caption{The barplot demonstrates the effect of applying different
+  methodologies on protein assignment when applied the mouse
+  pluripotent embryonic stem cell data. Roughly 2000 proteins are
+  classified using either methodology; however, TAGM can draw
+  additional conclusions about an extra 1000 proteins by quantifying
+  uncertainty.}
+\label{figure:ConcludePlot}
 \end{figure}
 
 
