@@ -72,18 +72,18 @@
   analysis. We propose a Bayesian generative classifier based on
   Gaussian mixture models to assign proteins probabilistically to
   sub-cellular niches, thus proteins have a probability distribution
-  over sub-cellular locations, with posterior Bayesian computation
+  over sub-cellular locations, with Bayesian computation
   performed using the expectation-maximisation (EM) algorithm, as well
   as Markov-chain Monte-Carlo (MCMC). Our methodology allows
   proteome-wide uncertainty quantification, thus adding a further
   layer to the analysis of spatial proteomics. Our framework is
   flexible, allowing many different systems to be analysed and reveals
   new modelling opportunities for spatial proteomics. We find our
-  methods perform competitively with the current state-of-the art
+  methods perform competitively with current state-of-the art
   machine learning methods, whilst simultaneously providing more
   information. We highlight several examples where classification
   based on the support vector machine is unable to make any
-  conclusions, meanwhile uncertainty quantification provides
+  conclusions, while uncertainty quantification using our approach provides
   biologically intriguing results.  To our knowledge this is the first
   Bayesian model of MS-based spatial proteomics data.
 \end{abstract}

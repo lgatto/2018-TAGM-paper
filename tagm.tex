@@ -73,18 +73,18 @@
   analysis. We propose a Bayesian generative classifier based on
   Gaussian mixture models to assign proteins probabilistically to
   sub-cellular niches, thus proteins have a probability distribution
-  over sub-cellular locations, with posterior Bayesian computation
+  over sub-cellular locations, with Bayesian computation
   performed using the expectation-maximisation (EM) algorithm, as well
   as Markov-chain Monte-Carlo (MCMC). Our methodology allows
   proteome-wide uncertainty quantification, thus adding a further
   layer to the analysis of spatial proteomics. Our framework is
   flexible, allowing many different systems to be analysed and reveals
   new modelling opportunities for spatial proteomics. We find our
-  methods perform competitively with the current state-of-the art
+  methods perform competitively with current state-of-the art
   machine learning methods, whilst simultaneously providing more
   information. We highlight several examples where classification
   based on the support vector machine is unable to make any
-  conclusions, meanwhile uncertainty quantification provides
+  conclusions, while uncertainty quantification using our approach provides
   biologically intriguing results.  To our knowledge this is the first
   Bayesian model of MS-based spatial proteomics data.
 \end{abstract}
@@ -209,11 +209,14 @@ that were unable to be assigned using traditional machine-learning classifiers a
 the full posterior distribution of localisation probabilites, we can draw meaningful biological results and
 make powerful conclusions. We then turn our hand to a more global perspective, visualising uncertainty quantification for over 5,000 proteins, simultanously. This approach reveals global patterns of protein organisation and their distribution across sub-cellular compartments.
 
-We make extensive use of the R programming language \citep{R}
-and existing MS packages \citep{MSnbase:2012, pRoloc:2014}. We are highly committed to creating
-open software tools for high quality processing, visualisation, and analysis of spatial protoemics data.
-We build upon an already extensive set of open software tools \citep{pRoloc:2014} as part of the Bioconductor
-project \citep{Bioconductor::2004, Huber::2015} and our methods are made available as part of this project.
+We make extensive use of the R programming language \citep{R} and
+existing MS and proteomics packages \citep{MSnbase:2012,
+  pRoloc:2014}. We are highly committed to creating open software
+tools for high quality processing, visualisation, and analysis of
+spatial protoemics data.  We build upon an already extensive set of
+open software tools \citep{pRoloc:2014} as part of the Bioconductor
+project \citep{Bioconductor::2004, Huber::2015} and our methods are
+made available as part of this project.
 
 This article is laid out as follows: section 3 describes our probabilistic model and
 how we perform inference; section 4 describes the results of applying our methods to a dataset of interest
@@ -1683,8 +1686,8 @@ S'_k = & S_0 + T' + \lambda_0\boldsymbol{\mu}_0^T\boldsymbol{\mu}_0 - \lambda_km
 \subsection{Appendix 5: F1 t-tests}\label{app::ttestf1}
 
 
-% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:20 2018
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:53 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1697,8 +1700,8 @@ KNN & 2.7E-03 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Drosophila dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:20 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1711,8 +1714,8 @@ KNN & 1.2E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Chicken DT40 dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:20 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1725,8 +1728,8 @@ KNN & 1.0E+00 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the mouse dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:20 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1739,8 +1742,8 @@ KNN & 1.4E-35 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:20 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1753,8 +1756,8 @@ KNN & 1.3E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the U2-OS dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1767,8 +1770,8 @@ KNN & 2.2E-08 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa wild (Hirst et al.) dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1781,8 +1784,8 @@ KNN & 5.3E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa KO1 (Hirst et al.) dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1795,8 +1798,8 @@ KNN & 1.3E-01 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa KO2 (Hirst et al.) dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1809,8 +1812,8 @@ KNN & 9.6E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 24hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1823,8 +1826,8 @@ KNN & 6.6E-07 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 48hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1837,8 +1840,8 @@ KNN & 3.9E-03 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 72hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1851,8 +1854,8 @@ KNN & 8.6E-03 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 96hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1865,8 +1868,8 @@ KNN & 1.9E-23 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 120hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1879,8 +1882,8 @@ KNN & 4.6E-01 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 24hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1893,8 +1896,8 @@ KNN & 1.0E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 48hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1907,8 +1910,8 @@ KNN & 5.5E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 72hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1921,8 +1924,8 @@ KNN & 2.8E-01 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 96hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1935,8 +1938,8 @@ KNN & 2.3E-04 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 120hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1955,8 +1958,8 @@ KNN & 6.7E-06 &  &  \\
 
 
 
-% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1969,8 +1972,8 @@ KNN & 5.9E-13 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Drosphila dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1983,8 +1986,8 @@ KNN & 3.2E-08 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Chicken DT40 dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1997,8 +2000,8 @@ KNN & 5.5E-14 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the mouse dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2011,8 +2014,8 @@ KNN & 1.2E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2025,8 +2028,8 @@ KNN & 6.8E-02 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the U2-OS dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2039,8 +2042,8 @@ KNN & 2.3E-92 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa wild (Hirst et al.) dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2053,8 +2056,8 @@ KNN & 5.2E-97 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa KO1 (Hirst et al.) dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2067,8 +2070,8 @@ KNN & 8.9E-93 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa KO2 (Hirst et al.) dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2081,8 +2084,8 @@ KNN & 6.1E-13 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 24hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2095,8 +2098,8 @@ KNN & 6.1E-18 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 48hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2109,8 +2112,8 @@ KNN & 1.2E-15 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 72hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2123,8 +2126,8 @@ KNN & 1.8E-13 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 96hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2137,8 +2140,8 @@ KNN & 6.7E-14 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 120hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2151,8 +2154,8 @@ KNN & 6.0E-22 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 24hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2165,8 +2168,8 @@ KNN & 1.9E-26 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 48hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2179,8 +2182,8 @@ KNN & 6.3E-20 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 72hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2193,8 +2196,8 @@ KNN & 1.7E-25 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 96hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -2207,8 +2210,8 @@ KNN & 6.5E-25 &  &  \\
    \hline
 \end{tabular}
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 120hpi dataset} 
-\end{table}% latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Thu May 17 12:04:21 2018
+\end{table}% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 12:32:54 2018
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
