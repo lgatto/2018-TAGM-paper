@@ -292,19 +292,22 @@ made available as part of this project.
 
 \subsection{Application to mouse pluripotent embryonic stem cell data}
 
-We model mouse pluripotent embryonic stem cell (E14TG2a) data  \citep{hyper}, which
-contains quantitation data for $5032$ proteins. This high-resolution map was
-produced using the \textit{hyper}LOPIT workflow \citep{Mulvey:2017}, which uses a sophisticated
-sub-cellular fractionation scheme. This fractionation scheme is made possible
-by the use of Tandem Mass Tag (TMT) 10-plex and high accuracy TMT quantification
-was facilitated by using synchronous precursor selection MS3 (SPS-MS3) \citep{Mcalister::2014},
-which eliminates well documented issues with ratio distortion in isobaric multiplexed quantitative proteomics
-\citep{Ting:2011}. The data resolves
-$14$ sub-cellular niches with an additional chromatin preparation
-resolving the nuclear chromatin and non-chromatin components. Two
-biological replicates of the data are concatenated, each with $10$ fractions
-along the density gradient. The following section applies our statistical
-methodology to this data and we explore the results.
+We model mouse pluripotent embryonic stem cell (E14TG2a) data
+\citep{hyper}, which contains quantitation data for $5032$
+proteins. This high-resolution map was produced using the
+\textit{hyper}LOPIT workflow \citep{Mulvey:2017}, which uses a
+sophisticated sub-cellular fractionation scheme. This fractionation
+scheme is made possible by the use of Tandem Mass Tag (TMT) 10-plex
+and high accuracy TMT quantification was facilitated by using
+synchronous precursor selection MS3 (SPS-MS3) \citep{Mcalister::2014},
+which eliminates well documented issues with ratio distortion in
+isobaric multiplexed quantitative proteomics \citep{Ting:2011}. The
+data resolves $14$ sub-cellular niches with an additional chromatin
+preparation resolving the nuclear chromatin and non-chromatin
+components. Two biological replicates of the data are concatenated,
+each with $10$ fractions along the density gradient. The following
+section applies our statistical methodology to this data and we
+explore the results.
 
 \subsubsection{Maximum a posteriori prediction of protein localisation}
 
@@ -2982,10 +2985,12 @@ egoMF <- enrichGO(gene          = rownames(fData(andyMCMChl))[fData(andyMCMChl)$
 \includegraphics[width=\textwidth]{MFenrich.pdf}
         \caption{}
 \end{subfigure}
-  \caption{Gene Ontology over representation analysis on outlier proteins - that is proteins
-  allocated with less than probability $0.95$. We analyse the enrichment of terms
-  in the cellular compartment, biological process, and molecular function ontologies. We display the top
-  10 significant results in the dotplots.}
+\caption{Gene Ontology over representation analysis on outlier
+  proteins - that is proteins allocated with less than probability
+  $0.95$. We analyse the enrichment of terms in the cellular
+  compartment, biological process, and molecular function
+  ontologies. We display the top 10 significant results in the
+  dotplots.}
 \label{fig:GOenrich}
 \end{figure}
 
