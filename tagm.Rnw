@@ -32,7 +32,6 @@
 \captionsetup[algorithm]{style=algori}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
 
 \author[1,2,3]{Oliver M. Crook\thanks{\url{omc25@cam.ac.uk}}~}
 \author[2]{Claire M. Mulvey}
@@ -166,6 +165,40 @@ for (f in paste0("./data/", files2))
 
 
 setStockcol(paste0(getStockcol(), 90))
+
+shortenOrgNames <- function(x) {
+    .f <- function(x) {
+        x <- gsub(" Ribosome", "", x)
+        x <- gsub("Endoplasmic reticulum", "ER", x)
+        x <- gsub("Golgi apparatus", "GA", x)
+        x <- gsub("Nucleus - ", "", x)
+        x <- gsub("Plasma membrane", "PM", x)
+        x <- gsub("Mitochondrion", "MT", x)
+        x <- gsub("Extracellular matrix", "Xtracell mat", x)
+        x <- gsub(" cytoskeleton", "", x)
+        x
+    }
+    .g <- function(x) {
+        x <- gsub(" Ribosome", "", x)
+        x <- gsub("Endoplasmic reticulum", "ER", x)
+        x <- gsub("Golgi apparatus", "GA", x)
+        x <- gsub("Nucleus - ", "", x)
+        x <- gsub("Chromatin", "Chrom", x)
+        x <- gsub("chromatin", "chr", x)
+        x <- gsub("Plasma membrane", "PM", x)
+        x <- gsub("Mitochondrion", "MT", x)
+        x <- gsub("Extracellular matrix", "Xtracell", x)
+        x <- gsub(" cytoskeleton", "", x)
+        x <- gsub("Endosome", "Endo", x)
+        x <- gsub("Lysosome", "Lyso", x)
+        x <- gsub("Peroxisome", "Pero", x)
+        x <- gsub("Proteasome", "Prot", x)
+        x
+    }
+    list(X = .g(x[[1]]),
+         Y = .f(x[[2]]))
+}
+
 @
 
 \section{Introduction}\label{Intro}
@@ -313,7 +346,7 @@ explore the results.
 \subsubsection{Maximum a posteriori prediction of protein localisation}
 
 This section applies the TAGM model to the mouse pluripotent embryonic
-stem cell data, by deriving MAP estimates for the model parameters and
+We stem cell data, by deriving MAP estimates for the model parameters and
 using these for prediction.  Visualisation is important for data
 analysis and exploration. A simple way to visualise our model is to
 project probability ellipses onto a PCA plot. Each ellipse contains a
@@ -374,30 +407,30 @@ a <- abs(resandyhl$loglike[200] - resandyhl$loglike[199])
 
 We now apply the statistical methodology described in section
 \ref{section:methods}, to predict the localisation of proteins to
-organelles and sub-cellular components.  In brief, we produce
-\textit{maximum a posteriori} (MAP) estimates of the parameters by
-using the expectation-maximisation algorithm, to form the basis of a
-Bayesian analysis.  We run the algorithm for $200$ iterations and
-inspect a plot of the log-posterior to assess convergence of the
-algorithm (see appendix \ref{app:logposterior}). We confirm that the
-difference of the log posterior between the final two iterations is
-less than $10^{-6}$ and we conclude that our algorithm has
-converged. The results can be seen in figure
-\ref{fig:assignmentPCAMAP}, where the posterior localisation
+organelles and sub-cellular components. In brief, we produce MAP
+estimates of the parameters by using the expectation-maximisation
+algorithm, to form the basis of a Bayesian analysis (TAGM-MAP).  We
+run the algorithm for $200$ iterations and inspect a plot of the
+log-posterior to assess convergence of the algorithm (see appendix
+\ref{app:logposterior}). We confirm that the difference of the log
+posterior between the final two iterations is less than $10^{-6}$ and
+we conclude that our algorithm has converged. The results can be seen
+in figure \ref{fig:assignmentPCA} (left), where the posterior localisation
 probability is visualised by scaling the pointer for each protein.
 
-Figure \ref{fig:assignmentPCAMAP} demonstrates a range of
+Figure \ref{fig:assignmentPCA} (right) demonstrates a range of
 probabilistic assignments of proteins to organelles and sub-cellular
 niches. We additionally consider a full, sampling-based Bayesian
 analysis using Markov-chain Monte Carlo (MCMC) to characterise the
 uncertainty in the localisation probabilities.  In our case a
 collapsed Gibbs sampler is used to sample from the posterior of
 localisation probabilities. The remainder of this article focus on
-analysis of spatial proteomics in a fully Bayesian framework.
+analysis of spatial proteomics in this fully Bayesian framework.
 
 
 \begin{figure}[ht]
-<<echo = FALSE, fig.align = "center", out.width = '0.5\\linewidth'>>=
+    \begin{subfigure}[t]{0.5\textwidth}
+<<assignmentPCAMAP, echo=FALSE>>=
 ptsze <- as.numeric(fData(andyhlMAP$object)$predicted.probability)
 par(mfrow = c(1,1))
 
@@ -405,23 +438,35 @@ plot2D(object = andyhlMAP$object,
        fcol="predicted.allocation",
        dims = c(1,2),
        cex = ptsze,
-       main="Prediction of the localisation of proteins",
+       main="TAGM-MAP localisation predictions",
        mirrorY = TRUE)
 addLegend(andyhlMAP$object, cex=0.5, where="topleft")
 @
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.5\textwidth}
+<<assignmentPCAMCMC, echo=FALSE>>=
+ptsze <- as.numeric(fData(andyMCMChl)$predicted.probability)
+names(ptsze) <- rownames(fData(andyMCMChl))
+ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.9999] <- 0.01
 
+par(mfrow = c(1,1))
+.pca <- plot2D(andyMCMChl, fcol="predicted.allocation", cex = ptsze,
+               main="TAGM-MCMC localisation prediction", mirrorY = TRUE)
+addLegend(andyMCMChl, cex=0.6, where="topleft")
+@
+    \end{subfigure}%
   \centering
   \caption{PCA plot of the protein quantitation data with colours
-    representing the predicted class (5032 proteins). The pointer size
-    of a protein is scaled to the probability that particular protein
-    was assigned to that organelle. Markers, proteins whose localisations
-    are already known, are automatically assigned
-    a probability of $1$ and the size of the pointer reflects this.}
-  \label{fig:assignmentPCAMAP}
+    representing the predicted class (5032 proteins) illustrating
+    protein localisation preductions using TAGM-MAP (left) and
+    TAGM-MCMC (right) respectively. The pointer size of a protein is
+    scaled to the probability that particular protein was assigned to
+    that organelle. Markers, proteins whose localisations are already
+    known, are automatically assigned a probability of $1$ and the
+    size of the pointer reflects this.}
+  \label{fig:assignmentPCA} %% MAP and MCMC
 \end{figure}
 
-
-\clearpage
 
 \subsubsection{Uncertainty in the posterior localisation probabilities}
 
@@ -437,18 +482,18 @@ NIW distribution.
 
 We apply the statistical methodology detailed in section
 \ref{section:methods}.  We perform posterior computation in the
-Bayesian setting using standard MCMC methods.  We run $6$ chains of
-our Gibbs sampler in parallel for $15,000$ iterations, throwing away
-the first $4,000$ iterations for burn-in and retain every $10^{th}$
-sample for thinning.  Thus 1,100 sample are retained from each
-chain. We then visualise trace plots of our chains; in particular,
-we monitor the number of proteins allocated to the known components
-(see appendix \ref{app:mcmc}). We discard $1$ chain because we do
-not considered it to have converged.  For the remaining $5$ chains we
-further discard the first $500$ samples by visual inspection.  We then
-have $600$ retained samples from $5$ separate chains. For further
-analysis, we compute the Gelman-Rubin convergence diagnostic
-\citep{Gelman:1992, Brooks:1998}, which is computed as
+Bayesian setting using standard MCMC methods (TAGM-MCMC).  We run $6$
+chains of our Gibbs sampler in parallel for $15,000$ iterations,
+throwing away the first $4,000$ iterations for burn-in and retain
+every $10^{th}$ sample for thinning.  Thus 1,100 sample are retained
+from each chain. We then visualise the trace plots of our chains; in
+particular, we monitor the number of proteins allocated to the known
+components (see appendix \ref{app:mcmc}). We discard $1$ chain because
+we do not considered it to have converged.  For the remaining $5$
+chains we further discard the first $500$ samples by visual
+inspection.  We then have $600$ retained samples from $5$ separate
+chains. For further analysis, we compute the Gelman-Rubin convergence
+diagnostic \citep{Gelman:1992, Brooks:1998}, which is computed as
 $\hat{R} \approx 1.05$.  Values of $\hat{R}$ far from 1 indicate
 non-convergence and since our statistic is less than $1.1$, we
 conclude our chains have converged. The remaining samples are then
@@ -456,22 +501,22 @@ pooled to produce a single chain containing $3000$ samples.
 
 We produce point estimates of the posterior localisation probabilities
 by summarising samples by their Monte-Carlo average.  These summmaries
-are then visualised in figure \ref{fig:assignmentPCAMCMC}, where the
-pointer is scaled according to the localisation
+are then visualised in figure \ref{fig:assignmentPCA} (right panel),
+where the pointer is scaled according to the localisation
 probabilities. Monte-Carlo based inference also provides us with
 additional information; in particular, we can interrogate individual
 proteins and their posterior probability distribution over
 sub-cellular locations.
 
 Figure \ref{fig:G5E870} illustrates one example of the importance of
-capturing uncertainty.  The E3 ubiquitin-protein ligase TRIP
-12(G5E870) is an integral part of ubiquitin fusion degradation pathway
+capturing uncertainty.  The E3 ubiquitin-protein ligase TRIP 12
+(G5E870) is an integral part of ubiquitin fusion degradation pathway
 and is a protein of great interest in cancer because it regulates DNA
 repair pathways. The SVM failed to assign this protein to any
 location, with assigment to the 60S Ribosome falling below a $5\%$ FDR
 and the MAP estimate assigned the protein to the nucleus non-chromatin
-with posterior probability <0.95.  The posterior distribution of
-localisation probabilities inferred from the TAGM model, shown in
+with posterior probability < 0.95.  The posterior distribution of
+localisation probabilities inferred from the TAGM-MCMC model, shown in
 figure \ref{fig:G5E870}, demonstrates that this protein is most
 probably localised to the nucleus non-chromatin. However, there is
 some uncertainty about whether it localises to the $40$S ribosome.
@@ -508,28 +553,6 @@ addLegend(hl, cex=0.5, where="topleft")
     distribution. (b) Probability ellipses visualised along the 1st
     and 4th principal component also from the MCMC method.}
 \label{figure::pcaellipseMCMC}
-\end{figure}
-
-\begin{figure}[ht]
-<<echo = FALSE, fig.out='0.7\\textwidth'>>=
-ptsze <- as.numeric(fData(andyMCMChl)$predicted.probability)
-names(ptsze) <- rownames(fData(andyMCMChl))
-ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.9999] <- 0.01
-
-par(mfrow = c(1,1))
-.pca <- plot2D(andyMCMChl, fcol="predicted.allocation", cex = ptsze,
-               main="Prediction of Protein Localisation", mirrorY = TRUE)
-addLegend(andyMCMChl, cex=0.6, where="topleft")
-@
-
-  \centering
-  \caption{PCA plot of the protein quantitation data with colours
-    representing the predicted class (5032 proteins). The pointer size
-    of a protein is scaled to the probability that particular protein
-    was assigned to that organelle, with proteins belonging to the
-    outlier cluster shrunk. Markers are automatically assigned a
-    probability of $1$ and the size of the pointer reflects this.}
-  \label{fig:assignmentPCAMCMC}
 \end{figure}
 
 \begin{figure}[ht]
@@ -574,12 +597,12 @@ using an additional t-distribution outlier component.
 It is biologically interesting to decipher what functional role
 proteins that are far away from known components play. We perform an
 over-representation analysis of gene ontology (GO) terms to asses the
-biological relevance of the outlier component \citep{Boyle:2004, Yu:2012}.
-We take proteins that were allocated to known components with
-probability less than $0.95$, a total of 1111 protein.  Note that
-these 1111 proteins exclude proteins that are likely to belong to a
-known location, but we are uncertain about which localisation.  We
-then performed enrichment analysis against the set of all proteins
+biological relevance of the outlier component \citep{Boyle:2004,
+  Yu:2012}. We take 1111 proteins that were allocated to known
+components with probability less than $0.95$.  Note that these 1111
+proteins exclude proteins that are likely to belong to a known
+location, but we are uncertain about which localisation.  We then
+performed enrichment analysis against the set of all proteins
 quantified in the \textit{hyper}LOPIT experiment. We search against
 the cellular compartment, biological process and molecular function
 ontologies.
@@ -588,8 +611,8 @@ Supplementary figure \ref{fig:GOenrich} shows this outlier component
 is enriched for cytoskeletal part ($p <10^{-7}$) and microtuble
 cytoskeleton ($p <10^{-7}$). Cytoskeleton proteins are found
 throughout the cell and therefore we would expect them to be found in
-every fraction along the density gradient. We also observe enrichment for
-highly dynamic sub-cellular processes such as cell division
+every fraction along the density gradient. We also observe enrichment
+for highly dynamic sub-cellular processes such as cell division
 ($p <10^{-6}$) and cell cycle processes ($p <10^{-6}$), again these
 proteins are unlikely to have steady-state locations within a single
 component. We also see enrichment for molecular functions such as
@@ -908,13 +931,12 @@ using the MCMC methdology, makes an incorrect classification it does
 so with lower confidence than the SVM classifier, the KNN classifier
 and the MAP based classifier, whilst if it is correct in its assertion
 it does so with greater confidence. Additionally, a fully Bayesian
-methodology provides us with not only with point estimates of
+methodology provides us with not only point estimates of
 classification probabilities but uncertainty quantification in these
 allocations, and we show in the following section that this provides
 deeper insights into protein localisation.
 
 <<echo = FALSE, message=FALSE>>=
-
 andydfmetricsquad <- as.data.frame(cbind(unlist(andysvmquadloss), unlist(andyknnquadloss), unlist(andyRes$quadloss), unlist(andy2015cvalmcmc$quadloss)))
 colnames(andydfmetricsquad) <- c("SVM", "KNN", "MAP", "MCMC")
 andydfmetricsquad <- melt(andydfmetricsquad)
@@ -1016,6 +1038,7 @@ cont <- table(X,Y)
 mycol <- colorRampPalette(c("white", "red"))(10)
 cont <- cont/rowSums(cont)
 
+dimnames(cont) <- shortenOrgNames(dimnames(cont))
 
 X2 <- fData(andyMCMChl)[fData(andyMCMChl)[,"final.assignment"]!="unknown","final.assignment"]
 Y2 <- fData(andyMCMChl)$predicted.allocation[fData(andyMCMChl)[,"final.assignment"]!="unknown"]
@@ -1025,39 +1048,44 @@ for(j in seq_along(getMarkerClasses(andyMCMChl))){
 }
 df3 <- table(X2,Y2)
 df4 <- df3/rowSums(df3)
+
+dimnames(df4) <- shortenOrgNames(dimnames(df4))
+
 @
 
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.5\textwidth}
         \centering
-<<echo=FALSE, fig.align="center">>=
+<<echo=FALSE, fig.height=6>>=
 par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
 lattice.options(
   layout.heights=list(bottom.padding=list(x=0), top.padding=list(x=0)),
   layout.widths=list(left.padding=list(x=0), right.padding=list(x=0))
 )
 levelplot(cont, xlab="SVM", ylab="TAGM (MCMC)",
-          main="", scales = list(x = list(draw = FALSE)),
+          main = "", ## scales = list(x = list(draw = FALSE)),
+          scales = list(x = list(rot=90)),
           colorkey = FALSE,
-          cuts = 50, pretty = T,
+          cuts = 50, pretty = TRUE,
           col.regions = mycol,
-          at = seq(0, 10)/10, aspect = 2)
-
+          at = seq(0, 10)/10, aspect = "fill")
 @
-        \caption{}
 \end{subfigure}%
 \begin{subfigure}[t]{0.5\textwidth}
 \centering
-<<echo=FALSE, fig.align="center">>=
+<<echo=FALSE, fig.height=6>>=
 par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
 lattice.options(
   layout.heights=list(bottom.padding=list(x=0), top.padding=list(x=0)),
   layout.widths=list(left.padding=list(x=0), right.padding=list(x=0))
 )
-levelplot(df4, xlab="SVM", ylab="TAGM (MCMC)", main=" ", scales = list(x = list(draw = FALSE)),
-          cuts = 50, pretty = T, col.regions = mycol, at = seq(0, 10)/10, aspect = "fill")
+levelplot(df4, xlab="SVM", ylab="TAGM (MCMC)",
+          main = "", ## scales = list(x = list(draw = FALSE)),
+          scales = list(x = list(rot=90)),
+          cuts = 50, pretty = TRUE,
+          col.regions = mycol,
+          at = seq(0, 10)/10, aspect = "fill")
 @
-        \caption{}
 \end{subfigure}
   \caption{A heatmap representation of a contingency table,
     where we compare assignment results for proteins
@@ -1219,7 +1247,7 @@ print(gg)
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<echo = FALSE, fig.width = 3, fig.height = 2,fig.align="center">>=
+<<echo = FALSE>>=
 prots <- "Q924C1"
 par(oma = c(0,0,0,0))
 foi13s <- FeaturesOfInterest(description = "",
