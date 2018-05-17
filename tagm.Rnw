@@ -32,7 +32,6 @@
 \captionsetup[algorithm]{style=algori}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
 
 \author[1,2,3]{Oliver M. Crook\thanks{\url{omc25@cam.ac.uk}}~}
 \author[2]{Claire M. Mulvey}
@@ -113,7 +112,7 @@ and additionally provides uncertainty quantification. We show that, with this
 additional information, we can make deeper insights into the
 fundamental biochemistry of the cell.
 
-<<env, echo=FALSE, message=FALSE>>=
+<<env, echo=FALSE, message=FALSE, warning=FALSE>>=
 require(coda)
 require(reshape)
 require(ggplot2)
@@ -612,7 +611,7 @@ stratified 5-fold cross-validation. The hyperparameter for the KNN
 algorithm, the number of nearest neighbours, is optimised via an
 additional internal 5-fold cross-validation and the hyperparameters
 for the SVM, sigma and cost, are also optimised via internal 5-fold
-cross validation.
+cross validation \cite{svm:2010}.
 
 We test our methods on the following datasets \textit{Drosophila}
 \citep{Tan:2009}, chicken \citep{hall:2009}, mouse pluripotent

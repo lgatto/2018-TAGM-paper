@@ -1,4 +1,54 @@
-\documentclass[12pt,english]{article}
+\documentclass[12pt,english]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
 \usepackage{natbib}
 \usepackage{amsmath,mathtools,amssymb,mathrsfs,dsfont,amsthm}
 \usepackage[margin=1in]{geometry}
@@ -30,10 +80,8 @@
   \textbf{#1#2}#3\offinterlineskip\hrulefill}
 \DeclareCaptionStyle{algori}{singlelinecheck=off,format=algor,labelsep=space}
 \captionsetup[algorithm]{style=algori}
-
-\usepackage{Sweave}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
-\input{tagm-concordance}
 
 \author[1,2,3]{Oliver M. Crook\thanks{\url{omc25@cam.ac.uk}}~}
 \author[2]{Claire M. Mulvey}
@@ -113,6 +161,7 @@ method is competitive with state-of-the-art machine learning methods
 and additionally provides uncertainty quantification. We show that, with this
 additional information, we can make deeper insights into the
 fundamental biochemistry of the cell.
+
 
 
 \section{Introduction}\label{Intro}
@@ -277,11 +326,21 @@ probability ellipses from the MAP estimates of the parameters.
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.45\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-1-1} 
+
+\end{knitrout}
         \caption{}
 \end{subfigure}%
 \hfill
 \begin{subfigure}[t]{0.45\textwidth}
         \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-2-1} 
+
+\end{knitrout}
         \caption{}
 \end{subfigure}
   \centering
@@ -298,6 +357,7 @@ probability ellipses from the MAP estimates of the parameters.
     markers.}
 \label{figure::pcaellipse}
 \end{figure}
+
 
 
 
@@ -327,6 +387,16 @@ analysis of spatial proteomics in a fully Bayesian framework.
 
 
 \begin{figure}[ht]
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=0.5\linewidth]{figure/unnamed-chunk-4-1} 
+
+}
+
+
+
+\end{knitrout}
 
   \centering
   \caption{PCA plot of the protein quantitation data with colours
@@ -399,10 +469,20 @@ further explored with a more targeted experiment.
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.45\textwidth}
         \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-5-1} 
+
+\end{knitrout}
         \caption{}
 \end{subfigure}%
 \hfill
 \begin{subfigure}[t]{0.45\textwidth}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-6-1} 
+
+\end{knitrout}
         \centering
         \caption{}
 \end{subfigure}
@@ -415,6 +495,11 @@ further explored with a more targeted experiment.
 \end{figure}
 
 \begin{figure}[ht]
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-7-1} 
+
+\end{knitrout}
 
   \centering
   \caption{PCA plot of the protein quantitation data with colours
@@ -428,6 +513,16 @@ further explored with a more targeted experiment.
 
 \begin{figure}[ht]
 \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=0.7\textwidth]{figure/unnamed-chunk-8-1} 
+
+}
+
+
+
+\end{knitrout}
 
 \caption{Violin plot revealing the posterior distribution of
   localisation probabilities of protein E3 ubiquitin-protein ligase
@@ -488,7 +583,7 @@ stratified 5-fold cross-validation. The hyperparameter for the KNN
 algorithm, the number of nearest neighbours, is optimised via an
 additional internal 5-fold cross-validation and the hyperparameters
 for the SVM, sigma and cost, are also optimised via internal 5-fold
-cross validation.
+cross validation \cite{svm:2010}.
 
 We test our methods on the following datasets \textit{Drosophila}
 \citep{Tan:2009}, chicken \citep{hall:2009}, mouse pluripotent
@@ -612,6 +707,7 @@ remaining results for the t-tests can be found in tables in appendix
 
 
 
+
 \begin{figure}[ht]
   \centering
 \includegraphics[width=0.8\textwidth]{F1compare1.pdf}
@@ -664,6 +760,7 @@ allocations, and we show in the following section that this provides
 deeper insights into protein localisation.
 
 
+
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.8\textwidth]{Quadlosscompare1.pdf}
@@ -704,13 +801,34 @@ plots in figure \ref{figure:contigencytables}.
 
 
 
+
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.5\textwidth}
         \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-12-1} 
+
+}
+
+
+
+\end{knitrout}
         \caption{}
 \end{subfigure}%
 \begin{subfigure}[t]{0.5\textwidth}
 \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-13-1} 
+
+}
+
+
+
+\end{knitrout}
         \caption{}
 \end{subfigure}
   \caption{A heatmap representation of a contingency table,
@@ -810,19 +928,59 @@ else we may erroneously assign such proteins to a single location.
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-14-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-15-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}
   \vspace{1cm}
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-16-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-17-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}
 
@@ -842,19 +1000,59 @@ else we may erroneously assign such proteins to a single location.
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-18-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-19-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}
   \vspace{1cm}
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-20-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-21-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}
 
@@ -875,19 +1073,59 @@ else we may erroneously assign such proteins to a single location.
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-22-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-23-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}
   \vspace{1cm}
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-24-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-25-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}
 
@@ -940,16 +1178,46 @@ uncertainty in these assignments to make conclusions.
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-26-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
 ~
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-27-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}%
 \\
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-28-1} 
+
+}
+
+
+
+\end{knitrout}
     \caption{}
   \end{subfigure}
 
@@ -2087,6 +2355,11 @@ S'_k = & S_0 + T' + \lambda_0\boldsymbol{\mu}_0^T\boldsymbol{\mu}_0 - \lambda_km
 
 \begin{figure}[h]
   \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=0.6\textwidth]{figure/emconverge-1} 
+
+\end{knitrout}
 
 \caption{Plot of the log-posterior at each iteration of the EM
   algorithm to demonstrate monotonicity and convergence}
@@ -2098,8 +2371,14 @@ S'_k = & S_0 + T' + \lambda_0\boldsymbol{\mu}_0^T\boldsymbol{\mu}_0 - \lambda_km
 \subsection{Appendix 4: Trace plots for assessing MCMC convergence}\label{app:mcmc}
 
 
+
 \begin{figure}[ht]
   \centering
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=0.75\textwidth]{figure/traceplots-1} 
+
+\end{knitrout}
 \caption{Trace plots of the number of proteins allocated to the known
   components in each of 6 parallel MCMC runs. Chain $4$ is discarded
   because of lack of convergence. $600$ samples are retained from
@@ -2113,3 +2392,627 @@ S'_k = & S_0 + T' + \lambda_0\boldsymbol{\mu}_0^T\boldsymbol{\mu}_0 - \lambda_km
 \subsection{Appendix 5: F1 t-tests}\label{app::ttestf1}
 
 
+
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 2.7E-03 &  &  \\ 
+  MAP & 3.3E-02 & 3.4E-01 &  \\ 
+  MCMC & 3.4E-01 & 3.3E-02 & 2.3E-01 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Drosophila dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 1.2E-02 &  &  \\ 
+  MAP & 2.7E-01 & 1.5E-01 &  \\ 
+  MCMC & 4.9E-01 & 1.9E-03 & 1.1E-01 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Chicken DT40 dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 1.0E+00 &  &  \\ 
+  MAP & 1.0E+00 & 1.0E+00 &  \\ 
+  MCMC & 3.3E-01 & 6.0E-02 & 1.1E-05 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the mouse dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 1.4E-35 &  &  \\ 
+  MAP & 3.3E-06 & 6.7E-21 &  \\ 
+  MCMC & 8.0E-59 & 3.2E-91 & 2.4E-70 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 1.3E-02 &  &  \\ 
+  MAP & 4.3E-04 & 3.3E-09 &  \\ 
+  MCMC & 5.8E-01 & 3.5E-03 & 3.1E-03 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the U2-OS dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 2.2E-08 &  &  \\ 
+  MAP & 1.0E-34 & 6.8E-14 &  \\ 
+  MCMC & 7.4E-05 & 5.3E-02 & 1.0E-20 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa wild (Hirst et al.) dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 5.3E-02 &  &  \\ 
+  MAP & 1.7E-23 & 7.9E-27 &  \\ 
+  MCMC & 9.1E-02 & 5.8E-04 & 1.8E-19 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa KO1 (Hirst et al.) dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 1.3E-01 &  &  \\ 
+  MAP & 1.1E-55 & 1.1E-55 &  \\ 
+  MCMC & 1.0E-18 & 6.3E-22 & 2.0E-26 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa KO2 (Hirst et al.) dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 9.6E-02 &  &  \\ 
+  MAP & 4.1E-07 & 1.1E-09 &  \\ 
+  MCMC & 2.8E-27 & 1.0E-28 & 6.3E-10 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 24hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 6.6E-07 &  &  \\ 
+  MAP & 1.3E-10 & 2.0E-01 &  \\ 
+  MCMC & 1.6E-05 & 2.0E-01 & 6.2E-03 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 48hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 3.9E-03 &  &  \\ 
+  MAP & 9.5E-01 & 8.6E-03 &  \\ 
+  MCMC & 6.4E-02 & 3.0E-01 & 8.6E-02 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 72hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 8.6E-03 &  &  \\ 
+  MAP & 1.1E-02 & 8.6E-01 &  \\ 
+  MCMC & 3.7E-06 & 1.6E-02 & 3.3E-02 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 96hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 1.9E-23 &  &  \\ 
+  MAP & 1.4E-02 & 2.3E-34 &  \\ 
+  MCMC & 3.8E-07 & 1.6E-81 & 2.0E-02 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 120hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 4.6E-01 &  &  \\ 
+  MAP & 2.6E-05 & 1.7E-04 &  \\ 
+  MCMC & 1.7E-04 & 1.3E-03 & 5.5E-01 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 24hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 1.0E-02 &  &  \\ 
+  MAP & 4.6E-01 & 1.5E-03 &  \\ 
+  MCMC & 1.2E-02 & 7.3E-01 & 1.5E-03 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 48hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 5.5E-02 &  &  \\ 
+  MAP & 9.5E-06 & 3.4E-02 &  \\ 
+  MCMC & 1.1E-01 & 6.2E-01 & 6.4E-03 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 72hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 2.8E-01 &  &  \\ 
+  MAP & 2.6E-09 & 7.2E-08 &  \\ 
+  MCMC & 4.2E-10 & 5.6E-09 & 5.7E-01 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 96hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 2.3E-04 &  &  \\ 
+  MAP & 7.1E-04 & 3.8E-10 &  \\ 
+  MCMC & 1.4E-01 & 5.7E-02 & 6.0E-05 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 120hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 6.7E-06 &  &  \\ 
+  MAP & 6.3E-05 & 4.4E-01 &  \\ 
+  MCMC & 4.4E-01 & 6.7E-06 & 8.3E-05 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the E14TG2a dataset} 
+\end{table}
+
+
+\clearpage
+\subsection{Appendix 6: Quadratic loss t-tests}
+
+
+
+
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 5.9E-13 &  &  \\ 
+  MAP & 1.1E-04 & 9.6E-124 &  \\ 
+  MCMC & 2.2E-23 & 3.3E-58 & 5.9E-171 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Drosphila dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 3.2E-08 &  &  \\ 
+  MAP & 1.7E-26 & 1.3E-128 &  \\ 
+  MCMC & 4.2E-13 & 8.8E-37 & 7.0E-135 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Chicken DT40 dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 5.5E-14 &  &  \\ 
+  MAP & 3.0E-25 & 6.3E-128 &  \\ 
+  MCMC & 7.4E-26 & 1.7E-129 & 1.6E-14 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the mouse dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 1.2E-02 &  &  \\ 
+  MAP & 9.4E-07 & 7.4E-86 &  \\ 
+  MCMC & 5.5E-08 & 2.7E-89 & 2.4E-12 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 6.8E-02 &  &  \\ 
+  MAP & 7.4E-17 & 1.1E-73 &  \\ 
+  MCMC & 1.4E-20 & 6.7E-81 & 8.3E-41 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the U2-OS dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 2.3E-92 &  &  \\ 
+  MAP & 9.0E-13 & 2.4E-83 &  \\ 
+  MCMC & 6.6E-19 & 3.0E-81 & 1.1E-01 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa wild (Hirst et al.) dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 5.2E-97 &  &  \\ 
+  MAP & 1.4E-02 & 1.2E-90 &  \\ 
+  MCMC & 2.3E-09 & 7.0E-95 & 2.2E-02 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa KO1 (Hirst et al.) dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 8.9E-93 &  &  \\ 
+  MAP & 3.1E-01 & 8.1E-91 &  \\ 
+  MCMC & 9.0E-06 & 1.5E-83 & 8.9E-05 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa KO2 (Hirst et al.) dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 6.1E-13 &  &  \\ 
+  MAP & 1.4E-18 & 4.4E-81 &  \\ 
+  MCMC & 3.2E-18 & 7.2E-77 & 5.9E-03 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 24hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 6.1E-18 &  &  \\ 
+  MAP & 3.6E-24 & 2.2E-57 &  \\ 
+  MCMC & 1.4E-24 & 3.6E-61 & 3.6E-04 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 48hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 1.2E-15 &  &  \\ 
+  MAP & 4.5E-23 & 2.5E-89 &  \\ 
+  MCMC & 4.2E-23 & 5.1E-91 & 4.4E-01 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 72hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 1.8E-13 &  &  \\ 
+  MAP & 1.4E-20 & 3.6E-126 &  \\ 
+  MCMC & 5.0E-20 & 1.5E-109 & 5.3E-07 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 96hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 6.7E-14 &  &  \\ 
+  MAP & 1.0E-19 & 2.6E-45 &  \\ 
+  MCMC & 8.0E-20 & 2.4E-45 & 2.5E-02 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 120hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 6.0E-22 &  &  \\ 
+  MAP & 2.8E-27 & 6.4E-53 &  \\ 
+  MCMC & 1.4E-27 & 1.5E-56 & 3.0E-03 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 24hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 1.9E-26 &  &  \\ 
+  MAP & 1.3E-33 & 2.7E-84 &  \\ 
+  MCMC & 1.3E-33 & 2.7E-84 & 6.0E-01 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 48hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 6.3E-20 &  &  \\ 
+  MAP & 1.9E-25 & 2.7E-57 &  \\ 
+  MCMC & 1.2E-25 & 3.4E-58 & 1.5E-02 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 72hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 1.7E-25 &  &  \\ 
+  MAP & 9.3E-32 & 1.9E-56 &  \\ 
+  MCMC & 9.3E-32 & 1.2E-54 & 7.1E-01 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 96hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 6.5E-25 &  &  \\ 
+  MAP & 5.3E-32 & 1.1E-71 &  \\ 
+  MCMC & 7.1E-32 & 8.4E-71 & 5.7E-02 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 120hpi dataset} 
+\end{table}
+% latex table generated in R 3.4.4 by xtable 1.8-2 package
+% Thu May 17 17:07:06 2018
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & SVM & KNN & MAP \\ 
+  \hline
+KNN & 4.7E-04 &  &  \\ 
+  MAP & 4.7E-21 & 1.5E-103 &  \\ 
+  MCMC & 3.3E-12 & 1.8E-57 & 1.3E-137 \\ 
+   \hline
+\end{tabular}
+\caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the E14TG2a dataset} 
+\end{table}
+
+
+\clearpage
+
+\subsection{Appendix 7: GO enrichment analysis figures}
+
+
+
+\begin{figure}[h]
+  \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+  \includegraphics[width=\textwidth]{CCenrich.pdf}
+        \caption{}
+\end{subfigure}%
+\begin{subfigure}[t]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth]{BPenrich.pdf}
+        \caption{}
+\end{subfigure}%
+~
+
+\begin{subfigure}[t]{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth]{MFenrich.pdf}
+        \caption{}
+\end{subfigure}
+\caption{Gene Ontology over representation analysis on outlier
+  proteins - that is proteins allocated with less than probability
+  $0.95$. We analyse the enrichment of terms in the cellular
+  compartment, biological process, and molecular function
+  ontologies. We display the top 10 significant results in the
+  dotplots.}
+\label{fig:GOenrich}
+\end{figure}
+
+
+
+
+\clearpage
+
+\bibliographystyle{natbib}
+\bibliography{BayesProt}
+
+
+\end{document}
