@@ -199,11 +199,11 @@ lysis is proceeded by separation of the content along a density
 gradient. Organelles and macro-molecular complexes are thus
 characterised by density-specific profiles along the gradient
 \citep{DeDuve:1981}.  Discrete fractions along the continuous density
-gradient are then collected and quantitative protein profiles, that
+gradient are then collected, and quantitative protein profiles that
 match the organelle profiles along the gradient, are measured using
 high accuracy mass spectrometry \citep{Mulvey:2017}.
 
-The data are first visualized using principle component
+The data are first visualized using principal component
 analysis (PCA) and known sub-cellular compartments are annotated
 \citep{ghrepo}. Supervised machine learning algorithms are then typically
 employed to create classifiers, that associate un-annotated
@@ -302,10 +302,10 @@ a proportion of total probability of a particular multiavariate
 Gaussian density.  The outer ellipse contains $99\%$ of the total
 probability whilst the middle and inner ellipses contain $95\%$ and
 $90\%$ of the probability respectively. Visualising only the first two
-principle components can be misleading, since protein can be more (or
-less) seperated in higher principle components.  We visualise the
-first two principle components along with the first and fourth
-principle component as a representive example. For the TAGM model, we
+principal components can be misleading, since protein can be more (or
+less) seperated in higher principal components.  We visualise the
+first two principal components along with the first and fourth
+principal component as a representive example. For the TAGM model, we
 derive probability ellipses from the MAP estimates of the parameters.
 
 \begin{figure}[ht]
@@ -325,19 +325,19 @@ addLegend(hl, cex=0.7, where="bottomleft")
 <<fig=TRUE, echo=FALSE, fig.width = 3, fig.height = 3,fig.align="center">>=
 
 par(mar = c(4,4,2,0))
-plotEllipse(hl, method = "MAP", components = c(1,4), main = "Visualisation along 1st and 4th principle components")
+plotEllipse(hl, method = "MAP", components = c(1,4), main = "Visualisation along 1st and 4th principal components")
 addLegend(hl, cex=0.7, where="topleft")
 @
         \caption{}
 \end{subfigure}
   \centering
-  \caption{ (a) PCA plot of the 1st and 2nd principle components for
+  \caption{ (a) PCA plot of the 1st and 2nd principal components for
     the curated marker proteins of the mouse stem cell data. The organelles
     are, in general, well separated. Though some organelles
-    overlap, they are separated along different principle
+    overlap, they are separated along different principal
     components. The densities used to produce the ellipses
     are derived from the MAP estimates. (b) Marker
-    resolution along the 1st and 4th principle
+    resolution along the 1st and 4th principal
     components show that the mitochondrion and peroxisome
     markers are well resolved, despite overlapping in the 1st and 2nd component.
     We also see that the ER/Golgi
@@ -403,8 +403,8 @@ are automatically assigned a probability of $1$ and the size of the pointer refl
 This section applies the TAGM model to the mouse pluripotent embryonic stem cell data,
 by considering the uncertainty in the parameters and exploring how this uncertainty propogates
 to the uncertainty in protein localisation prediction.
-In figure \ref{figure::pcaellipseMCMC} we visualise the model as before using the first two principle components along with the first and fourth
-principle component as a representive example.
+In figure \ref{figure::pcaellipseMCMC} we visualise the model as before using the first two principal components along with the first and fourth
+principal component as a representive example.
 For the TAGM model, we derive probability ellipses from the expected value
 of the posterior NIW distribution.
 
@@ -451,7 +451,7 @@ addLegend(hl, cex=0.5, where="bottomleft")
 \begin{subfigure}[t]{0.5\textwidth}
 <<fig=TRUE, echo=FALSE, fig.width = 3, fig.height = 3,fig.align="center">>=>>=
 par(mar = c(4,4,2,0))
-plotEllipse(hl, method = "MCMC", components = c(1,4), main = "Visualisation along the 1st and 4th principle component")
+plotEllipse(hl, method = "MCMC", components = c(1,4), main = "Visualisation along the 1st and 4th principal component")
 addLegend(hl, cex=0.5, where="topleft")
 @
         \centering
@@ -461,7 +461,7 @@ addLegend(hl, cex=0.5, where="topleft")
   \caption{(a) Probability ellipses produced from using the MCMC method.
     The density is the expected value from the NIW distribution. (b)
     Probability ellipses visualised along the 1st and
-    4th principle component also from the MCMC method.}
+    4th principal component also from the MCMC method.}
 \label{figure::pcaellipseMCMC}
 \end{figure}
 
