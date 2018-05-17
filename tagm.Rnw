@@ -97,7 +97,7 @@ environment, whether that be organelles, vesicles or any sub-cellular
 niche. Correct sub-cellular localisation ensures the biochemical
 conditions for the protein to carry out its molecular function are
 met, as well as being near its intended interaction
-partners. Therefore, mis-localisation of proteins alter cell
+partners. Therefore, mis-localisation of proteins alters cell
 biochemistry and can disrupt, for example, signalling pathways or
 inhibit the trafficking of material around the cell. The sub-cellular
 distribution of proteins is complicated by proteins that can reside in
@@ -106,10 +106,10 @@ cell. Methods that predict protein sub-cellular localisation often
 fail to quantify the uncertainty that arises from the complex and
 dynamic nature of the sub-cellular environment. Here we present a
 Bayesian methodology to analyse protein sub-cellular localisation. We
-explicitly model our data and by using Bayesian inference this allows
-the quantification of uncertainty in our predications. We find our
+explicitly model our data and use Bayesian inference to quantify
+uncertainty in our predications. We find our
 method is competitive with state-of-the-art machine learning methods
-and is also capable of uncertainty quantification. With this
+and additionally provides uncertainty quantification. We show that, with this
 additional information, we can make deeper insights into the
 fundamental biochemistry of the cell.
 
@@ -176,7 +176,7 @@ its binding partners (for example, proteins, nucleic acids, metabolic
 substrates) \citep{Gibson:2009}. Furthermore, mis-localisations of
 proteins are also critical to our understanding of biology, as
 aberrant protein localisation have been implicated in many pathologies
-\citep{Olkkonen:2006, Laurila:2009, Luheshi:2008, De:2011, Cody:2013},
+\citep{Olkkonen:2006, Luheshi:2008, Laurila:2009, De:2011, Cody:2013},
 including cancer \citep{Kau:2004, Rodriguez:2004, Latorre:2005,
   Shin:2013} and obesity \citep{Siljee:2018}.
 
