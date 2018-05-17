@@ -255,7 +255,7 @@ proteins. We can perform inference in our model by finding
 approach returns the probability of each protein belonging to each
 annotated sub-cellular niche. These posterior localisation
 probabilities can then be the basis for classification. In a more
-sophisticated, fully Bayesian, approach to uncertainty quantification,
+sophisticated, fully Bayesian approach to uncertainty quantification,
 we can additionally infer the entire posterior distribution of
 localisation probabilities. This allows the uncertainty in the
 parameters in our model to be reflected in the posterior localisation
