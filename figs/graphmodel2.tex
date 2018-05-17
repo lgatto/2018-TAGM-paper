@@ -1,0 +1,77 @@
+\documentclass{article}
+
+\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{calc} % for manimulation of coordinates
+\usetikzlibrary{shapes,arrows,shadows,fit}
+
+%%%<
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+%%%>
+
+\begin{document}
+\pagestyle{empty}
+
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+% Define block styles
+\tikzstyle{rect} = [rectangle, draw]
+\tikzstyle{circ} = [circle, draw]
+\tikzstyle{arrow} = [->, draw]
+\tikzstyle{rect2} = [rectangle, draw, rounded corners=0.5ex,
+                     align=right, inner sep=10pt, inner ysep=10pt,
+                     label={[xshift=-14pt,yshift=14pt]south east:#1}]
+
+\begin{tikzpicture}[scale=1, auto]
+
+  \node [circ] (xi) at (2,0) {$x_i$};
+  \node [circ] at (0,0.5)  (zi) {$z_i$};
+  \node [circ] at (0,-0.5) (phii) {$\phi_i$};
+  \node [circ] at (-1.25,0.5) (pi) {$\pi$};
+  \node [circ] at (-2,-0.5)  (eps) {$\epsilon$};
+  \node [rect] at (3.5,0.5) (M) {$M$};
+  \node [rect] at (3.5, -0.5) (V) {$V$};
+  \node [above of=pi, node distance=6mm] (k) {[K]};
+  \node [rect, above of=k, node distance = 1.3cm] (beta) {$\beta$};
+  \node [rect, above of=eps, node distance = 2.9cm] (uv) {$u,v$};
+
+  \node [circ] at (1,2.25) (muk) {$\mu_k$};
+  \node [below of=muk, node distance=6mm, scale = 0.5](L) {[L]};  
+  \node [circ] at (3,2.25) (vark) {$\Sigma_k^2$}; 
+  \node [below of=vark, node distance =6mm, scale = 0.5](LxL){[LxL]};
+
+  \node [rect] at (0.5,3.5) (mu0) {$\mu_0$};
+  \node [rect] at (1.5,3.5) (lambda) {$\lambda_0$};
+
+  \node [rect] at (2.5,3.5) (nu) {$\nu_0$};
+  \node [rect] at (3.5,3.5) (s0) {$s_0$};  
+  
+  \node [rect2=N, fit=(xi) (zi) (phii)] {};
+  \node [rect2=K, fit=(muk) (vark)] {};
+
+  \path [arrow] (zi) -- (xi);
+  \path [arrow] (pi) -- (zi);
+  \path [arrow] (phii) -- (xi);
+  \path [arrow] (beta) -- (k);
+  \path [arrow] (muk) -- (xi);
+  \path [arrow] (vark) -- (xi);
+  \path [arrow] (vark) -- (muk);
+  \path [arrow] (eps) -- (phii);
+  \path [arrow] (uv) -- (eps);
+  \path [arrow] (M) -- (xi);
+  \path [arrow] (V) -- (xi);
+
+  \path [arrow] (mu0) -- (muk);  
+  \path [arrow] (lambda) -- (muk);  
+  \path [arrow] (nu) -- (vark);  
+  \path [arrow] (s0) -- (vark);  
+
+  
+\end{tikzpicture}  
+
+\end{document}
