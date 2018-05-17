@@ -269,18 +269,13 @@ open software tools \citep{pRoloc:2014} as part of the Bioconductor
 project \citep{Bioconductor::2004, Huber::2015} and our methods are
 made available as part of this project.
 
-This article is laid out as follows: section 3 describes our probabilistic model and
-how we perform inference; section 4 describes the results of applying our methods to a dataset of interest
-and compares our method with alternative approaches on 5 spatial proteomics datasets, and in section 5 we make some
-concluding remarks.
-
 \section{Results}
 
 \subsection{Application to mouse pluripotent embryonic stem cell data}
 
-We model the mouse pluripotent embryonic stem cell (E14TG2a) data  \citep{hyper}, which
+We model mouse pluripotent embryonic stem cell (E14TG2a) data  \citep{hyper}, which
 contains quantitation data for $5032$ proteins. This high-resolution map was
-produce using the \textit{hyper}LOPIT workflow \citep{Mulvey:2017}, which uses a sophisticated
+produced using the \textit{hyper}LOPIT workflow \citep{Mulvey:2017}, which uses a sophisticated
 sub-cellular fractionation scheme. This fractionation scheme is made possible
 by the use of Tandem Mass Tag (TMT) 10-plex and high accuracy TMT quantification
 was facilitated by using synchronous precursor selection MS3 (SPS-MS3) \citep{Mcalister::2014},
@@ -288,7 +283,7 @@ which eliminates well documented issues with ratio distortion in isobaric multip
 \citep{Ting:2011}. The data resolves
 $14$ sub-cellular niches with an additional chromatin preparation
 resolving the nuclear chromatin and non-chromatin components. Two
-biological replicates of the data are concatenated each with $10$ fractions
+biological replicates of the data are concatenated, each with $10$ fractions
 along the density gradient. The following section applies our statistical
 methodology to this data and we explore the results.
 
@@ -297,13 +292,13 @@ This section applies the TAGM model to the mouse pluripotent embryonic
 stem cell data, by deriving MAP estimates for the model parameters and
 using these for prediction.  Visualisation is important for data
 analysis and exploration. A simple way to visualise our model is to
-project probabilities ellipses onto a PCA plot. Each ellipse contains
-a proportion of total probability of a particular multiavariate
+project probability ellipses onto a PCA plot. Each ellipse contains
+a proportion of total probability of a particular multivariate
 Gaussian density.  The outer ellipse contains $99\%$ of the total
 probability whilst the middle and inner ellipses contain $95\%$ and
 $90\%$ of the probability respectively. Visualising only the first two
-principal components can be misleading, since protein can be more (or
-less) seperated in higher principal components.  We visualise the
+principal components can be misleading, since proteins can be more (or
+less) separated in higher principal components.  We visualise the
 first two principal components along with the first and fourth
 principal component as a representive example. For the TAGM model, we
 derive probability ellipses from the MAP estimates of the parameters.
@@ -356,24 +351,22 @@ a <- abs(resandyhl$loglike[200] - resandyhl$loglike[199])
 
 
 We now apply the statistical methodology described in section \ref{section:methods},
-to predicit the localisation of proteins to organelles and sub-cellular components.
+to predcit the localisation of proteins to organelles and sub-cellular components.
 In brief, we produce \textit{maximum a posteriori} (MAP) estimates of the parameters by using the expectation-maximisation
-algorithm.
+algorithm, to form the basis of a Bayesian analysis.
 We run the algorithm for $200$ iterations and inspect a plot of the
-log-posterior to confirm plateauing of the log-posterior (see appendix \ref{app:logposterior}). We confirm
+log-posterior to assess convergence of the algorithm (see appendix \ref{app:logposterior}). We confirm
 that the difference of the log posterior between the final two iterations is less than $10^{-6}$
 and we conclude that our algorithm has converged. The results can be seen in figure
-\ref{fig:assignmentPCAMAP}, where the posterior localisation probability can be visualised by scaling the pointer
+\ref{fig:assignmentPCAMAP}, where the posterior localisation probability is visualised by scaling the pointer
 for each protein.
 
 Figure \ref{fig:assignmentPCAMAP} demonstrates a range of probabilistic
-assignments of proteins to organelles and sub-cellular niches. Furthermore, some protein assignments
-seemingly overlap with several possible organelles. Point estimates are
-misleading because they do not express uncertainty. We
-are not satisfied with simply point estimates of the
-probabilities and desire the full posterior distribution of localisation probabilities.
-This analysis requires the use of Markov-chain Monte-Carlo (MCMC) algorithms, in our case a collapsed
-Gibbs sampler, to sample from the posterior of localisation probabilites. The remainder of this
+assignments of proteins to organelles and sub-cellular niches. We additionally
+consider a full, sampling-based Bayesian analysis using Markov-chain Monte Carlo
+(MCMC) to characterise the uncertainty in the localisation probabilities.
+In our case a collapsed Gibbs sampler is used
+to sample from the posterior of localisation probabilites. The remainder of this
 article focus on analysis of spatial proteomics in a fully Bayesian framework.
 
 
