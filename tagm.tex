@@ -570,7 +570,7 @@ stratified 5-fold cross-validation. The hyperparameter for the KNN
 algorithm, the number of nearest neighbours, is optimised via an
 additional internal 5-fold cross-validation and the hyperparameters
 for the SVM, sigma and cost, are also optimised via internal 5-fold
-cross validation \cite{svm:2010}.
+cross validation \citep{svm:2010}.
 
 We test our methods on the following datasets \textit{Drosophila}
 \citep{Tan:2009}, chicken \citep{hall:2009}, mouse pluripotent
@@ -650,14 +650,13 @@ quantified proteins, the workflow used and the number of fractions.
 \label{table:data}
 \end{table}
 
-Figures \ref{figure::f1scores1} and \ref{figure::f1scores2} compare
-the Macro-F1 scores across the datasets for all classifiers and
-demonstrates that no single classifier consistently outperforms any
-other across all datasets, with results being highly consitent across
-all methods, as well as across datasets. We perform a pairwise
-unpaired t-test with multiple testing correction applied using the
-Benjamini-H\"ochberg procedure \citep{FDR:1995} to detect differences
-between classifier performance.
+Figure \ref{figure::f1scores} compares the Macro-F1 scores across the
+datasets for all classifiers and demonstrates that no single
+classifier consistently outperforms any other across all datasets,
+with results being highly consitent across all methods, as well as
+across datasets. We perform a pairwise unpaired t-test with multiple
+testing correction applied using the Benjamini-H\"ochberg procedure
+\citep{FDR:1995} to detect differences between classifier performance.
 
 In the \textit{Drosophila} dataset only the KNN algorithm outpeforms
 the SVM at significance level of $0.01$, whilst no other significance
@@ -682,7 +681,7 @@ detailed curation of these data may be required. We do not consider
 further modelling of this dataset in this manuscript. For the U2-OS
 all classifiers are significantly different at a significant level of
 $0.01$ except for the SVM classifier and the MCMC method, with the MAP
-method performing the best. Figure \ref{figure::f1scores1} shows that
+method performing the best. Figure \ref{figure::f1scores} shows that
 for this dataset all classifiers are performing extremely well. In the
 three Hirst datasets the MAP method significantly outperforms all
 other methods $(p < 0.01)$, whilst in the wild type HeLa and in the
@@ -697,31 +696,25 @@ remaining results for the t-tests can be found in tables in appendix
 
 \begin{figure}[ht]
   \centering
-\includegraphics[width=0.8\textwidth]{F1compare1.pdf}
-  \caption{Boxplots of the distributions of Macro F1 scores
-    for 8 different spatial proteomics datasets}
-  \label{figure::f1scores1}
-\end{figure}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/f1boxplots-1} 
 
-\begin{figure}[ht]
-  \centering
-\includegraphics[width=0.8\textwidth]{F1comparisons2.pdf}
-  \caption{Boxplots of the distributions of Macro F1 scores
-    for 10 spatial-temporal proteomics datasets on primary fibroblast cell,
-    as well as a LOPIT spatial proteomics dataset on the E14TG2a cell line }
-  \label{figure::f1scores2}
+\end{knitrout}
+ \caption{Boxplots of the distributions of Macro F1 scores for all
+   spatial proteomics datasets.}
+  \label{figure::f1scores}
 \end{figure}
 
 \clearpage
 
-The Macro-F1 scores do not take into account that whilst the
-TAGM model may misclassify, it may do so with low confidence. We
-therefore additionally compute the quadratic loss, which allows
-us to make use of the probabilitic information provided
-by the classifiers. The lower the quadratic loss the closer the
-probabilitic predicition is to the true value. We plot the
-distributions of quadratic losses for each classifier in figures
-\ref{figure::quadloss1} and \ref{figure::quadloss2}. We observe highly
+The Macro-F1 scores do not take into account that whilst the TAGM
+model may misclassify, it may do so with low confidence. We therefore
+additionally compute the quadratic loss, which allows us to make use
+of the probabilitic information provided by the classifiers. The lower
+the quadratic loss the closer the probabilitic predicition is to the
+true value. We plot the distributions of quadratic losses for each
+classifier in figure \ref{figure::quadloss}. We observe highly
 consitent performance across all classifiers across all
 datasets. Again, we perform a pairwise unpaired t-test with multiple
 testing correction.
@@ -750,21 +743,15 @@ deeper insights into protein localisation.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.8\textwidth]{Quadlosscompare1.pdf}
-  \caption{Boxplots of the distributions of Quadratic losses
-    for 8 different spatial proteomics datasets}
-  \label{figure::quadloss1}
-\end{figure}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/quadboxplots-1} 
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.8\textwidth]{Quadlosscompare2.pdf}
-  \caption{Boxplots of the distributions of Quadratic losses
-    for 10 spatial-temporal proteomics datasets on primary fibroblast cell,
-    as well as a spatial proteomics dataset on the E14TG2a cell line}
-  \label{figure::quadloss2}
+\end{knitrout}
+\caption{Boxplots of the distributions of Quadratic losses for all
+  spatial proteomics datasets.}
+  \label{figure::quadloss}
 \end{figure}
-
 
 \clearpage
 
@@ -2373,7 +2360,7 @@ S'_k = & S_0 + T' + \lambda_0\boldsymbol{\mu}_0^T\boldsymbol{\mu}_0 - \lambda_km
 
 
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2388,7 +2375,7 @@ KNN & 5.9E-13 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Drosphila dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2403,7 +2390,7 @@ KNN & 3.2E-08 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Chicken DT40 dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2418,7 +2405,7 @@ KNN & 5.5E-14 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the mouse dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2433,7 +2420,7 @@ KNN & 1.2E-02 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2448,7 +2435,7 @@ KNN & 6.8E-02 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the U2-OS dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2463,7 +2450,7 @@ KNN & 2.3E-92 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa wild (Hirst et al.) dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2478,7 +2465,7 @@ KNN & 5.2E-97 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa KO1 (Hirst et al.) dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2493,7 +2480,7 @@ KNN & 8.9E-93 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa KO2 (Hirst et al.) dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2508,7 +2495,7 @@ KNN & 6.1E-13 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 24hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2523,7 +2510,7 @@ KNN & 6.1E-18 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 48hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2538,7 +2525,7 @@ KNN & 1.2E-15 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 72hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2553,7 +2540,7 @@ KNN & 1.8E-13 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 96hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2568,7 +2555,7 @@ KNN & 6.7E-14 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 120hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2583,7 +2570,7 @@ KNN & 6.0E-22 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 24hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2598,7 +2585,7 @@ KNN & 1.9E-26 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 48hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2613,7 +2600,7 @@ KNN & 6.3E-20 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 72hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2628,7 +2615,7 @@ KNN & 1.7E-25 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 96hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2643,7 +2630,7 @@ KNN & 6.5E-25 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 120hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 18:41:04 2018
+% Fri May 18 19:02:38 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}

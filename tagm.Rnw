@@ -637,7 +637,7 @@ stratified 5-fold cross-validation. The hyperparameter for the KNN
 algorithm, the number of nearest neighbours, is optimised via an
 additional internal 5-fold cross-validation and the hyperparameters
 for the SVM, sigma and cost, are also optimised via internal 5-fold
-cross validation \cite{svm:2010}.
+cross validation \citep{svm:2010}.
 
 We test our methods on the following datasets \textit{Drosophila}
 \citep{Tan:2009}, chicken \citep{hall:2009}, mouse pluripotent
@@ -717,14 +717,13 @@ quantified proteins, the workflow used and the number of fractions.
 \label{table:data}
 \end{table}
 
-Figures \ref{figure::f1scores1} and \ref{figure::f1scores2} compare
-the Macro-F1 scores across the datasets for all classifiers and
-demonstrates that no single classifier consistently outperforms any
-other across all datasets, with results being highly consitent across
-all methods, as well as across datasets. We perform a pairwise
-unpaired t-test with multiple testing correction applied using the
-Benjamini-H\"ochberg procedure \citep{FDR:1995} to detect differences
-between classifier performance.
+Figure \ref{figure::f1scores} compares the Macro-F1 scores across the
+datasets for all classifiers and demonstrates that no single
+classifier consistently outperforms any other across all datasets,
+with results being highly consitent across all methods, as well as
+across datasets. We perform a pairwise unpaired t-test with multiple
+testing correction applied using the Benjamini-H\"ochberg procedure
+\citep{FDR:1995} to detect differences between classifier performance.
 
 In the \textit{Drosophila} dataset only the KNN algorithm outpeforms
 the SVM at significance level of $0.01$, whilst no other significance
@@ -749,7 +748,7 @@ detailed curation of these data may be required. We do not consider
 further modelling of this dataset in this manuscript. For the U2-OS
 all classifiers are significantly different at a significant level of
 $0.01$ except for the SVM classifier and the MCMC method, with the MAP
-method performing the best. Figure \ref{figure::f1scores1} shows that
+method performing the best. Figure \ref{figure::f1scores} shows that
 for this dataset all classifiers are performing extremely well. In the
 three Hirst datasets the MAP method significantly outperforms all
 other methods $(p < 0.01)$, whilst in the wild type HeLa and in the
@@ -880,40 +879,32 @@ gg <- ggplot(data = dfmetrics, aes(x=variable, y=value)) +
   ggtitle("Boxplot of Macro F1 scores") +
   theme_bw() + labs(y = "Macro F1-Score") +
     labs(x  = "Classifier") +
-    facet_grid(. ~ set) +
     facet_wrap(~ set, ncol = 4) +
-    scale_x_discrete(labels = element_blank()) +
-    scale_fill_discrete(name = "Classifier")
-## gg
+    scale_fill_discrete(name = "Classifier") +
+    theme(strip.text.x = element_text(size = 8)) +
+    theme(legend.position="none")
+
 @
 
 \begin{figure}[ht]
   \centering
-\includegraphics[width=0.8\textwidth]{F1compare1.pdf}
-  \caption{Boxplots of the distributions of Macro F1 scores
-    for 8 different spatial proteomics datasets}
-  \label{figure::f1scores1}
-\end{figure}
-
-\begin{figure}[ht]
-  \centering
-\includegraphics[width=0.8\textwidth]{F1comparisons2.pdf}
-  \caption{Boxplots of the distributions of Macro F1 scores
-    for 10 spatial-temporal proteomics datasets on primary fibroblast cell,
-    as well as a LOPIT spatial proteomics dataset on the E14TG2a cell line }
-  \label{figure::f1scores2}
+<<f1boxplots, echo=FALSE, fig.width=9, fig.height=10>>=
+print(gg)
+@
+ \caption{Boxplots of the distributions of Macro F1 scores for all
+   spatial proteomics datasets.}
+  \label{figure::f1scores}
 \end{figure}
 
 \clearpage
 
-The Macro-F1 scores do not take into account that whilst the
-TAGM model may misclassify, it may do so with low confidence. We
-therefore additionally compute the quadratic loss, which allows
-us to make use of the probabilitic information provided
-by the classifiers. The lower the quadratic loss the closer the
-probabilitic predicition is to the true value. We plot the
-distributions of quadratic losses for each classifier in figures
-\ref{figure::quadloss1} and \ref{figure::quadloss2}. We observe highly
+The Macro-F1 scores do not take into account that whilst the TAGM
+model may misclassify, it may do so with low confidence. We therefore
+additionally compute the quadratic loss, which allows us to make use
+of the probabilitic information provided by the classifiers. The lower
+the quadratic loss the closer the probabilitic predicition is to the
+true value. We plot the distributions of quadratic losses for each
+classifier in figure \ref{figure::quadloss}. We observe highly
 consitent performance across all classifiers across all
 datasets. Again, we perform a pairwise unpaired t-test with multiple
 testing correction.
@@ -982,30 +973,23 @@ gg2 <- ggplot(data = dfmetrics2, aes(x=variable, y=value)) +
     theme_bw() +
     labs(y = "Quadratic Loss") +
     labs(x  = "Classifier") +
-    facet_grid(. ~ set) +
     facet_wrap(~ set, ncol = 4) +
-    scale_x_discrete(labels = element_blank()) +
-    scale_fill_discrete(name = "Classifier")
-## gg2
+    scale_fill_discrete(name = "Classifier") +
+    theme(strip.text.x = element_text(size = 8)) +
+    theme(legend.position="none")
+
+
 @
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.8\textwidth]{Quadlosscompare1.pdf}
-  \caption{Boxplots of the distributions of Quadratic losses
-    for 8 different spatial proteomics datasets}
-  \label{figure::quadloss1}
+<<quadboxplots, echo=FALSE, fig.width=9, fig.height=10>>=
+print(gg2)
+@
+\caption{Boxplots of the distributions of Quadratic losses for all
+  spatial proteomics datasets.}
+  \label{figure::quadloss}
 \end{figure}
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.8\textwidth]{Quadlosscompare2.pdf}
-  \caption{Boxplots of the distributions of Quadratic losses
-    for 10 spatial-temporal proteomics datasets on primary fibroblast cell,
-    as well as a spatial proteomics dataset on the E14TG2a cell line}
-  \label{figure::quadloss2}
-\end{figure}
-
 
 \clearpage
 
