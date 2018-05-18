@@ -18,6 +18,8 @@
 \usepackage{authblk}
 \usepackage{lineno}
 
+\usepackage{float}
+
 \usepackage[toc,page]{appendix}
 
 % !Rnw weave = knitr
@@ -2755,124 +2757,137 @@ f1ttestu2os <- pairwise.t.test(u2osdfmetrics$value, u2osdfmetrics$variable , p.a
 
 plist <- vector(mode = "list", length = 14)
 
-for(j in 1:14){
- plist[[j]] <- pairwise.t.test(additionalF1compare[(additionalF1compare$set == levels(additionalF1compare$set)[j]),"value"], additionalF1compare[(additionalF1compare$set == levels(additionalF1compare$set)[j]),"variable"], p.adjust.method = "BH",
-                           pool.sd = F, paired = FALSE,
-                           alternative = "two.sided")
+for(j in 1:14) {
+    plist[[j]] <- pairwise.t.test(additionalF1compare[(additionalF1compare$set == levels(additionalF1compare$set)[j]),"value"],
+                                  additionalF1compare[(additionalF1compare$set == levels(additionalF1compare$set)[j]),"variable"], p.adjust.method = "BH",
+                                  pool.sd = F, paired = FALSE,
+                                  alternative = "two.sided")
 }
 
 @
 
-<<echo = FALSE, results = 'asis'>>=
+<<echo = FALSE, results = 'asis', eval=FALSE>>=
 xtb <- xtable(f1ttesttan$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Drosophila dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(f1ttesthall$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Chicken DT40 dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(f1ttestandy$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the mouse dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(f1ttestitzhak$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(f1ttestu2os$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the U2-OS dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[1]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa wild (Hirst et al.) dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[2]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa KO1 (Hirst et al.) dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[3]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa KO2 (Hirst et al.) dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[4]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 24hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[5]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 48hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[6]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 72hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 
 xtb <- xtable(plist[[7]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 96hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[8]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 120hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[9]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 24hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[10]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 48hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[11]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 72hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[12]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 96hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[13]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 120hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[14]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the E14TG2a dataset")
-print(xtb, floating=TRUE)
-
+print(xtb, floating=TRUE, table.placement = "H")
 @
 
 \clearpage
+
 \subsection{Appendix 6: Quadratic loss t-tests}
 
-<<echo = FALSE>>=
+<<quadtests, echo = FALSE>>=
 #ttest for quadratic losses
-ttesttanquad <- pairwise.t.test(tandfmetricsquad$value, tandfmetricsquad$variable , p.adjust.method = "BH",
-                              pool.sd = FALSE, paired = FALSE,
-                              alternative = "two.sided")
+ttesttanquad <- pairwise.t.test(tandfmetricsquad$value,
+                                tandfmetricsquad$variable ,
+                                p.adjust.method = "BH",
+                                pool.sd = FALSE, paired = FALSE,
+                                alternative = "two.sided")
 
-ttesthallquad <- pairwise.t.test(halldfmetricsquad$value, halldfmetricsquad$variable , p.adjust.method = "BH",
-                               pool.sd = FALSE, paired = FALSE,
-                               alternative = "two.sided", mu = 0, var.equal = FALSE)
+ttesthallquad <- pairwise.t.test(halldfmetricsquad$value,
+                                 halldfmetricsquad$variable ,
+                                 p.adjust.method = "BH",
+                                 pool.sd = FALSE, paired = FALSE,
+                                 alternative = "two.sided", mu = 0,
+                                 var.equal = FALSE)
 
-ttestandyquad <- pairwise.t.test(andydfmetricsquad$value, andydfmetricsquad$variable , p.adjust.method = "BH",
-                               pool.sd = FALSE, paired = FALSE,
-                               alternative = "less")
+ttestandyquad <- pairwise.t.test(andydfmetricsquad$value,
+                                 andydfmetricsquad$variable ,
+                                 p.adjust.method = "BH",
+                                 pool.sd = FALSE, paired = FALSE,
+                                 alternative = "less")
 
-ttestitzhakquad <- pairwise.t.test(itzhakdfmetricsquad$value, itzhakdfmetricsquad$variable , p.adjust.method = "BH",
+ttestitzhakquad <- pairwise.t.test(itzhakdfmetricsquad$value,
+                                   itzhakdfmetricsquad$variable,
+                                   p.adjust.method = "BH",
+                                   pool.sd = F, paired = FALSE,
+                                   alternative = "two.sided")
+
+ttestu2osquad <- pairwise.t.test(u2osdfmetricsquad$value,
+                                 u2osdfmetricsquad$variable ,
+                                 p.adjust.method = "BH",
                                  pool.sd = F, paired = FALSE,
                                  alternative = "two.sided")
 
-ttestu2osquad <- pairwise.t.test(u2osdfmetricsquad$value, u2osdfmetricsquad$variable , p.adjust.method = "BH",
+for (j in 1:14) {
+ plist[[j]] <- pairwise.t.test(additionalquadlosscompare[(additionalquadlosscompare$set == levels(additionalquadlosscompare$set)[j]),"value"],
+                               additionalquadlosscompare[(additionalquadlosscompare$set == levels(additionalquadlosscompare$set)[j]),"variable"],
+                               p.adjust.method = "BH",
                                pool.sd = F, paired = FALSE,
                                alternative = "two.sided")
-
-for(j in 1:14){
- plist[[j]] <- pairwise.t.test(additionalquadlosscompare[(additionalquadlosscompare$set == levels(additionalquadlosscompare$set)[j]),"value"],
-                               additionalquadlosscompare[(additionalquadlosscompare$set == levels(additionalquadlosscompare$set)[j]),"variable"], p.adjust.method = "BH",
-                           pool.sd = F, paired = FALSE,
-                           alternative = "two.sided")
 }
 
 @
@@ -2881,80 +2896,80 @@ for(j in 1:14){
 <<echo = FALSE, results = 'asis'>>=
 xtb <- xtable(ttesttanquad$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Drosphila dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(ttesthallquad$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Chicken DT40 dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(ttestandyquad$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the mouse dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(ttestitzhakquad$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(ttestu2osquad$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the U2-OS dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[1]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa wild (Hirst et al.) dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[2]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa KO1 (Hirst et al.) dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[3]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa KO2 (Hirst et al.) dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[4]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 24hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[5]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 48hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[6]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 72hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 
 xtb <- xtable(plist[[7]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 96hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[8]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 120hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[9]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 24hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[10]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 48hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[11]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 72hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[12]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 96hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[13]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 120hpi dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 xtb <- xtable(plist[[14]]$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the E14TG2a dataset")
-print(xtb, floating=TRUE)
+print(xtb, floating=TRUE, table.placement = "H")
 
 @
 
