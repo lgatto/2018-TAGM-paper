@@ -36,3 +36,5 @@
  
  additionalquadlosscompare.rda contains quadratic loss cross-validation results for the same datasets in the same format with F1 replaced with quadratic loss
  
+ For the U2-OS, drosophila (Tan), HeLa (Itzhak), chicken (hall) datasets the naming includes the names of the dataset and the names
+ of the method. For the SVM and KNN the quadloss results are included with the name tag qloss.
