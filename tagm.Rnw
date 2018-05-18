@@ -119,6 +119,8 @@ require(ggplot2)
 require(mixtools)
 require(pRolocdata)
 require(pRoloc)
+stopifnot(packageVersion("pRoloc") >= "1.21.1")
+
 require(lattice)
 require(RColorBrewer)
 require(xtable)
@@ -128,8 +130,6 @@ require(DOSE)
 
 data("hyperLOPIT2015")
 hl <- hyperLOPIT2015
-
-source("./src/BayesGMM/plotEllipse.R")
 
 load("./data/andyMAPres.rda")
 load("./data/andyMAPparams.rda")
@@ -365,9 +365,9 @@ probability ellipses from the MAP estimates of the parameters.
     \centering
 <<echo=FALSE>>=
 par(mar = c(4,4,2,0))
-plotEllipse(hl, method = "MAP", components = c(1,2),
-            main = "Visualisation of probability ellipses",
-            xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
+pRoloc:::plotEllipse_old(hl, method = "MAP", components = c(1,2),
+                         main = "Visualisation of probability ellipses",
+                         xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
 addLegend(hl, cex=0.7, where="bottomleft")
 @
         \caption{}
@@ -377,8 +377,8 @@ addLegend(hl, cex=0.7, where="bottomleft")
         \centering
 <<echo=FALSE>>=
 par(mar = c(4,4,2,0))
-plotEllipse(hl, method = "MAP", components = c(1,4),
-            main = "Visualisation along 1st and 4th principle components")
+pRoloc:::plotEllipse_old(hl, method = "MAP", components = c(1,4),
+                         main = "Visualisation along 1st and 4th principle components")
 addLegend(hl, cex=0.7, where="topleft")
 @
         \caption{}
@@ -528,9 +528,9 @@ further explored with a more targeted experiment.
         \centering
 <<echo=FALSE>>=
 par(mar = c(4,4,2,0))
-plotEllipse(hl, method = "MCMC", components = c(1,2),
-            main = "Visualisation of probability ellipses",
-            xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
+pRoloc:::plotEllipse_old(hl, method = "MCMC", components = c(1,2),
+                         main = "Visualisation of probability ellipses",
+                         xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
 addLegend(hl, cex=0.5, where="bottomleft")
 @
         \caption{}
@@ -539,9 +539,9 @@ addLegend(hl, cex=0.5, where="bottomleft")
 \begin{subfigure}[t]{0.45\textwidth}
 <<echo=FALSE>>=
 par(mar = c(4,4,2,0))
-plotEllipse(hl, method = "MCMC",
-            components = c(1,4),
-            main = "Visualisation along the 1st and 4th principle component")
+pRoloc:::plotEllipse_old(hl, method = "MCMC",
+                         components = c(1,4),
+                         main = "Visualisation along the 1st and 4th principle component")
 addLegend(hl, cex=0.5, where="topleft")
 @
         \centering
