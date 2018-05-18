@@ -24,7 +24,7 @@
  
  The following naming convention is used [dataset][method]
  
- e.g. BeltranH24svmquadloss.rda provides cross-validation results from the Beltran et al. 2016 data with infection at 24 using SVM with quadratic loss. If the quadloss label is dropped the file contains F1 scores.
+ e.g. BeltranH24svmquadloss.rda provides cross-validation results from the Beltran et al. 2016 data with infection at 24 using SVM with quadratic loss. If the quadloss label is dropped, the file contains F1 scores.
  
  e.g hirstc6knn provides cross-validation F1 scores for the Hirst et al 2018 data using the KNN algorithm.
  
