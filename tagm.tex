@@ -755,23 +755,22 @@ deeper insights into protein localisation.
 
 \clearpage
 
-Computing distributions of F1 scores and quadratic losses, which can only be done
-on the marker proteins, can help us
-understand whether a classifier might have greater generalised
-performance accuracy. However, we are interested in whether there is a
-large disagreement between classifiers when prediction is performed on
+Computing distributions of F1 scores and quadratic losses, which can
+only be done on the marker proteins, can help us understand whether a
+classifier might have greater generalised performance
+accuracy. However, we are interested in whether there is a large
+disagreement between classifiers when prediction is performed on
 proteins for which we have no withheld localisation information. This
 informs us about a systematic bias for a particular classifier or
 whether a classifier ensemble could increase performance. To maintain
 a common set of proteins we set thresholds for each classifier in turn
 and compare to the other classifier without thresholding. Firstly, we
-set a global threshold of 0.95 for the TAGM and then for these
+set a global threshold of 0.95 for the TAGM-MCMC and then for these
 proteins plot a contingency table against the classification results
 from the SVM. Secondly, we set a 5\% FDR for the SVM and then for
 these proteins plot a contingency table against the classification
-results from the TAGM. We visualise the contingency tables as heat
-plots in figure \ref{figure:contigencytables}.
-
+results from the TAGM-MCMC. We visualise the contingency tables as
+heat plots in figure \ref{figure:contigencytables}.
 
 
 
@@ -793,19 +792,16 @@ plots in figure \ref{figure:contigencytables}.
 
 \end{knitrout}
 \end{subfigure}
-  \caption{A heatmap representation of a contingency table,
-    where we compare assignment results for proteins
-    with unknown protein localisation using the TAGM and
-    SVM. The scale ranges from 0 to 1 with values indicating
-    the proportion of assigned proteins to that
-    sub-cellular location. Values along the diagonal
-    represent agreement between classifiers whilst other values
-    represent disagreement. The coherence between the classifers is
-    very high.
-    (a)  In this case we set a probability threshold of 0.95
-    for the TAGM assignments with no threshold for the SVM.
-    (b)  In this case we set a 5\% FDR threshold for the SVM and
-    no threshold for the TAGM.}
+\caption{A heatmap representation of a contingency table, where we
+  compare assignment results for proteins with unknown protein
+  localisation using the TAGM-MCMC and SVM. The scale ranges from 0 to
+  1 with values indicating the proportion of assigned proteins to that
+  sub-cellular location. Values along the diagonal represent agreement
+  between classifiers whilst other values represent disagreement. The
+  coherence between the classifers is very high.  (a) In this case we
+  set a probability threshold of 0.95 for the TAGM assignments with no
+  threshold for the SVM.  (b) In this case we set a 5\% FDR threshold
+  for the SVM and no threshold for the TAGM-MCMC.}
 \label{figure:contigencytables}
 \end{figure}
 
@@ -813,7 +809,7 @@ In general, we see an extremely high level of coherence between the
 TAGM and the SVM, with almost all proteins predicted to concordant
 sub-cellular compartments. Figure \ref{figure:contigencytables} shows
 there is some disagreement between assigning proteins to the lysosome
-and plasma membrane, to the cytosol and proteasome,and between the
+and plasma membrane, to the cytosol and proteasome, and between the
 large and small ribosomal subunits.  However, we have not used the
 uncertainty in the probabilitic assignments to produce the contingency
 tables above. In the next sections, we explore examples of proteins
@@ -849,7 +845,7 @@ was unable to assign a localisation of Exportin 5, with its assignment
 falling below a $5\%$ FDR to wrongly assign this protein to the
 proteasome. This incorrect assertion by the SVM was confounded by the
 similarity between the cytosol and proteasome profiles.  Figure
-\ref{fig:Q924C1} demonstrates, according to the TAGM model, that
+\ref{fig:Q924C1} demonstrates, according to the TAGM-MCMC model, that
 Exportin 5 most likely localises to the cytosol but there is some
 uncertainty with this assignment.  This uncertainty is reflected in
 possible assignment of Exportin 5 to the nucleus non-chromatin and
@@ -862,17 +858,17 @@ non-chromatin demonstrated in figure \ref{fig:Q9WUA2}. This protein
 was left unclassified by the SVM because its score fell below a $5\%$
 FDR threshold to assign it to the 40S ribosome. Considering that this
 protein is involved in the acylation of transfer RNA (tRNA) with the
-amino acid phenylalanine to form tRNAPhe to be used in translation of
+amino acid phenylalanine to form tRNA--Phe to be used in translation of
 proteins, it is therefore unsurprising that this protein's steady
 state location is ribosomal.  Whilst the SVM is unable to make an
-assignment, TAGM is able to suggest an assignment and quantify our
+assignment, TAGM-MCMC is able to suggest an assignment and quantify our
 uncertainty.
 
 Relatively little is known about the Dedicator of cytokinesis (DOCK)
 protein 6 (Q8VDR9), a guanine nucleotide exchange factor for CDC42 and
 RAC1 small GTPases. The SVM could not assign localisation to the
 ER/Golgi, since its score fell below a $5\%$ FDR. Furthermore, the
-TAGM model assigned this DOCK 6 to the outlier component with
+TAGM-MCMC model assigned this DOCK 6 to the outlier component with
 posterior probability $>0.95$.  Figure \ref{fig:Q8VDR9} shows possible
 localisation to several components along the secretory pathway. As an
 activator for CDC42 and RAC1 we may expect to see them with similar
@@ -2360,7 +2356,7 @@ S'_k = & S_0 + T' + \lambda_0\boldsymbol{\mu}_0^T\boldsymbol{\mu}_0 - \lambda_km
 
 
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:39 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2375,7 +2371,7 @@ KNN & 5.9E-13 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Drosphila dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:39 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2390,7 +2386,7 @@ KNN & 3.2E-08 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Chicken DT40 dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:39 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2405,7 +2401,7 @@ KNN & 5.5E-14 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the mouse dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:39 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2420,7 +2416,7 @@ KNN & 1.2E-02 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:40 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2435,7 +2431,7 @@ KNN & 6.8E-02 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the U2-OS dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:40 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2450,7 +2446,7 @@ KNN & 2.3E-92 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa wild (Hirst et al.) dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:40 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2465,7 +2461,7 @@ KNN & 5.2E-97 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa KO1 (Hirst et al.) dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:40 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2480,7 +2476,7 @@ KNN & 8.9E-93 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa KO2 (Hirst et al.) dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:40 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2495,7 +2491,7 @@ KNN & 6.1E-13 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 24hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:40 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2510,7 +2506,7 @@ KNN & 6.1E-18 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 48hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:40 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2525,7 +2521,7 @@ KNN & 1.2E-15 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 72hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:40 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2540,7 +2536,7 @@ KNN & 1.8E-13 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 96hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:40 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2555,7 +2551,7 @@ KNN & 6.7E-14 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 120hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:40 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2570,7 +2566,7 @@ KNN & 6.0E-22 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 24hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:40 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2585,7 +2581,7 @@ KNN & 1.9E-26 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 48hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:40 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2600,7 +2596,7 @@ KNN & 6.3E-20 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 72hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:40 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2615,7 +2611,7 @@ KNN & 1.7E-25 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 96hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:40 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -2630,7 +2626,7 @@ KNN & 6.5E-25 &  &  \\
 \caption{Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 120hpi dataset} 
 \end{table}
 % latex table generated in R 3.6.0 by xtable 1.8-2 package
-% Fri May 18 19:02:38 2018
+% Sat May 19 12:48:40 2018
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
