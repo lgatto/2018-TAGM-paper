@@ -2072,6 +2072,11 @@ Technology Development Grant (Grant number 108467/Z/15/Z). OMC is a
 Wellcome Trust Mathematical Genomics and Medicine student supported
 financially by the School of Clinical Medicine, University of Cambridge.
 
+\subsection*{Acknowledgments}
+
+The authors would also like to thank Dr Sean B. Holden, University of
+Cambridge, for helpful discussions.
+
 \clearpage
 
 \section{Appendices}

@@ -1,8 +1,8 @@
-tagm.aux
+*.aux
 tagm.bbl
-tagm.blg
-tagm.log
-tagm.out
+*.blg
+*.log
+*.out
 .Rhistory
 cache
 .Rproj.user
