@@ -1484,12 +1484,12 @@ as a Monte-Carlo averaged Shannon entropy.  The greater the Shannon
 entropy the more uncertainty associated with the assignment of this
 protein. The lower the Shannon entropy the lower the uncertainty
 associated with the assignment of this protein.  In figure
-\ref{figure:proteomeuncertainty} panel(a), we visualise the Shannon
+\ref{figure:proteomeuncertainty} panel (a), we visualise the Shannon
 entropy of each protein in a PCA plot, by scaling the pointers in
 accordance to this metric. We also note that while localisation
 probability (of a protein to its most probable location) and the
 Shannon entropy are correlated, figure
-\ref{figure:proteomeuncertainty} panel(c), it is not perfect. Thus it
+\ref{figure:proteomeuncertainty} panel (c), it is not perfect. Thus it
 is important to use both the localisation probabilities and the
 uncertainty in these assignments to make conclusions.
 
@@ -1579,6 +1579,7 @@ plot(as.numeric(fData(andyMCMChl)$predicted.probability),
 
 
 \clearpage
+
 \section{Discussion}
 
 We have demonstrated that a Bayesian framework, based on Gaussian
@@ -1625,21 +1626,34 @@ method of choice for analysing spatial proteomics data.
 
 Analysis of a \textit{hyper}LOPIT experiment applied to mouse
 pluripotent embryonic stem cells demonstrated that the additional
-layer of information that our model provides is biologically
-relevant and provides further avenues for additional
-exploration. Moreover, applying our method to a biologically
-significant dataset now provides the scientific community with
-localisation information on up to 4,000 proteins for the mouse
-pluripotent stem cell proteome. Figure \ref{figure:ConcludePlot}
-demonstrates that from an initial input of roughly 1,000 marker
-proteins with \textit{a priori} known location and 4,000 unknown
-proteins with unknown location, both methods can provide rigorous
-localisation information on roughly 2,000 proteins. However, our
-methodology, by also considering uncertainty, allows us to obtain
-information on another 1,000 proteins.  Thus, we have augmented this
-dataset by providing uncertainty quantification on the localisation of
-proteins to their sub-cellular niches, which had been previously
-unavailable.
+layer of information that our model provides is biologically relevant
+and provides further avenues for additional exploration. Moreover,
+applying our method to a biologically significant dataset now provides
+the scientific community with localisation information on up to 4000
+proteins for the mouse pluripotent stem cell proteome. Figure
+\ref{figure:ConcludePlot} demonstrates that from an initial input of
+roughly 1000 marker proteins with \textit{a priori} known location and
+4000 unknown proteins with unknown location, SVM and TAGM-MCMC can
+provide rigorous localisation information on roughly 2000
+proteins. However, our methodology, by also considering uncertainty,
+allows us to obtain information on another 1000 proteins. Thus, we
+have augmented this dataset by providing uncertainty quantification on
+the localisation of proteins to their sub-cellular niches, which had
+been previously unavailable.
+
+\begin{figure}[h]
+
+\centering
+\includegraphics[width=.7\textwidth]{ConcludePlot.pdf}
+\caption{The barplot demonstrates the effect of applying different
+  methodologies on protein assignment when applied the mouse
+  pluripotent embryonic stem cell data. Roughly 2000 proteins are
+  classified using either SVM and TAGM-MCMC; however, TAGM-MCMC can
+  draw additional conclusions about an extra 1000 proteins by
+  quantifying uncertainty.}
+\label{figure:ConcludePlot}
+\end{figure}
+
 
 We have also provided a new set of visualisation methods to accompany
 our model, which allow us to easily interrogate our data. High quality
@@ -1652,25 +1666,13 @@ inclusion of our methods within the pRoloc package
 document is available at
 \url{https://github.com/lgatto/2018-TAGM-paper}.
 
+\bigskip
+
 Currently, our model cannot integrate localisation information from
 different data sources nor can it explicity model proteins with
 multiple localisation. In addition, extensions to semi-supervised
 methods are under consideration to detect novel sub-cellular
 niches. These are the subjects of further work.
-
-\begin{figure}[h]
-
-\centering
-\includegraphics[width=.7\textwidth]{ConcludePlot.pdf}
-\caption{The barplot demonstrates the effect of applying different
-  methodologies on protein assignment when applied the mouse
-  pluripotent embryonic stem cell data. Roughly 2000 proteins are
-  classified using either methodology; however, TAGM can draw
-  additional conclusions about an extra 1000 proteins by quantifying
-  uncertainty.}
-\label{figure:ConcludePlot}
-\end{figure}
-
 
 \bigskip
 
@@ -2755,7 +2757,7 @@ for(j in 1:14) {
 
 @
 
-<<echo = FALSE, results = 'asis', eval=FALSE>>=
+<<echo = FALSE, results = 'asis'>>=
 xtb <- xtable(f1ttesttan$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Drosophila dataset")
 print(xtb, floating=TRUE, table.placement = "H")
@@ -3002,33 +3004,27 @@ egoMF <- enrichGO(gene          = rownames(fData(andyMCMChl))[fData(andyMCMChl)$
 @
 
 \begin{figure}[h]
+  \centering
   \begin{subfigure}[t]{0.5\textwidth}
-        \centering
-  \includegraphics[width=\textwidth]{CCenrich.pdf}
-        \caption{}
-\end{subfigure}%
-\begin{subfigure}[t]{0.5\textwidth}
-\centering
-\includegraphics[width=\textwidth]{BPenrich.pdf}
-        \caption{}
-\end{subfigure}%
+    \includegraphics[width=\textwidth]{CCenrich.pdf}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{BPenrich.pdf}
+  \end{subfigure}%
 ~
 
-\begin{subfigure}[t]{0.5\textwidth}
-\centering
-\includegraphics[width=\textwidth]{MFenrich.pdf}
-        \caption{}
-\end{subfigure}
-\caption{Gene Ontology over representation analysis on outlier
-  proteins - that is proteins allocated with less than probability
-  $0.95$. We analyse the enrichment of terms in the cellular
-  compartment, biological process, and molecular function
-  ontologies. We display the top 10 significant results in the
-  dotplots.}
-\label{fig:GOenrich}
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{MFenrich.pdf}
+  \end{subfigure}
+  \caption{Gene Ontology over representation analysis on outlier
+    proteins - that is proteins allocated with less than probability
+    $0.95$. We analyse the enrichment of terms in the cellular
+    compartment, biological process, and molecular function
+    ontologies. We display the top 10 significant results in the
+    dotplots.}
+  \label{fig:GOenrich}
 \end{figure}
-
-
 
 
 \clearpage
