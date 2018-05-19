@@ -1616,7 +1616,7 @@ classifiers with respect to the quadratic loss in $16$ our of $19$
 datasets. This allows us to have greater confidence in our conclusions
 when they are draw from our Bayesian inferences. Furthermore, using
 MCMC provides a wealth of additional information, and so becomes the
-mothod of choice for analysing spatial proteomics data.
+method of choice for analysing spatial proteomics data.
 
 Analysis of a \textit{hyper}LOPIT experiment applied to mouse
 pluripotent embryonic stem cells demonstrated that the additional
