@@ -1107,7 +1107,7 @@ yet uncharacterised functional compartments, can be some of the
 reasons why a protein might have an unknown or uncertain
 localisation. Furthermore many proteins are known to reside in
 multiple locations with possibly different functional duties in each
-location. With these considerations in mind, it is pertinant to
+location \citep{Jeffery:2009}. With these considerations in mind, it is pertinant to
 quantify the uncertainty in our allocation of proteins to organelles.
 This section explores several situations where proteins display
 uncertain localisation and considers the biological factors that
@@ -1465,13 +1465,14 @@ highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2,
 
 \subsection{Visualising whole sub-cellular proteome uncertainty}
 
-The advantage of the TAGM is its ability to provide proteome wide
-uncertainy quantification. Regions where organelle assignments overlap
-are areas were uncertainty is expected to be the greatest, as well
-as areas with no dominant component. We take an information
-theoretic approach to summarising uncertainty in protein localisation by computing
-the Shannon entropy \citep{shannon:1948} for each Monte-Carlo sample $t = 1,...,T$ of
-the posterior localisation probabilities of each protein
+The advantage of the TAGM-MCMC model is its ability to provide
+proteome wide uncertainy quantification. Regions where organelle
+assignments overlap are areas were uncertainty is expected to be the
+greatest, as well as areas with no dominant component. We take an
+information theoretic approach to summarising uncertainty in protein
+localisation by computing the Shannon entropy \citep{shannon:1948} for
+each Monte-Carlo sample $t = 1,...,T$ of the posterior localisation
+probabilities of each protein
 
 \begin{equation}
 \left\{H^{(t)} = - \sum_{k=1}^Kp^{(t)}_{ik} \log\left(p^{(t)}_{ik}\right)\right\}^{T}_{t=1},
@@ -1620,7 +1621,7 @@ classifiers with respect to the quadratic loss in $16$ our of $19$
 datasets. This allows us to have greater confidence in our conclusions
 when they are draw from our Bayesian inferences. Furthermore, using
 MCMC provides a wealth of additional information, and so becomes the
-mothod of choice for analysing spatial proteomics data.
+method of choice for analysing spatial proteomics data.
 
 Analysis of a \textit{hyper}LOPIT experiment applied to mouse
 pluripotent embryonic stem cells demonstrated that the additional
