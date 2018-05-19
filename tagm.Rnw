@@ -1093,7 +1093,7 @@ In general, we see an extremely high level of coherence between the
 TAGM and the SVM, with almost all proteins predicted to concordant
 sub-cellular compartments. Figure \ref{figure:contigencytables} shows
 there is some disagreement between assigning proteins to the lysosome
-and plasma membrane, to the cytosol and proteasome,and between the
+and plasma membrane, to the cytosol and proteasome, and between the
 large and small ribosomal subunits.  However, we have not used the
 uncertainty in the probabilitic assignments to produce the contingency
 tables above. In the next sections, we explore examples of proteins
@@ -1111,7 +1111,7 @@ yet uncharacterised functional compartments, can be some of the
 reasons why a protein might have an unknown or uncertain
 localisation. Furthermore many proteins are known to reside in
 multiple locations with possibly different functional duties in each
-location. With these considerations in mind, it is pertinant to
+location \citep{Jeffery:2009}. With these considerations in mind, it is pertinant to
 quantify the uncertainty in our allocation of proteins to organelles.
 This section explores several situations where proteins display
 uncertain localisation and considers the biological factors that
