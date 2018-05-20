@@ -1661,7 +1661,7 @@ visualisation tools are essential for rigorous quality control and
 sound biological conclusions.  Our methods have been developed in the
 R statistical programming language and we continue to contribute to
 the Bioconductor project \citep{Bioconductor::2004, Huber::2015} with
-inclusion of our methods within the pRoloc package
+inclusion of our methods within the pRoloc package ($>=$ 1.21.1)
 \citep{pRoloc:2014}. The underlying source code used to generate this
 document is available at
 \url{https://github.com/lgatto/2018-TAGM-paper}.
