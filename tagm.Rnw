@@ -1989,7 +1989,7 @@ can be found in the appendix (appendix \ref{app::gibbs}).
 
 \subsection{Classifier assessment}\label{section::assessment}
 
-In later sections we compare the classification performance of the two
+We compared the classification performance of the two
 above learning schemes to the K-nearest neighbours (KNN) and the
 weighted support vector machine (SVM) classifiers.
 
