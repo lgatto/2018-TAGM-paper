@@ -62,7 +62,7 @@
   vital importance to fully understand context specific protein
   function. Some proteins can be found with a single location within a
   cell, but up to half of proteins may reside in multiple locations,
-  can dynamically relocalise, or reside within an unknown functional
+  can dynamically re-localise, or reside within an unknown functional
   compartment. These considerations lead to uncertainty in associating
   a protein to a single location. Currently, mass spectrometry (MS)
   based spatial proteomics relies on supervised machine learning
