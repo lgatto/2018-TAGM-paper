@@ -348,7 +348,7 @@ explore the results.
 \subsubsection{Maximum a posteriori prediction of protein localisation}
 
 This section applies the TAGM model to the mouse pluripotent embryonic
-We stem cell data, by deriving MAP estimates for the model parameters and
+stem cell data, by deriving MAP estimates for the model parameters and
 using these for prediction.  Visualisation is important for data
 analysis and exploration. A simple way to visualise our model is to
 project probability ellipses onto a PCA plot. Each ellipse contains a
