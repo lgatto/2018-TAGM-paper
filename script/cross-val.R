@@ -247,7 +247,7 @@ tagmMcmcCval <- function(test.idx,
 } 
 
 
-#' Calculate Cross-validation Metrics 
+#' Parallel function for running cross-validation MCMC 
 #' 
 #' 
 #' 
