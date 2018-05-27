@@ -238,8 +238,8 @@ tagmMcmcCval <- function(test.idx,
   quad <- vector("numeric", length = length(test.idx))
   allocmatrix <- matrix(0, length(test.idx), K)
   
-  for(j in seq_along(test.idx)){
-    allocmatrix[j, as.numeric(factor(test.markers), seq(1,K))[j]] <- 1 
+  for (j in seq_along(test.idx)) {
+    allocmatrix[j, as.numeric(factor(test.markers), seq(1, K))[j]] <- 1 
   }
   quadloss <- sum(rowSums((allocmatrix - fData(mydata[rownames(.test1),])$tagm.mcmc.joint)^2))
   
