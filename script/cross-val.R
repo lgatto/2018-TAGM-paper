@@ -233,7 +233,7 @@ tagmMcmcCval <- function(test.idx,
   data <- factor(fData(mydata[rownames(.test1),])$tagm.allocation, levels = getMarkerClasses(mydata))
   reference <- factor(test.markers, levels = getMarkerClasses(mydata))
   
-  conf <- confusionMatrix(data = data, reference = reference)$table
+  conf <- caret::confusionMatrix(data = data, reference = reference)$table
   
   quad <- vector("numeric", length = length(test.idx))
   allocmatrix <- matrix(0, length(test.idx), K)
