@@ -151,7 +151,7 @@ tagmMapCval <- function(object,
     levels(fData(mydata)$markers) <- c(levels(fData(mydata)$markers), "unknown")
     fData(mydata)[rownames(.test1), "markers"] <- "unknown" ## hide marker labels
     
-    params <- pRoloc:::tagmMapTrain(object = mydata, numIter = 100) #optimsiation
+    params <- tagmMapTrain(object = mydata, numIter = 100) #optimsiation
     
     if (abs(params@posteriors$logposterior[100]-params@posteriors$logposterior[99])>0.5){
       print("EM algorithm has not converged")
