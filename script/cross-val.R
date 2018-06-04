@@ -228,9 +228,9 @@ tagmMcmcCval <- function(test.idx,
   K <- length(getMarkerClasses(mydata))
   
   params <- tagmMcmcProcess(params)
-  mydata <- tagmMcmcPredict(object = mydata, MCMCParams = params, probJoint = TRUE)
+  mydata <- tagmMcmcPredict(object = mydata, params = params, probJoint = TRUE)
   
-  data <- factor(fData(mydata[rownames(.test1),])$tagm.allocation, levels = getMarkerClasses(mydata))
+  data <- factor(fData(mydata[rownames(.test1),])$tagm.mcmc.allocation, levels = getMarkerClasses(mydata))
   reference <- factor(test.markers, levels = getMarkerClasses(mydata))
   
   conf <- caret::confusionMatrix(data = data, reference = reference)$table
