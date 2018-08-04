@@ -222,7 +222,14 @@ tagmMcmcCval <- function(test.idx,
   levels(fData(mydata)$markers) <- c(levels(fData(mydata)$markers), "unknown")
   fData(mydata)[rownames(.test1), "markers"] <- "unknown" #hide marker labels
   
-  params <- tagmMcmcTrain(object = mydata, numIter = numIter, burnin = burnin, thin = thin) ## optimsiation
+  params <- tagmMcmcTrain(object = mydata, numIter = numIter, burnin = burnin, thin = thin,
+                          mu0 = mu0,
+                          lambda0 = lambda0,
+                          nu0 = nu0,
+                          S0 = S0,
+                          beta0 = beta0,
+                          u = u,
+                          v = v) ## optimsiation
   
   N <- nrow(X[test.idx, ])
   K <- length(getMarkerClasses(mydata))
@@ -266,6 +273,13 @@ tagmMcmcCvalpar <- function(object,
                               numIter = 1000L,
                               burnin = 100L,
                               thin = 5L,
+                              mu0 = NULL,
+                              lambda0 = 0.01,
+                              nu0 = NULL,
+                              S0 = NULL,
+                              beta0 = NULL,
+                              u = 2,
+                              v = 10,
                               BPPARAM = bpparam()
 ){
   
@@ -294,13 +308,13 @@ tagmMcmcCvalpar <- function(object,
                    numIter = numIter,
                    burnin = burnin,
                    thin = thin,
-                   mu0 = NULL,
-                   lambda0 = 0.01,
-                   nu0 = NULL,
-                   S0 = NULL,
-                   beta0 = NULL,
-                   u = 2,
-                   v = 10,
+                   mu0 = mu0,
+                   lambda0 = lambda0,
+                   nu0 = nu0 ,
+                   S0 = S0,
+                   beta0 = beta0,
+                   u = u,
+                   v = v,
                    BPPARAM = BPPARAM
   )
   

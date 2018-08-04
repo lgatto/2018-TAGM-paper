@@ -1,3 +1,7 @@
+require(pRoloc)
+require(pRolocdata)
+require(abind)
+
 
 andyrun1 <- andy2015mcmc[[1]]
 andyrun2 <- andy2015mcmc[[2]]
@@ -52,7 +56,8 @@ andycmbstrucalloc <- cbind(andyrun1$allocstruc[,501:1100],andyrun3$allocstruc[,5
 
 
 
-membershipProb <- t(apply(andycmb[,], 1, FUN = rowMeans))
+membershipProb <- t(apply(andycmb[,,], 1, FUN = rowMeans))
+membershipProb <- t(apply(andycmb[,,], 1, FUN = rowMax))
 data("hyperLOPIT2015")
 object <- hyperLOPIT2015
 
@@ -90,7 +95,7 @@ ptsze[as.numeric(fData(object)$outlier.allocation) <0.99999] <- 0.01
 
 par(mfrow = c(1,1))
 setStockcol(paste0(getStockcol(), 90))
-.pca <- plot2D(object, fcol="predicted.allocation", cex = ptsze, main="Prediction with pointer size scaled with probability of membership" )
+.pca <- plot2D(object, fcol="predicted.allocation", cex = ptsze, main="Prediction with pointer size scaled with probability of membership", mirrorY = TRUE )
 addLegend(object, cex=0.6, where="bottomleft")
 setStockcol(getLisacol())
 
@@ -136,7 +141,7 @@ rowMeans(andycmbstrucalloc)[31]
 
 
 
-dfG5E870 <- t(andycmb[31,,])
+df <- t(andycmb[order(membershipProb[,8], decreasing = TRUE)[400],,]) #31
 save(dfG5E870, file = "probdistE3.rda")
 
 boxplot(df)
