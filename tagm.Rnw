@@ -1695,17 +1695,16 @@ multiple localisation. In addition, extensions to semi-supervised
 methods are under consideration to detect novel sub-cellular
 niches. These are the subjects of further work.}
 
-{\color{red}{Currently, our model cannot integrate localisation information 
-from different data sources nor can it explicitly model proteins with multiple 
-localisation. We cannot model proteins with multiple locations because our model
-is mathematically constrained such that proteins can only be allocated to a single
-class. However, one (of many) biological explanations for the uncertainty in 
-these allocation probabilities is multiple localisation. Thus a protein which
-is uncertain between two sub-cellular niches is perhaps resident of both niches.
-In further work, we plan to explicitly model such cases to deconvolute different
-sources of uncertainty. In addition, extensions to semi-supervised non-parametric
-methods are under consideration to detect novel sub-cellular niches. 
-These are the subjects of further work.}}
+{\color{red}{Currently, our model does not integrate localisation information
+from different data sources, nor does it explicitly model proteins with multiple
+localisation. However, one (of many) biological explanations for the uncertainty
+that we model in the allocation probabilities is provided by multiple localisation.
+Thus a protein which is uncertain between two sub-cellular niches is perhaps resident
+of both niches. In further work, we plan to explicitly model such cases
+to deconvolute different sources of uncertainty. In addition, extensions
+to semi-supervised non-parametric methods are under consideration to detect
+novel sub-cellular niches. These are the subjects of further work.
+}}
 
 
 \bigskip
