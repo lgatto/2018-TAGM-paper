@@ -1699,11 +1699,11 @@ niches. These are the subjects of further work.}
 from different data sources, nor does it explicitly model proteins with multiple
 localisation. However, one (of many) biological explanations for the uncertainty
 that we model in the allocation probabilities is provided by multiple localisation.
-Thus a protein which is uncertain between two sub-cellular niches is perhaps resident
-of both niches. In further work, we plan to explicitly model such cases
-to deconvolute different sources of uncertainty. In addition, extensions
-to semi-supervised non-parametric methods are under consideration to detect
-novel sub-cellular niches. These are the subjects of further work.
+Thus a protein for which it is uncertain to which two sub-cellular niches it is
+resident within it is perhaps resident of both niches. In further work, we plan
+to explicitly model such cases to deconvolute different sources of uncertainty. 
+In addition, extensions to semi-supervised non-parametric methods are under 
+consideration to detect novel sub-cellular niches. These are the subjects of further work.
 }}
 
 
