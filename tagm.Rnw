@@ -922,7 +922,7 @@ datasets. Again, we perform a pairwise unpaired t-test with multiple
 testing correction.
 
 We find that in 16 out of 19 datasets {\color{red}{(all of those except HeLa Wild type,
-HeLa KO1 and HeLa K02)}} the MCMC methods achieves the
+HeLa KO1 and HeLa KO2)}} the MCMC methods achieves the
 lowest quadratic loss at a signifiance level $<0.0001$ over the SVM
 and KNN classifiers. In 6 out of these 16 datasets there is no
 significant difference between the MCMC and the MAP methods. In the
