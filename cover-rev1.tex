@@ -1,0 +1,112 @@
+\documentclass[10pt,a4paper]{letter}
+
+\usepackage[british]{babel}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{graphics}
+\usepackage{fullpage}
+%% \usepackage[utf8]{inputenc}
+%% \usepackage[T1]{fontenc}
+%% \usepackage{graphicx}
+%% \usepackage{longtable}
+%% \usepackage{float}
+%% \usepackage{wrapfig}
+%% \usepackage{soul}
+%% \usepackage{amssymb}
+
+
+%% \usepackage{sabon}
+
+% \usepackage{helvet}
+% \renewcommand{\familydefault}{\sfdefault}
+
+
+\pagestyle{fancy}
+
+\lhead{\includegraphics{/home/lg390/Documents/Letters/biochemistry.png}}
+\chead{}
+\rhead{\parbox[b][24mm][t]{0.5\textwidth}{\raggedleft
+%% I want to vertically align THIS text
+Dr Laurent Gatto\\
+Principal Investigator\\
+Computational Proteomics Unit}}
+
+
+\lfoot{}
+\cfoot{}
+\rfoot{
+  \scriptsize
+  Department of Biochemistry\\
+  Tennis Court Road\\
+  Cambridge, CB2 1QR\\
+  United Kingdom\\
+  Tel: +44 (0) 1223 760255\\
+  E-mail: \url{lg390@cam.ac.uk}\\
+  URL: \url{http://cpu.sysbiol.cam.ac.uk}%
+}
+
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\headheight 30pt
+\headsep 10pt
+\footskip 5pt
+\textheight 23cm
+
+%% Preamble to remove the initial top space
+%% \makeatletter
+%% \let\@texttop\relax
+%% \makeatother
+
+\usepackage{url}
+
+\usepackage[pdftex,hyperindex,hyperfootnotes,bookmarks,plainpages=false]{hyperref}
+\hypersetup{
+  colorlinks=true,
+  breaklinks=true,
+  urlcolor= blue,
+  linkcolor= blue,
+  filecolor= blue,
+  citecolor= blue,
+  bookmarksopen=true,
+  pdfauthor={Laurent Gatto},
+  pdfcreator=pdfLaTeX
+}
+
+% \signature{Dr Laurent Gatto}
+
+\address{} %% is placed in header
+
+\begin{document}
+
+\begin{letter}{
+    % \textbf{Presubmission inquiry}
+}
+
+\opening{Dear Editors,}
+
+\thispagestyle{fancy}
+
+We thank the reviewers for their constructive comments that we have
+addressed fully in this revised version of our manuscript, 'A Bayesian
+Mixture Modelling Approach For Spatial Proteomics'. The revised
+manuscript has also been uploaded on the
+bioR$\chi$iv\footnote{\url{https://doi.org/10.1101/282269}}.
+
+We provide a detailed response to each reviewer's comments, a fully
+revised manuscript, as well as an annotated version of the revised
+manuscript.
+
+Thanking you very much in advance for considering our manuscript for
+submission.
+
+On behalf of the authors,
+
+\closing{Yours sincerely, \\
+  \fromname{Dr Laurent Gatto}
+}
+
+
+\end{letter}
+
+\end{document}
