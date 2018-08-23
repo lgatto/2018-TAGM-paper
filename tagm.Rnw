@@ -2100,15 +2100,24 @@ to each class. It is useful to note that the corresponding risk
 function is the mean square error (MSE), which is the expected value
 of the quadratic loss.
 
-\subsection*{Funding}
+%% Request from PLoS:
+%%  Please remove the funding information from the manuscript and instead
+%%  ensure that this information has been entered correctly into the
+%%  Financial Disclosure section of the online submission form.
 
-LG was supported by the BBSRC Strategic Longer and Larger grant (Award
-BB/L002817/1) and the Wellcome Trust Senior Investigator Award
-110170/Z/15/Z awarded to KSL. PDWK was supported by the MRC (project
-reference MC\_UP\_0801/1). CMM was supported by a Wellcome Trust
-Technology Development Grant (Grant number 108467/Z/15/Z). OMC is a
-Wellcome Trust Mathematical Genomics and Medicine student supported
-financially by the School of Clinical Medicine, University of Cambridge.
+%% \subsection*{Funding}
+
+%% LG was supported by the BBSRC Strategic Longer and Larger grant
+%% (Award BB/L002817/1) and the Wellcome Trust Senior Investigator
+%% Award 110170/Z/15/Z awarded to KSL. PDWK was supported by the MRC
+%% (project reference MC\_UP\_0801/1). CMM was supported by a Wellcome
+%% Trust Technology Development Grant (Grant number
+%% 108467/Z/15/Z). OMC is a Wellcome Trust Mathematical Genomics and
+%% Medicine student supported financially by the School of Clinical
+%% Medicine, University of Cambridge. The funders had no role in study
+%% design, data collection and analysis, decision to publish, or
+%% preparation of the manuscript.
+
 
 \subsection*{Acknowledgments}
 
