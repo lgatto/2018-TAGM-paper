@@ -375,10 +375,12 @@ probability ellipses from the MAP estimates of the parameters.
     \centering
 <<pca12, echo=FALSE>>=
 par(mar = c(4,4,2,0))
+tiff("Fig1a.tiff", units="in", width=10, height=10, res=300)
 pRoloc:::plotEllipse_old(hl, method = "MAP", components = c(1,2),
                          main = "Visualisation of probability ellipses",
                          xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
 addLegend(hl, cex=0.7, where="bottomleft")
+dev.off()
 @
         \caption{}
 \end{subfigure}%
@@ -387,9 +389,11 @@ addLegend(hl, cex=0.7, where="bottomleft")
         \centering
 <<pca14, echo=FALSE>>=
 par(mar = c(4,4,2,0))
+tiff("Fig1b.tiff", units="in", width=10, height=10, res=300)
 pRoloc:::plotEllipse_old(hl, method = "MAP", components = c(1,4),
                          main = "Visualisation along 1st and 4th principal components")
 addLegend(hl, cex=0.7, where="topleft")
+dev.off()
 @
         \caption{}
 \end{subfigure}
@@ -443,7 +447,7 @@ analysis of spatial proteomics in this fully Bayesian framework.
 <<assignmentPCAMAP, echo=FALSE>>=
 ptsze <- as.numeric(fData(andyhlMAP$object)$predicted.probability)
 par(mfrow = c(1,1))
-
+tiff("Fig2a.tiff", units="in", width=10, height=10, res=300)
 plot2D(object = andyhlMAP$object,
        fcol="predicted.allocation",
        dims = c(1,2),
@@ -451,6 +455,7 @@ plot2D(object = andyhlMAP$object,
        main="TAGM-MAP localisation predictions",
        mirrorY = TRUE)
 addLegend(andyhlMAP$object, cex=0.5, where="topleft")
+dev.off()
 @
     \end{subfigure}%
     \begin{subfigure}[t]{0.5\textwidth}
@@ -460,9 +465,11 @@ names(ptsze) <- rownames(fData(andyMCMChl))
 ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.9999] <- 0.1
 
 par(mfrow = c(1,1))
+tiff("Fig2b.tiff", units="in", width=10, height=10, res=300)
 .pca <- plot2D(andyMCMChl, fcol="predicted.allocation", cex = ptsze,
                main="TAGM-MCMC localisation prediction", mirrorY = TRUE)
 addLegend(andyMCMChl, cex=0.6, where="topleft")
+dev.off()
 @
     \end{subfigure}%
   \centering
@@ -539,10 +546,12 @@ further explored with a more targeted experiment.
         \centering
 <<pca12-ellipses, echo=FALSE>>=
 par(mar = c(4,4,2,0))
+tiff("Fig3a.tiff", units="in", width=10, height=10, res=300)
 pRoloc:::plotEllipse_old(hl, method = "MCMC", components = c(1,2),
                          main = "Visualisation of probability ellipses",
                          xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
 addLegend(hl, cex=0.5, where="bottomleft")
+dev.off()
 @
         \caption{}
 \end{subfigure}%
@@ -550,10 +559,12 @@ addLegend(hl, cex=0.5, where="bottomleft")
 \begin{subfigure}[t]{0.45\textwidth}
 <<pca14-ellipses, echo=FALSE>>=
 par(mar = c(4,4,2,0))
+tiff("Fig3b.tiff", units="in", width=10, height=10, res=300)
 pRoloc:::plotEllipse_old(hl, method = "MCMC",
                          components = c(1,4),
                          main = "Visualisation along the 1st and 4th principal component")
 addLegend(hl, cex=0.5, where="topleft")
+dev.off()
 @
         \centering
         \caption{}
@@ -584,7 +595,9 @@ gg <- gg +
     ylab("Membership Probability") +
     ggtitle("Distribution of Subcellular Membership for Protein G5E870")
 gg <- gg + theme(legend.position="none")
+tiff("Fig4.tiff", units="in", width=10, height=10, res=300)
 print(gg)
+dev.off()
 @
 
 \caption{Violin plot revealing the posterior distribution of
@@ -902,7 +915,9 @@ gg <- ggplot(data = dfmetrics, aes(x=variable, y=value)) +
 \begin{figure}[ht]
   \centering
 <<f1boxplots, echo=FALSE, fig.width=9, fig.height=10>>=
+tiff("Fig5.tiff", units="in", width=10, height=10, res=300)
 print(gg)
+dev.off()
 @
  \caption{Boxplots of the distributions of Macro F1 scores for all
    spatial proteomics datasets.}
@@ -1000,7 +1015,9 @@ gg2 <- ggplot(data = dfmetrics2, aes(x=variable, y=value)) +
 \begin{figure}[ht]
   \centering
 <<quadboxplots, echo=FALSE, fig.width=9, fig.height=10>>=
+tiff("Fig6.tiff", units="in", width=10, height=10, res=300)
 print(gg2)
+dev.off()
 @
 \caption{Boxplots of the distributions of Quadratic losses for all
   spatial proteomics datasets.}
@@ -1063,6 +1080,7 @@ lattice.options(
   layout.heights=list(bottom.padding=list(x=0), top.padding=list(x=0)),
   layout.widths=list(left.padding=list(x=0), right.padding=list(x=0))
 )
+tiff("Fig7a.tiff", units="in", width=10, height=10, res=300)
 levelplot(cont, xlab="SVM", ylab="TAGM (MCMC)",
           main = "", ## scales = list(x = list(draw = FALSE)),
           scales = list(x = list(rot=90)),
@@ -1070,7 +1088,9 @@ levelplot(cont, xlab="SVM", ylab="TAGM (MCMC)",
           cuts = 50, pretty = TRUE,
           col.regions = mycol,
           at = seq(0, 10)/10, aspect = "fill")
+dev.off()
 @
+
 \end{subfigure}%
 \begin{subfigure}[t]{0.5\textwidth}
 \centering
@@ -1080,12 +1100,14 @@ lattice.options(
   layout.heights=list(bottom.padding=list(x=0), top.padding=list(x=0)),
   layout.widths=list(left.padding=list(x=0), right.padding=list(x=0))
 )
+tiff("Fig7b.tiff", units="in", width=10, height=10, res=300)
 levelplot(df4, xlab="SVM", ylab="TAGM (MCMC)",
           main = "", ## scales = list(x = list(draw = FALSE)),
           scales = list(x = list(rot=90)),
           cuts = 50, pretty = TRUE,
           col.regions = mycol,
           at = seq(0, 10)/10, aspect = "fill")
+dev.off()
 @
 \end{subfigure}
 \caption{A heatmap representation of a contingency table, where we
@@ -1199,8 +1221,9 @@ gg2 <- gg2 +
     ggtitle(paste0("Distribution of Subcellular Membership for Protein Q924C1" ))
 gg2 <- gg2 +
     theme(legend.position="none")
+tiff("Fig8a.tiff", units="in", width=10, height=10, res=300)
 print(gg2)
-
+dev.off()
 @
     \caption{}
   \end{subfigure}%
@@ -1209,6 +1232,7 @@ print(gg2)
 <<Q924C1-prof, echo = FALSE, fig.align="center">>=
 par(mar=c(5,6,4,2) + 1, las = 2)
 par(mai = c(2,0,1,0), oma = c(0,0,0,0))
+tiff("Fig8b.tiff", units="in", width=10, height=10, res=300)
 hlo <- andyMCMChl[, order(andyMCMChl$Iodixonal.Density)]
 plotDist(hlo[fData(hlo)$markers == "Cytosol", ],
          pcol = getStockcol()[4], xlab= "", lwd = 10, type = "l")
@@ -1219,6 +1243,7 @@ legend("topright", c("Cytosol", "Nucleus - Non-chromatin"),
        lty = 1, col = c(getStockcol()[4], getStockcol()[11]), bty = "n")
 matlines(t(exprs(hlo["Q924C1",])), lty = 1, lwd = 5, col="red", type="l" )
 par(las = 1)
+dev.off()
 @
     \caption{}
   \end{subfigure}
@@ -1240,7 +1265,9 @@ gg <- gg +
     xlab("Membership Probability") +
     ggtitle("Density plot of Subcellular Membership for Protein Q924C1")
 gg <- gg + theme_bw()
+tiff("Fig8c.tiff", units="in", width=10, height=10, res=300)
 print(gg)
+dev.off()
 @
     \caption{}
   \end{subfigure}%
@@ -1249,6 +1276,7 @@ print(gg)
 <<Q924C1-pca,echo = FALSE>>=
 prots <- "Q924C1"
 par(oma = c(0,0,0,0))
+tiff("Fig8d.tiff", units="in", width=10, height=10, res=300)
 foi13s <- FeaturesOfInterest(description = "",
                              fnames = prots,
                              object = andyMCMChl)
@@ -1261,6 +1289,7 @@ plot2D(andyMCMChl, fcol = "predicted.allocation", cex = ptsze,
 addLegend(where = "bottomleft", andyMCMChl, cex = .7)
 highlightOnPlot(andyMCMChl, foi13s, cex = 1.5, col = "black", pch = 19)
 highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2, col = "black", pch = 19, pos = 4)
+dev.off()
 @
     \caption{}
   \end{subfigure}
@@ -1298,8 +1327,9 @@ gg2 <- gg2 +
     ylab("Membership Probability") +
     ggtitle(paste0("Distribution of Subcellular Membership for Protein Q9WUA2" ))
 gg2 <- gg2 + theme(legend.position="none")
+tiff("Fig9a.tiff", units="in", width=10, height=10, res=300)
 print(gg2)
-
+dev.off()
 @
     \caption{}
   \end{subfigure}%
@@ -1308,6 +1338,7 @@ print(gg2)
 <<Q9WUA2-prof, echo = FALSE, fig.align="center">>=
 par(mar=c(5,6,4,2)+1, las = 2)
 par(mai = c(2,0,1,0), oma = c(0,0,0,0))
+tiff("Fig9b.tiff", units="in", width=10, height=10, res=300)
 hlo <- andyMCMChl[, order(andyMCMChl$Iodixonal.Density)]
 plotDist(hlo[fData(hlo)$markers == "40S Ribosome", ],
          pcol = getStockcol()[1], xlab= "", lwd = 10, type = "l")
@@ -1318,6 +1349,7 @@ legend("topright", c("40S Ribosome" , "Nucleus - Non-chromatin"),
        lty = 1, col = c(getStockcol()[1], getStockcol()[11]), bty = "n")
 matlines(t(exprs(hlo["Q9WUA2",])), lty = 1, lwd = 5, col="red", type="l" )
 par(las = 1)
+dev.off()
 @
     \caption{}
   \end{subfigure}
@@ -1337,7 +1369,9 @@ gg <- gg + ylab("Density") +
     xlab("Membership Probability") +
     ggtitle("Density plot of Subcellular Membership for Protein Q9WUA2")
 gg <- gg + theme_bw()
+tiff("Fig9c.tiff", units="in", width=10, height=10, res=300)
 print(gg)
+dev.off()
 @
     \caption{}
   \end{subfigure}%
@@ -1345,6 +1379,7 @@ print(gg)
     \centering
 <<Q9WUA2-pca, echo = FALSE, fig.align="center">>=
 prots <- "Q9WUA2"
+tiff("Fig9d.tiff", units="in", width=10, height=10, res=300)
 par(oma = c(0,0,0,0))
 foi13s <- FeaturesOfInterest(description = "",
                              fnames = prots,
@@ -1359,6 +1394,7 @@ addLegend(where = "bottomleft", andyMCMChl, cex = .7)
 highlightOnPlot(andyMCMChl, foi13s, cex = 1.5, col = "black", pch = 19)
 highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2,
                 col = "black", pch = 19, pos = 4)
+dev.off()
 @
     \caption{}
   \end{subfigure}
@@ -1397,8 +1433,9 @@ gg2 <- gg2 +
     ggtitle(paste0("Distribution of Subcellular Membership for Protein Q8VDR9" ))
 gg2 <- gg2 +
     theme(legend.position="none")
+tiff("Fig10a.tiff", units="in", width=10, height=10, res=300)
 print(gg2)
-
+dev.off()
 @
     \caption{}
   \end{subfigure}%
@@ -1407,6 +1444,7 @@ print(gg2)
 <<Q8VDR9-prof, echo = FALSE, fig.align="center">>=
 par(mar=c(5,6,4,2)+1, las = 2)
 par(mai = c(2,0,1,0), oma = c(0,0,0,0))
+tiff("Fig10b.tiff", units="in", width=10, height=10, res=300)
 hlo <- andyMCMChl[, order(andyMCMChl$Iodixonal.Density)]
 plotDist(hlo[fData(hlo)$markers == "Endoplasmic reticulum/Golgi apparatus", ],
          pcol = getStockcol()[5], xlab= "", lwd = 10, type = "l")
@@ -1417,6 +1455,7 @@ legend("topright", c("Endoplasmic reticulum/Golgi apparatus", "Extracellular mat
        lty = 1, col = c(getStockcol()[5], getStockcol()[7]), bty = "n")
 matlines(t(exprs(hlo["Q8VDR9",])), lty = 1, lwd = 5, col="red", type="l" )
 par(las = 1)
+dev.off()
 @
     \caption{}
   \end{subfigure}
@@ -1437,7 +1476,9 @@ gg <- gg + ylab("Density") +
     xlab("Membership Probability") +
     ggtitle("Density plot of Subcellular Membership for Protein Q8VDR9")
 gg <- gg + theme_bw()
+tiff("Fig10c.tiff", units="in", width=10, height=10, res=300)
 print(gg)
+dev.off()
 @
     \caption{}
   \end{subfigure}%
@@ -1453,12 +1494,14 @@ foi13s <- FeaturesOfInterest(description = "",
 ptsze <- exp(as.numeric(fData(andyMCMChl)$predicted.probability)) - 1
 names(ptsze) <- rownames(fData(andyMCMChl))
 ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.99995] <- 0.1
+tiff("Fig10d.tiff", units="in", width=10, height=10, res=300)
 plot2D(andyMCMChl, fcol = "predicted.allocation", cex = ptsze,
        dims = c(1,2), main = "PCA plot with Protein Q8VDR9 indicated")
 addLegend(where = "bottomleft", andyMCMChl, cex = .7)
 highlightOnPlot(andyMCMChl, foi13s, cex = 1.5, col = "black", pch = 19)
 highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2,
                 col = "black", pch = 19, pos = 4)
+dev.off()
 @
     \caption{}
   \end{subfigure}
@@ -1517,10 +1560,12 @@ uncertainty in these assignments to make conclusions.
 par(mar = c(4,4,2,0))
 ptsze <- 2*fData(andyMCMChl)$meanshannon
 par(mfrow = c(1,1))
+tiff("Fig11a.tiff", units="in", width=10, height=10, res=300)
 .pca <- plot2D(andyMCMChl, fcol="predicted.allocation",
                cex = ptsze, main="Visualising whole proteome uncertainty",
                mirrorY = TRUE)
 addLegend(andyMCMChl, cex=0.6, where="topleft")
+dev.off()
 @
     \caption{}
   \end{subfigure}%
@@ -1532,10 +1577,11 @@ par(mar = c(4,4,2,0))
 ptsze <- as.numeric(fData(andyMCMChl)$predicted.probability)
 names(ptsze) <- rownames(fData(andyMCMChl))
 ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.9999] <- 0.1
-
+tiff("Fig11b.tiff", units="in", width=10, height=10, res=300)
 par(mfrow = c(1,1))
 .pca <- plot2D(andyMCMChl, fcol="predicted.allocation", cex = ptsze, main="Prediction of Protein Localisation", mirrorY = TRUE)
 addLegend(andyMCMChl, cex=0.6, where="topleft")
+dev.off()
 @
     \caption{}
   \end{subfigure}%
@@ -1544,6 +1590,7 @@ addLegend(andyMCMChl, cex=0.6, where="topleft")
     \centering
 <<prob-vs-shannon, echo = FALSE, fig.align="center">>=
 par(mar = c(4,4,2,0))
+tiff("Fig11c.tiff", units="in", width=10, height=10, res=300)
 plot(as.numeric(fData(andyMCMChl)$predicted.probability),
      fData(andyMCMChl)$meanshannon,
      col = getStockcol()[as.factor(fData(andyMCMChl)$predicted.allocation)],
@@ -1551,6 +1598,7 @@ plot(as.numeric(fData(andyMCMChl)$predicted.probability),
      xlab = "Localisation Probability",
      ylab = "Shannon Entropy",
      main = "Protein localistaion probability and Shannon Entropy")
+dev.off()
 @
     \caption{}
   \end{subfigure}
@@ -2728,11 +2776,13 @@ S'_k = & S_0 + T' + \lambda_0\boldsymbol{\mu}_0^T\boldsymbol{\mu}_0 - \lambda_km
 \begin{figure}[h]
   \centering
 <<emconverge, echo=FALSE, out.width='0.6\\textwidth'>>=
+tiff("Fig14.tiff", units="in", width=10, height=10, res=300)
 plot(resandyhl$loglike,
      cex = 1, col = "blue",
      type = "b",
      xlab = "Iteration", ylab = "log-posterior",
      main = "The log-posterior at each iteration of the EM algorithm")
+dev.off()
 @
 
 \caption{Plot of the log-posterior at each iteration of the EM
@@ -2758,12 +2808,24 @@ gd <- gelman.diag(x = listmcmc, autoburnin = F)
   \centering
 <<traceplots, echo=FALSE, out.width='0.75\\textwidth'>>=
 par(mfrow = c(2,3))
+tiff("Fig15a.tiff", units="in", width=10, height=10, res=300)
 plot(colSums(andydiag$andymcmc1), type = "b", cex = 0.1, col = "blue", ylim = c(3200,3450), xlab = "iteration", ylab = "Number of proteins allocated to known components", main = "Chain 1")
+dev.off()
+tiff("Fig15b.tiff", units="in", width=10, height=10, res=300)
 plot(colSums(andydiag$andymcmc2), type = "b", cex = 0.1, col = "blue", ylim = c(3200,3450), xlab = "iteration", ylab = "Number of proteins allocated to known components", main = "Chain 2")
+dev.off()
+tiff("Fig15c.tiff", units="in", width=10, height=10, res=300)
 plot(colSums(andydiag$andymcmc3), type = "b", cex = 0.1, col = "blue", ylim = c(3200,3450), xlab = "iteration", ylab = "Number of proteins allocated to known components", main = "Chain 3")
+dev.off()
+tiff("Fig15d.tiff", units="in", width=10, height=10, res=300)
 plot(colSums(andydiag$andymcmc4), type = "b", cex = 0.1, col = "blue", ylim = c(3200,3450), xlab = "iteration", ylab = "Number of proteins allocated to known components", main = "Chain 4")
+dev.off()
+tiff("Fig15e.tiff", units="in", width=10, height=10, res=300)
 plot(colSums(andydiag$andymcmc5), type = "b", cex = 0.1, col = "blue", ylim = c(3200,3450), xlab = "iteration", ylab = "Number of proteins allocated to known components", main = "Chain 5")
+dev.off()
+tiff("Fig15f.tiff", units="in", width=10, height=10, res=300)
 plot(colSums(andydiag$andymcmc6), type = "b", cex = 0.1, col = "blue", ylim = c(3200,3450), xlab = "iteration", ylab = "Number of proteins allocated to known components", main = "Chain 6")
+dev.off()
 @
 \caption{Trace plots of the number of proteins allocated to the known
   components in each of 6 parallel MCMC runs. Chain $4$ is discarded
@@ -3101,6 +3163,7 @@ dimnames(cont) <- shortenOrgNames(dimnames(cont))
 \centering
 <<app8-heatmap, echo=FALSE, fig.height=6>>=
 par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
+tiff("Fig17.tiff", units="in", width=10, height=10, res=300)
 lattice.options(
   layout.heights=list(bottom.padding=list(x=0), top.padding=list(x=0)),
   layout.widths=list(left.padding=list(x=0), right.padding=list(x=0))
@@ -3111,6 +3174,7 @@ levelplot(cont, xlab="TAGM (MAP)", ylab="TAGM (MCMC)",
           cuts = 50, pretty = TRUE,
           col.regions = mycol,
           at = seq(0, 50)/50, aspect = "fill")
+dev.off()
 @
 \caption{A heatmap representation of a contingency table comparing allocation produced by
 MCMC and MAP methods with posterior probability threshold set at $0.99$ for both methods.
