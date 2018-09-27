@@ -3082,7 +3082,7 @@ print(xtb, floating=TRUE, table.placement = "H")
 
 \subsection{Appendix 7: GO enrichment analysis figures}
 
-<<enrichgo, cache=TRUE, echo = FALSE, eval=FALSE>>=
+<<enrichgo, cache=TRUE, echo = FALSE, eval=TRUE>>=
 ## Not evaluating this as it apparently doesn't cache.
 ego <- enrichGO(gene          = rownames(fData(andyMCMChl))[fData(andyMCMChl)$outlier.allocation < 0.95],
                 universe      = rownames(exprs(andyMCMChl)),
@@ -3113,7 +3113,6 @@ egoMF <- enrichGO(gene          = rownames(fData(andyMCMChl))[fData(andyMCMChl)$
                   pvalueCutoff  = 0.01,
                   qvalueCutoff  = 0.05,
                   readable      = TRUE)
-
 
 @
 
