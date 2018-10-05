@@ -1,5 +1,5 @@
 \documentclass[12pt,english]{article}
-\usepackage{natbib}
+\usepackage[numbers]{natbib}
 \usepackage{amsmath,mathtools,amssymb,mathrsfs,dsfont,amsthm}
 \usepackage[margin=1in]{geometry}
 \usepackage{algpseudocode}
@@ -20,8 +20,9 @@
 \usepackage[normalem]{ulem}
 
 \usepackage{float}
+\usepackage[nomarkers,figuresonly,nolists]{endfloat}
 
-\usepackage[toc,page]{appendix}
+%% \usepackage[toc,page]{appendix}
 
 % !Rnw weave = knitr
 
@@ -61,7 +62,7 @@
 \date{\small \today}
 
 \maketitle
-\linenumbers
+%% \linenumbers
 \begin{abstract}
   Analysis of the spatial sub-cellular distribution of proteins is of
   vital importance to fully understand context specific protein
@@ -372,7 +373,7 @@ principal components along with the first and fourth principal
 components as a representative example. For the TAGM model, we derive
 probability ellipses from the MAP estimates of the parameters.
 
-\begin{figure}[ht]
+\begin{figure}[p]
   \begin{subfigure}[t]{0.45\textwidth}
     \centering
 <<pca12, echo=FALSE>>=
@@ -418,17 +419,18 @@ a <- abs(resandyhl$loglike[200] - resandyhl$loglike[199])
 
 
 We now apply the statistical methodology described in section
-\ref{section:methods}, to predict the localisation of proteins to
+\nameref{section:methods}, to predict the localisation of proteins to
 organelles and sub-cellular components. In brief, we produce MAP
 estimates of the parameters by using the expectation-maximisation
 algorithm, to form the basis of a Bayesian analysis (TAGM-MAP).  We
 run the algorithm for $200$ iterations and inspect a plot of the
-log-posterior to assess convergence of the algorithm (see appendix
-\ref{app:logposterior}). We confirm that the difference of the log
+log-posterior to assess convergence of the algorithm (see supporting
+information, section S3). We confirm that the difference of the log
 posterior between the final two iterations is less than $10^{-6}$ and
 we conclude that our algorithm has converged. The results can be seen
-in figure \ref{fig:assignmentPCA} (left), where the posterior localisation
-probability is visualised by scaling the pointer for each protein.
+in figure \ref{fig:assignmentPCA} (left), where the posterior
+localisation probability is visualised by scaling the pointer for each
+protein.
 
 Figure \ref{fig:assignmentPCA} (right) demonstrates a range of
 probabilistic assignments of proteins to organelles and sub-cellular
@@ -440,7 +442,7 @@ localisation probabilities. The remainder of this article focus on
 analysis of spatial proteomics in this fully Bayesian framework.
 
 
-\begin{figure}[ht]
+\begin{figure}[p]
     \begin{subfigure}[t]{0.5\textwidth}
 <<assignmentPCAMAP, echo=FALSE>>=
 ptsze <- as.numeric(fData(andyhlMAP$object)$predicted.probability)
@@ -492,14 +494,14 @@ derive probability ellipses from the expected value of the posterior
 normal-inverse-Wishart (NIW) distribution.
 
 We apply the statistical methodology detailed in section
-\ref{section:methods}.  We perform posterior computation in the
+\nameref{section:methods}.  We perform posterior computation in the
 Bayesian setting using standard MCMC methods (TAGM-MCMC).  We run $6$
 chains of our Gibbs sampler in parallel for $15,000$ iterations,
 throwing away the first $4,000$ iterations for burn-in and retain
 every $10^{th}$ sample for thinning.  Thus 1,100 sample are retained
 from each chain. We then visualise the trace plots of our chains; in
 particular, we monitor the number of proteins allocated to the known
-components (see appendix \ref{app:mcmc}). We discard $1$ chain because
+components (see supporting information, section S4). We discard $1$ chain because
 we do not consider it to have converged.  For the remaining $5$
 chains we further discard the first $500$ samples by visual
 inspection.  We then have $600$ retained samples from $5$ separate
@@ -535,7 +537,7 @@ some uncertainty about whether it localises to the $40$S ribosome.
 This could suggest a dynamic role for this protein, which could be
 further explored with a more targeted experiment.
 
-\begin{figure}[ht]
+\begin{figure}[p]
   \begin{subfigure}[t]{0.45\textwidth}
         \centering
 <<pca12-ellipses, echo=FALSE>>=
@@ -567,7 +569,7 @@ addLegend(hl, cex=0.5, where="topleft")
 \label{figure::pcaellipseMCMC}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[p]
 \centering
 <<violin-G5E870, echo = FALSE, fig.align="center", warning=FALSE, message=FALSE, out.width='0.7\\textwidth'>>=
 colnames(dfG5E870) <- getMarkerClasses(andyMCMChl)
@@ -596,7 +598,6 @@ print(gg)
 \label{fig:G5E870}
 \end{figure}
 
-\clearpage
 
 \subsubsection*{Enrichment analysis of outlier proteins}
 
@@ -605,7 +606,7 @@ probabilitically to sub-cellular compartment and quantify the
 uncertainty in these assignments. Some proteins cannot be well
 described as belonging to any known component and we model this
 using an additional T-distribution outlier component
-{\color{black}{(see Section \ref{section:methods})}}.
+{\color{black}{(see Section \nameref{section:methods})}}.
 
 It is biologically interesting to decipher what functional role
 proteins that are far away from known components play. We perform an
@@ -620,7 +621,7 @@ quantified in the \textit{hyper}LOPIT experiment. We search against
 the cellular compartment, biological process and molecular function
 ontologies.
 
-Supplementary figure \ref{fig:GOenrich} shows this outlier component
+Supplementary figure 3 shows this outlier component
 is enriched for cytoskeletal part ($p <10^{-7}$) and microtuble
 cytoskeleton ($p <10^{-7}$). Cytoskeleton proteins are found
 throughout the cell and therefore we would expect them to be found in
@@ -633,15 +634,12 @@ tranferase activity $(p < 0.005)$, another highly dynamic
 process. These observations justify including an additional outlier
 component in our mixture model.
 
-
-\clearpage
-
 \subsection*{Comparison with other classifiers}
 
 In this section, we assess the generalisation performance of our
 methods on several datasets, by computing performance metrics
 associated with each classifier as detailed in section
-\ref{section::assessment}. We compare the SVM and KNN classifiers
+\nameref{section::assessment}. We compare the SVM and KNN classifiers
 alongside the MAP and MCMC approaches detailed in the methods
 section. We compute the F1 score and quadratic loss over 100 rounds of
 stratified 5-fold cross-validation. The hyperparameter for the KNN
@@ -766,8 +764,7 @@ other methods $(p < 0.01)$, whilst in the wild type HeLa and in the
 CRISPR-CAS9 KO1 there is no significant difference between the KNN
 and MCMC method. In the CRISPR-CAS9 KO2 the MCMC method outperforms
 the SVM and KNN methods $(p < 0.01)$. In the interest of brevity, the
-remaining results for the t-tests can be found in tables in appendix
-\ref{app::ttestf1}.
+remaining results for the t-tests can be found in tables in supporting information, section S5.
 
 
 <<distr-f1, echo=FALSE, message=FALSE>>=
@@ -910,7 +907,7 @@ gg <- ggplot(data = dfmetrics, aes(x=variable, y=value)) +
 
 @
 
-\begin{figure}[ht]
+\begin{figure}[p]
   \centering
 <<f1boxplots, echo=FALSE, fig.width=9, fig.height=10>>=
 print(gg)
@@ -920,7 +917,6 @@ print(gg)
   \label{figure::f1scores}
 \end{figure}
 
-\clearpage
 
 The Macro-F1 scores do not take into account that whilst the TAGM
 model may misclassify, it may do so with low confidence. We therefore
@@ -1019,7 +1015,7 @@ gg2 <- ggplot(data = dfmetrics2, aes(x=variable, y=value)) +
 
 @
 
-\begin{figure}[ht]
+\begin{figure}[p]
   \centering
 <<quadboxplots, echo=FALSE, fig.width=9, fig.height=10>>=
 print(gg2)
@@ -1029,7 +1025,6 @@ print(gg2)
   \label{figure::quadloss}
 \end{figure}
 
-\clearpage
 
 Computing distributions of F1 scores and quadratic losses, which can
 only be done on the marker proteins, can help us understand whether a
@@ -1076,7 +1071,7 @@ dimnames(df4) <- shortenOrgNames(dimnames(df4))
 
 @
 
-\begin{figure}[ht]
+\begin{figure}[p]
   \begin{subfigure}[t]{0.5\textwidth}
         \centering
 <<assigncomp1, echo=FALSE, fig.height=6>>=
@@ -1201,7 +1196,7 @@ locations. This justifies including an outlier component in our model,
 else we may erroneously assign such proteins to a single location.
 
 
-\begin{figure}[h]
+\begin{figure}[p]
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
@@ -1299,7 +1294,7 @@ highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2, col = "black", pch =
   \label{fig:Q924C1}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[p]
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
@@ -1397,7 +1392,7 @@ highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2,
   \label{fig:Q9WUA2}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[p]
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
@@ -1497,8 +1492,6 @@ highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2,
 
 
 
-\clearpage
-
 \subsection*{Visualising whole sub-cellular proteome uncertainty}
 
 The advantage of the TAGM-MCMC model is its ability to provide
@@ -1529,7 +1522,7 @@ Shannon entropy are correlated, figure
 is important to use both the localisation probabilities and the
 uncertainty in these assignments to make conclusions.
 
-\begin{figure}[h]
+\begin{figure}[p]
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
@@ -1613,8 +1606,6 @@ these plots and the conclusion therein would be extremely challenging
 to obtain without the use of Bayesian methodology.
 
 
-\clearpage
-
 \section*{Discussion}
 
 We have demonstrated that a Bayesian framework, based on Gaussian
@@ -1682,7 +1673,7 @@ differential centrifugation approaches and spatio-temporal proteomics methods.
 In our flexible software implementation, all hyperparameters for the priors can be
 changed if users have precise priors they wish to specify.}}
 
-\begin{figure}[h]
+\begin{figure}[p]
 
 \centering
 \includegraphics[width=.7\textwidth]{ConcludePlot.pdf}
@@ -1881,7 +1872,7 @@ The full model, which we henceforth refer to as a T-augmented Gaussian
 Mixture model (TAGM), can then be summarised by the plate diagram
 shown in Figure \ref{plateDiagram}.
 
-\begin{figure}[H]
+\begin{figure}[p]
   \includegraphics[width=8cm]{graphmodel2.pdf}
   \centering
   \caption{Plate diagram for TAGM model. This diagram specifies the
@@ -1904,7 +1895,7 @@ analytically using, at first, the labelled data only, we wish to
 predict the component to which each of the unlabelled proteins
 belongs. The probability that a protein belongs to any of the $K$
 known components, that is $z_i = k$ and $\phi_i = 1$, is given by (see
-appendix \ref{apd:EMderv} for derivations):
+supporting information section S1 for derivations):
 
 \begin{equation}\label{equation::estep1}
 \begin{split}
@@ -2000,8 +1991,7 @@ $p(z_i = k, \phi = 1 | {\bf x}_i, \boldsymbol{\theta}_{MAP},
 \boldsymbol{\pi}_{MAP} , \epsilon_{MAP},\kappa, {\bf M}, V)$. To make
 a final assignment, we may allocate each protein according to the
 component that has maximal probability.  A full technical derivation
-of the EM algorithm can be found in the appendix (appendix
-\ref{apd:EMderv}).
+of the EM algorithm can be found in the supporting information (section S1).
 
 \subsubsection*{Uncertainty in the posterior localisation probabilities}\label{section::MCMC}
 
@@ -2042,7 +2032,7 @@ conjugacy of our priors. By marginalising parameters in our model we
 can obtain an efficient collapsed Gibbs sampler and therefore only
 sample the component allocation probabilities and the outlier
 allocation probabilities. The derivations and required conditionals
-can be found in the appendix (appendix \ref{app::gibbs}).
+can be found in the supporting information (section S2).
 
 \subsection*{Classifier assessment}\label{section::assessment}
 
@@ -2143,1006 +2133,8 @@ of the quadratic loss.
 The authors would also like to thank Dr Sean B. Holden, University of
 Cambridge, for helpful discussions.
 
-\clearpage
 
-%% \section*{Appendices}
-
-%% \subsection{Appendix 1: Derivation of EM algorithm for TAGM model}\label{apd:EMderv}
-
-%% This appendix give a formal derivation of the EM algorithm used for
-%% our model. Computations are standard but useful and similar technical
-%% summaries can be found (for example see \cite{Fraley:2005,
-%%   Murphy:2007}) We let
-%% $H = \{\boldsymbol{\mu}_0, \lambda_0, \nu_0, S_0\}$ denote the
-%% parameters of the normal-inverse-Wishart prior. More precisely:
-
-%% \begin{equation} \label{equation::prior}
-%% \boldsymbol{\mu}_k, \Sigma_k\sim \mathcal{N}\left(\boldsymbol{\mu}_k|\boldsymbol{\mu}_0, \frac{\Sigma_{k}}{\lambda_0}\right)I\mathcal{W}\left(\Sigma_{k}|\nu_0, S_0\right).
-%% \end{equation}
-
-%% Furthermore, let
-%% $\boldsymbol{\theta}_k = \{\boldsymbol{\mu}_k, \Sigma_{k}\}$, and let
-%% $\Theta = \{\kappa, {\bf M},V\}$ be the parameters of the global
-%% $\mathcal{T}$ distribution. We specify the following hierarchical
-%% Bayesian model.
-
-%% \begin{equation}\label{equation::model2}
-%% \begin{split}
-%% \pi|\beta &\sim Dir(\beta),\\
-%% \theta_k|H &\sim \mathcal{NIW}(H),\\
-%% z_i|\pi & \sim cat(\pi), \\
-%% \epsilon|u,v & \sim \mathcal{B}(u,v)  \\
-%% \phi_i|\epsilon & \sim Ber(1-\epsilon) \\
-%% {\bf x}_i|z_i = k,\theta, \Phi , \Theta & \sim \mathcal{N}({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_k)^{\mathds{1}(\phi_i = 1)}\mathcal{T}({\bf x}_i|\kappa, {\bf M}, V)^{\mathds{1}(\phi_i = 0)}
-%% \end{split}
-%% \end{equation}
-
-%% Since $p(\phi_i = 1) = 1-\epsilon$, we can rewrite the last line of
-%% the model (\ref{equation::model2}) as the following:
-%% \[p({\bf x}_i|z_i = k,\theta, \Phi , \Theta) = (1-\epsilon) \mathcal{N}({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_k) + \epsilon \mathcal{T}({\bf x}_i|\kappa, {\bf M}, V).\]
-%% The total joint probability is
-
-%% \begin{equation}\label{equation::likelihood2}
-%% \begin{split}
-%% p(\theta,\Theta, X, Z, \Phi)  = &p(X,Z,\Phi|\theta,\pi, \epsilon)p(\epsilon|u,v)p(\theta|H)p(\pi|\beta)\\
-%% =  & \prod_{i=1}^{n}\prod_{k=1}^{K}\left(\pi_k((1-\epsilon)\mathcal{N}(x_i|\boldsymbol{\mu}_k, \Sigma_k))^{\mathds{1}(\phi_i = 1)}(\epsilon \mathcal{T}(x_i|\kappa, {\bf M}, V))^{\mathds{1}(\phi_i = 0)}\right)^{\mathds{1}(z_i=k)}\\
-%% &\cdot \left(\prod_{k=1}^{K}\mathcal{NIW}(H)\right)\cdot Dir(\beta)\cdot \mathcal{B}(u,v).
-%% \end{split}
-%% \end{equation}
-
-%% Before we formally derive an EM algorithm for this model, we derive a
-%% few useful quantities. Let $f({\bf x} | \boldsymbol{\mu}, \Sigma)$
-%% denote the density of the multivariate normal with mean vector
-%% $\boldsymbol{\mu}$ and covariance matrix $\Sigma$ evaluated at
-%% ${\bf x}$ and further let $g({\bf x} | \kappa, {\bf M}, V )$ denote
-%% the density of the multivariate T-distribution. We compute that
-
-%% \begin{equation}
-%% \begin{split}
-%% p(\phi_i = 1|z_i = k , {\bf x}_i ) = &\frac{p(\phi_i=1, {\bf x}_i|z_i = k)}{p({\bf x}_i|z_i = k)}\\
-%% =  & \frac{p({\bf x}_i|z_i = k, \phi_i =1)P(\phi_i=1|z_i= k)}{p({\bf x}_i|z_i = k)}\\
-%% =  &\frac{(1-\epsilon)f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_{k})}{(1-\epsilon) f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_k) + \epsilon g({\bf x}_i|\kappa, {\bf M}, V)}.
-%% \end{split}
-%% \end{equation}
-
-%% Likewise we see that,
-
-%% \begin{equation}
-%% \begin{split}
-%% p(\phi_i = 0|z_i = k , {\bf x}_i ) = \frac{\epsilon f({\bf x}_i|M, V)}{(1-\epsilon) f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_k) + \epsilon g({\bf x}_i|\kappa, {\bf M}, V)}.
-%% \end{split}
-%% \end{equation}
-
-%% Thus
-
-%% \begin{equation}
-%% \begin{split}
-%% & p(\phi_i = 1, z_i = k| {\bf x}_i ) \\
-%% & = p(\phi_i = 1|z_i = k, {\bf x}_i)p(z_i = k|{\bf x}_i)\\
-%% & = p(\phi_i = 1|z_i = k, {\bf x}_i)\frac{p({\bf x}_i|z_i = k)p(z_i = k)}{p({\bf x}_i)}\\
-%% & = p(\phi_i = 1|z_i = k, {\bf x}_i)\frac{\left(p({\bf x}_i|z_i = k,\phi_i =0)p(\phi_i=0) + p({\bf x}_i|z_i = k,\phi_i =1)p(\phi_i=1) \right)p(z_i = k)}{p({\bf x}_i)}\\
-%% \end{split}
-%% \end{equation}
-
-%% and then substituting values leads to
-
-%% \begin{equation}
-%% \begin{split}
-%% & \frac{(1-\epsilon)f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_{k})}{ (1-\epsilon) f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_k) + \epsilon g({\bf x}_i|\kappa, {\bf M}, V)}\frac{\pi_k \left((1-\epsilon)f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_{k}) + \epsilon g({\bf x}_i|\kappa, {\bf M}, V)\right)}{\sum_{k=1}^{K}\pi_k\left((1-\epsilon) f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_k) + \epsilon g({\bf x}_i|\kappa, {\bf M}, V)\right)} = \\
-%% & \frac{\pi_k(1-\epsilon)f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_{k})}{\sum_{k=1}^{K}\pi_k\left((1-\epsilon) f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_k) + \epsilon g({\bf x}_i|\kappa, {\bf M}, V)\right)}.\\
-%% \end{split}
-%% \end{equation}
-
-%% We also see that
-
-%% \begin{equation}
-%% p(\phi_i = 0, z_i = k| {\bf x}_i ) = \frac{\pi_k \epsilon g({\bf x}_i|\kappa, {\bf M}, V)}{\sum_{k=1}^{K}\pi_k\left((1-\epsilon) f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_k) + \epsilon g({\bf x}_i|\kappa, {\bf M}, V)\right)}.
-%% \end{equation}
-
-%% We can now formally derive the EM algorithm for this model. First, we
-%% compute the expected value of the log-posterior function with respect
-%% to the conditional distribution of the latent variable given the
-%% observations (under the current estimate of the parameters). For
-%% notational convenience we suppress the dependence on the parameters.
-
-%% \begin{equation}
-%% \begin{split}
-%% Q(\boldsymbol{\theta}| \boldsymbol{\hat{\theta}}) & \\
-%% = & E_{Z,\Phi|X, \hat{\boldsymbol{\theta}}}[\log p(\boldsymbol{\theta};X,Z,\Phi)] \\
-%% = & \sum_{i=1}^{n} E_{Z,\Phi|X, \hat{\boldsymbol{\theta}}}[\log p(\boldsymbol{\theta}; {\bf x}_i,z_i,\phi_i)] \\
-%% = & \sum_{i=1}^{n} \sum_{k=1}^{K}\sum_{r = 0}^{1}p(z_i = k, \phi_i = r|{\bf x}_i) \log(L(\boldsymbol{\theta}_k|{\bf x}_i, z_i = k, \phi_i))  + \log(p(\pi) + \sum_{k=1}^{K}\log(p(\boldsymbol{\theta}_k))\\
-%% = & \sum_{i=1}^{n} \sum_{k=1}^{K}\sum_{r = 0}^{1}p(z_i = k, \phi_i = r|{\bf x}_i) \log(p({\bf x}_i, z_i = k , \phi_i|\boldsymbol{\theta}_k))  + \log(p(\pi) + \sum_{k=1}^{K}\log(p(\boldsymbol{\theta}_k))\\
-%% = & Q'(\boldsymbol{\theta}| \hat{\boldsymbol{\theta}}) + D(\boldsymbol{\pi},\boldsymbol{\theta})
-%% \end{split}
-%% \end{equation}
-
-%% We note that the equation splits up into a likelihood term $Q'$ plus
-%% the log prior $D$. The coefficient of the first term in the equation
-%% above has already been derived and the other term is given by:
-
-%% \begin{equation}
-%% \begin{split}
-%% p({\bf x}_i, z_i = k , \phi_i)|&\boldsymbol{\theta}_k) \\
-%% &=  p({\bf x}_i,\phi_i|\boldsymbol{\theta}_k,z_i=k)p(z_i=k|\boldsymbol{\theta}_k) \\
-%%  & = \pi_k p({\bf x}_i,\phi_i|\boldsymbol{\theta}_k,z_i=k)\\
-%%  & =\pi_k \left(p({\bf x}_i|\boldsymbol{\theta}_k,z_i=k, \phi_i)p(\phi_i|\boldsymbol{\theta}_k,z_i=k)\right)\\
-%%  & = \pi_k \left(((1 - \epsilon)f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_k))^{\phi_i}(\epsilon g({\bf x}_i|\kappa, {\bf M}, V))^{1-\phi_i}\right),
-%% \end{split}
-%% \end{equation}
-
-%% where we used that $\phi_i$ was a binary random variable. Thus we see that
-
-%% \begin{equation}
-%% \begin{split}
-%% &Q'(\boldsymbol{\theta}| \hat{\boldsymbol{\theta}}) \\
-%%  = & \sum_{i=1}^{n} \sum_{k=1}^{K}\sum_{\Phi}p(z_i = k, \phi_i|{\bf x}_i) \log(p({\bf x}_i, z_i = k , \phi_i|\boldsymbol{\theta}_k)) \\
-%% = & \sum_{i=1}^{n} \sum_{k=1}^{K}\sum_{\Phi}p(z_i = k, \phi_i|{\bf x}_i) \log(\pi_k ((1 - \epsilon)f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_k))^{\phi_i}(\epsilon g({\bf x}_i|\kappa, {\bf M}, V))^{1-\phi_i})  \\
-%% = & \sum_{i=1}^{n} \sum_{k=1}^{K}\sum_{\Phi}p(z_i = k, \phi_i|{\bf x}_i)\left( \log(\pi_k)  + \phi_i\log((1 - \epsilon)f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_k)) + (1-\phi_i)\log(\epsilon g({\bf x}_i|\kappa, {\bf M}, V))\right)  \\
-%% = & (A) + (B) + (C) + (D)
-%% \end{split}
-%% \end{equation}
-
-%% where
-
-%% \begin{equation}
-%% \begin{split}
-%% (A) &= \sum_{i=1}^{n} \sum_{k=1}^{K}p(z_i = k|{\bf x}_i)\log(\pi_k) \\
-%% (B) & = \sum_{i=1}^{n} \sum_{k=1}^{K}\sum_{\Phi}p(z_i = k, \phi_i|{\bf x}_i)(\phi_i\log(1 - \epsilon) + (1-\phi_i)\log(\epsilon))\\
-%% (C) & = \sum_{i=1}^{n} \sum_{k=1}^{K}\sum_{\Phi}p(z_i = k, \phi_i|{\bf x}_i)\phi_i \log (f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_k))\\
-%% (D)& = \sum_{i=1}^{n} \sum_{k=1}^{K}\sum_{\Phi}p(z_i = k, \phi_i|{\bf x}_i)(1-\phi_i)\log( g({\bf x}_i|\kappa, {\bf M}, V)).\\
-%% \end{split}
-%% \end{equation}
-
-%% Then again using that $\phi_i$ is binary we can make the following
-%% simplifications.
-
-%% \begin{equation}\label{equation::q}
-%% \begin{split}
-%% (B) & = \sum_{i=1}^{n} \sum_{k=1}^{K}p(z_i = k, \phi_i = 1|{\bf x}_i)\log(1 - \epsilon) + p(z_i = k, \phi_i = 0|x_i)\log(\epsilon)\\
-%% (C) & = \sum_{i=1}^{n} \sum_{k=1}^{K}p(z_i = k, \phi_i = 1|{\bf x}_i)\log (f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_k))\\
-%% (D)& = \sum_{i=1}^{n} \sum_{k=1}^{K}p(z_i = k, \phi_i = 0 |{\bf x}_i)\log( g({\bf x}_i|\kappa, {\bf M}, V)).\\
-%% \end{split}
-%% \end{equation}
-
-%% Terms can now be maximised by considering terms independently because of linearity. Note that the equations \ref{equation::estep1} and \ref{equation::estep2} are computed with respect to the current estimated values of the parameters. For convenience set the following notation
-
-%% \begin{equation}\label{equation::estepfinalapp}
-%% \begin{split}
-%% a_{ik} = & p(z_i = k, \phi_i = 1|{\bf x}_i)\\
-%% b_{ik} = & p(z_i = k, \phi_i = 0|{\bf x}_i) \\
-%% w_{ik} = & p(z_i = k|{\bf x}_i) = a_{ik} + b_{ik}\\
-%% a_k = & \sum_{i=1}^{n}a_{ik}, a = \sum_{k=1}^{K}a_k \\
-%% b_k = & \sum_{i=1}^{n}b_{ik}, b = \sum_{k=1}^{K}b_k \\
-%% r_k = & \sum_{i=1}^{n}w_{ik}
-%% \end{split}
-%% \end{equation}
-
-%% The maximisation step requires finding
-%% $argmax_{\boldsymbol{\theta}}Q(\boldsymbol{\theta}|\boldsymbol{\hat{\theta}})$,
-%% this can be found for parameter separately for each linear term. To
-%% find $\hat{\epsilon}$, we need only consider computing the
-%% maximisation step from equation (B). First set
-%% $\epsilon_1 = 1 - \epsilon$ and $\epsilon_2 = \epsilon$ and add the
-%% log prior term to equation (B). Thus, the required Lagrangian is
-
-%% \begin{equation}
-%% \begin{split}
-%% \mathcal{L}_{\epsilon} = a\log(\epsilon_1) + b\log(\epsilon_2) + (u-1)\log(\epsilon_2) + (v-1)\log((\epsilon_1) + \lambda(\epsilon_1 + \epsilon_2 - 1) +  constant.
-%% \end{split}
-%% \end{equation}
-%% Solving this system leads to
-%% \begin{equation}
-%% \begin{split}
-%% \epsilon = \frac{ u + b - 1}{(a+b) + (u+v) - 2}.
-%% \end{split}
-%% \end{equation}
-
-%% To find the MAP estimate for $\boldsymbol{\pi}$, we examine equation
-%% (A) and add the log prior.  Furthermore we must maximise
-%% $\boldsymbol{\pi}$ under the constraint that
-%% $\sum_{k=1}^{K}\pi_k = 1$. The Lagrangian for this constrained
-%% optimisation problem is the following,
-
-%% \begin{equation}
-%% \mathcal{L}= \sum_{i=1}^{n}\sum_{k=1}^{K}w_{ik}\log(\pi_k) - \log(B(\beta)) + \sum_{k=1}^{K}(\beta_k - 1)\log(\pi_k) + \lambda\left(\sum_{k=1}^{K}\pi_k-1\right).
-%% \end{equation}
-
-%% The fixed point of this Lagrangian solves the required constrained
-%% optimisation problem and $B(\beta)$ denotes the Beta function with
-%% parameter $\beta$.
-
-%% \begin{equation}
-%% \begin{split}
-%% \frac{\partial\mathcal{L}}{\partial \pi_k} &= \frac{r_k}{\pi_k} + \frac{\beta_k - 1}{\pi_k} + \lambda = 0\\
-%% \frac{\partial\mathcal{L}}{\partial \lambda} &= \sum_{k=1}^{K}\pi_k - 1 = 0\\
-%% \end{split}
-%% \end{equation}
-
-%% Solving this pair of equations yields
-
-%% \begin{equation}
-%% \pi_k = \frac{r_k + \beta_k - 1}{N + \sum \beta_k - K}.
-%% \end{equation}
-
-%% To find the posterior mode of the remaining parameters requires some
-%% work.  First we recall that the normal inverse-Wishart prior is
-%% proportional to:
-
-%% \begin{equation}
-%% \prod_{k=1}^{K}|\Sigma_{k}|^{\frac{\nu_0 + D + 2}{2}}\exp \left(-\frac{1}{2}tr(\Sigma_{k}^{-1}S_0^{-1})\right)\exp \left(-\frac{\lambda_0}{2}tr(\Sigma_{k}^{-1}(\boldsymbol{\mu}_k - \boldsymbol{\mu}_0)^{T}(\boldsymbol{\mu}_k - \boldsymbol{\mu}_0))\right).
-%% \end{equation}
-
-%% The required equation we are interested in is (C).
-
-%% \begin{equation}
-%% \begin{split}
-%% \sum_{i=1}^{n} &\sum_{k=1}^{K}a_{ik}\log (f({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_k))\\
-%% & = \sum_{k=1}^{K}\left\{- \sum_{i=1}^{n} a_{ik}\frac{D\log(2\pi)}{2} - \frac{1}{2}\sum_{k=1}^{n}a_{ik}\log|\Sigma_{k}| - \frac{1}{2}\sum_{i=1}^{n}a_{ik}tr\left(\Sigma_{k}^{-1}({\bf x}_i - \boldsymbol{\mu}_k)^{T}({\bf x}_i - \boldsymbol{\mu}_k)\right)\right\}\\
-%% & = \sum_{k=1}^{K}\left\{- a_k\frac{D\log(2\pi)}{2} - \frac{1}{2}a_k\log|\Sigma_{k}| - \frac{1}{2}tr\left(\Sigma_{k}^{-1}\sum_{i=1}^{n}a_{ik}({\bf x}_i - \boldsymbol{\mu}_k)^{T}({\bf x}_i - \boldsymbol{\mu}_k)\right)\right\}.
-%% \end{split}
-%% \end{equation}
-
-%% Now to derive the M-step objective we remove the constant terms and
-%% add on the log prior. This leads to
-
-%% \begin{equation}
-%% \begin{split}
-%%  &\sum_{k=1}^{K} \left\{\frac{\nu_0 + D + 2 }{2} \log|\Sigma_k|  - \frac{1}{2} tr \left(\Sigma_{k}^{-1} S_0^{-1}\right) - \frac{\lambda_0}{2} tr \left( \Sigma_{k}^{-1}(\boldsymbol{\mu}_k - \boldsymbol{\mu}_0)^T(\boldsymbol{\mu}_k - \boldsymbol{\mu}_0) \right)\right\} \\
-%%  & + \sum_{k=1}^{K} \left\{- \frac{1}{2}a_k\log|\Sigma_{k}| - \frac{1}{2} tr\left(\Sigma_{k}^{-1}\sum_{i=1}^{n}a_{ik}({\bf x}_i - \boldsymbol{\mu}_k)^{T}({\bf x}_i - \boldsymbol{\mu}_k)\right) \right\}.
-%% \end{split}
-%% \end{equation}
-
-%% This can be rewritten as
-
-%% \begin{equation}\label{equation::Mobj}
-%% \begin{split}
-%% &\sum_{k=1}^{K} \left\{\frac{\nu_0 + D + 2 + a_k }{2} \log|\Sigma_k|  - \frac{1}{2} tr \left(\Sigma_{k}^{-1} S_0^{-1}\right) - \frac{\lambda_0}{2} tr \left( \Sigma_{k}^{-1}(\boldsymbol{\mu}_k - \boldsymbol{\mu}_0)^T(\boldsymbol{\mu}_k - \boldsymbol{\mu}_0) \right)\right\} \\
-%% & + \sum_{k=1}^{K} \left\{- \frac{1}{2} tr\left(\Sigma_{k}^{-1}\sum_{i=1}^{n}a_{ik}({\bf x}_i - \boldsymbol{\mu}_k)^{T}({\bf x}_i - \boldsymbol{\mu}_k)\right) \right\}.
-%% \end{split}
-%% \end{equation}
-
-%% Now define $\bar{{\bf x}}_k = (\sum_{i=i}^{n}a_{ik}{\bf x}_i)/a_k$ and
-%% note the following algebraic rearrangements.
-
-%% \begin{equation}
-%% \begin{split}
-%% \sum_{i=1}^{n} &a_{ik}({\bf x}_i - \boldsymbol{\mu}_k)^{T}({\bf x}_i - \boldsymbol{\mu}_k)\\
-%%  = & \sum_{i=1}^{n} a_{ik}{\bf x}_i^{T}{\bf x}_i - \boldsymbol{\mu}_k^{T}{\bf x}_i -  {\bf x}_i^{T}\boldsymbol{\mu}_k + \boldsymbol{\mu}_k^{T}\boldsymbol{\mu}_k\\
-%%  = & \sum_{i=1}^{n} a_{ik}{\bf x}_i^{T}{\bf x}_i - \boldsymbol{\mu}_k^{T} \sum_{i=1}^{n} a_{ik}{\bf x}_i -  \left(\sum_{i=1}^{n} a_{ik}{\bf x}_i^{T}\right)\boldsymbol{\mu}_k + a_k\boldsymbol{\mu}_k^{T}\boldsymbol{\mu}_k\\
-%%   = & \sum_{i=1}^{n} a_{ik}{\bf x}_i^{T}{\bf x}_i - a_k\boldsymbol{\mu}_k^{T}\bar{{\bf x}}_k -  a_k \bar{{\bf x}}_k^{T}\boldsymbol{\mu}_k + a_k\boldsymbol{\mu}_k^{T}\boldsymbol{\mu}_k\\
-%%   = & \sum_{i=1}^{n} a_{ik}{\bf x}_i^{T}{\bf x}_i - a_k\bar{{\bf x}}_k^{T}\bar{{\bf x}}_k + a_k(\bar{{\bf x}}_k - \boldsymbol{\mu}_k)^{T} (\bar{{\bf x}}_k - \boldsymbol{\mu}_k)\\
-%%   = & \sum_{i=1}^{n} a_{ik}({\bf x}_i -\bar{{\bf x}}_k)^{T}({\bf x}_i -\bar{{\bf x}}_k) + a_k(\bar{{\bf x}}_k - \boldsymbol{\mu}_k)^{T} (\bar{{\bf x}}_k - \boldsymbol{\mu}_k)\\
-%% \end{split}
-%% \end{equation}
-
-%% This allows us to rewrite equation \ref{equation::Mobj} as
-
-%% \begin{equation}\label{equation::Mobj2}
-%% \begin{split}
-%% &\sum_{k=1}^{K} \left\{\frac{\nu_0 + D + 2 + a_k }{2} \log|\Sigma_k|  - \frac{1}{2} tr \left(\Sigma_{k}^{-1} \left(S_0^{-1}+ \sum_{i=1}^{n} a_{ik}({\bf x}_i -\bar{{\bf x}}_k)^{T}({\bf x}_i -\bar{{\bf x}}_k) \right)\right)\right\}\\
-%% & +  \sum_{k=1}^{K}\left\{-\frac{1}{2} tr \left( \Sigma_{k}^{-1}\left(\lambda_0(\boldsymbol{\mu}_k - \boldsymbol{\mu}_0)^T(\boldsymbol{\mu}_k - \boldsymbol{\mu}_0)\right) + a_k(\bar{{\bf x}}_k - \boldsymbol{\mu}_k)^{T} (\bar{{\bf x}}_k - \boldsymbol{\mu}_k)\right)\right\} \\
-%% \end{split}
-%% \end{equation}
-
-%% This can be written as:
-
-%% \begin{equation}\label{equation::MobjFinal}
-%% \begin{split}
-%% &\sum_{k=1}^{K} \left\{\frac{\nu_k + D + 2}{2} \log|\Sigma_k|  - \frac{1}{2} tr \left(\Sigma_{k}^{-1} S_k^{-1}\right)-\frac{1}{2} tr \left( \Sigma_{k}^{-1}\left(\lambda_k(\boldsymbol{\mu}_k - \boldsymbol{m}_k)^T(\boldsymbol{\mu}_k - \boldsymbol{m}_k)\right)\right)\right\} \\
-%% \end{split}
-%% \end{equation}
-
-%% where,
-
-%% \begin{equation}\label{equation::Posterior}
-%% \begin{split}
-%% \lambda_k = &\lambda_0 + a_k \\
-%% \nu_k = & \nu_0 + a_k \\
-%% \boldsymbol{m}_k = & \frac{a_k\bar{{\bf x}}_k + \lambda_0\boldsymbol{\mu}_0}{\lambda_k}\\
-%% S_k^{-1}  = & S_0^{-1} + \frac{\lambda_0 a_k}{\lambda_k}(\bar{{\bf x}}_k - \boldsymbol{\mu}_0)^{T} (\bar{{\bf x}}_k - \boldsymbol{\mu}_0) + \sum_{i=1}^{n} a_{ik}({\bf x}_i -\bar{{\bf x}}_k)^{T}({\bf x}_i -\bar{{\bf x}}_k)
-%% \end{split}
-%% \end{equation}
-
-%% Thus the parameters of the posterior mode are:
-
-%% \begin{equation}\label{equation::MAPapp}
-%% \begin{split}
-%% \boldsymbol{\hat{\mu}}_k = &\boldsymbol{m}_k \\
-%% \hat{\Sigma}_k = & \frac{1}{\nu_k + D + 2}S_k^{-1}
-%% \end{split}
-%% \end{equation}
-
-%% To summarise the EM algorithm, we iterate between the two steps:
-
-%% \bigskip
-
-%% E-Step: Given the current parameters compute the values given by
-%% equations (\ref{equation::estepfinalapp}), with formulas provided in
-%% equations (\ref{equation::estep1}) and (\ref{equation::estep2}).
-
-%% \bigskip
-
-%% M-Step:
-%% Compute
-%% \[\epsilon = \frac{ u + b - 1}{(a+b) + (u+v) - 2},\]
-%% and
-%% \[\pi_k = \frac{r_k + \beta_k - 1}{N + \sum \beta_k - K},\]
-%% as well as
-%% \[\bar{{\bf x}}_k = \frac{1}{a_k}\left(\sum_{i=i}^{n}a_{ik}{\bf x}_i\right)\]
-
-%% Compute the MAP estimates given by equations
-%% (\ref{equation::MAPapp}). These estimates are then used in the
-%% following iteration of the E-step. Iterate until
-%% $\lvert Q(\boldsymbol{\theta}|\boldsymbol{\theta}_{t}) -
-%% Q(\boldsymbol{\theta}|\boldsymbol{\theta_{t-1}})\rvert < \delta$ for
-%% some pre-specified $\delta >0$.
-
-%% \subsection{Appendix 2: Derivation of collapsed Gibbs sampler for TAGM model}\label{app::gibbs}
-
-%% To derive the Gibbs sampler we write down all the conditional
-%% probabilities. Then, exploiting conjugacy, we can marginalise
-%% parameters in the model. Recall the total joint probability is the
-%% following:
-
-%% \begin{equation}
-%% \begin{split}
-%% p(\boldsymbol{\theta},\Theta, X, Z, \Phi)  = &p(X,Z,\Phi|\theta,\boldsymbol{\pi}, \epsilon)p(\epsilon|u,v)p(\theta|H)p(\boldsymbol{\pi}|\beta)\\
-%% =  & \prod_{i=1}^{n}\prod_{k=1}^{K}\left(\pi_k((1-\epsilon) \mathcal{N}({\bf x}_i|\boldsymbol{\mu}_k, \Sigma_k))^{\mathds{1}(\phi_i = 1)}(\epsilon \mathcal{T}({\bf x}_i|\kappa, {\bf M}, V))^{\mathds{1}(\phi_i = 0)}\right)^{\mathds{1}(z_i=k)}\\
-%% &\cdot \left(\prod_{k=1}^{K}\mathcal{NIW}(H)\right)\cdot Dir(\beta)\cdot \mathcal{B}(u,v). \end{split}
-%% \end{equation}
-
-%% Suppose we know the hidden latent component allocations $z_i$ and
-%% outlier allocations $\phi_i$. Then we could sample from the a required
-%% normal distribution. The conditional probability of the parameters
-%% given the allocations is given by:
-
-%% \begin{equation}
-%% \begin{split}
-%% p(\theta_k|X,Z,\Phi, \theta_{-k}, \beta, u,v, H) \propto p_0(\theta_{k})\prod_{i=1}^{n}N({\bf x}_i |\boldsymbol{\mu}_k, \Sigma_k)^{\mathds{1}(\phi_i = 1)}.
-%% \end{split}
-%% \end{equation}
-
-%% The prior is conjugate and so the posterior belongs to the same
-%% parametric family as the prior, a NIW distribution, and so the
-%% parameters can be updated as follows:
-
-%% \begin{equation}
-%% \begin{split}
-%% m_k = & \frac{n_k\bar{{\bf x}}_k + \lambda_0 \boldsymbol{\mu}_0}{\lambda_k}\\
-%% \lambda_k = & \lambda_0 + n_k\\
-%% \nu_k = & \nu_0 + n_k \\
-%% S_k = & S_0 + \sum_{i:z_i = k, \phi_i = 1}({\bf x}_i - \bar{{\bf x}})^{T}({\bf x}_i - \bar{{\bf x}}) + \frac{\lambda_0n_k}{\lambda_k}(\bar{{\bf x}}- \boldsymbol{\mu}_0)^T(\bar{{\bf x}} - \boldsymbol{\mu}_0), \\
-%% \end{split}
-%% \end{equation}
-
-%% where $n_k = \lvert\{{\bf x}_i|z_i=k, \phi_i = 1\}\rvert$.
-%% Now we write down the conditional of the component allocations
-
-%% \begin{equation} \label{equation::alloc}
-%% \begin{split}
-%% p(z_i = k|X,z_{-i},\Phi, \theta, \beta, u,v, H) \propto p_0(z_i = k|z_{-i},\beta)p({\bf x}_i|{\bf x}_{-i},z_{-i}, z_i = k,\Phi, H).
-%% \end{split}
-%% \end{equation}
-
-%% The first term in this equation is
-
-%% \begin{equation}
-%% \begin{split}
-%%  p_0(z_i = k|z_{-i},\beta) = \frac{p(z_i = k, z_{-i}|\beta)}{p(z_{-i}|\beta)} = \frac{p(Z|\beta)}{p(z_{-i}|\beta)}.
-%% \end{split}
-%% \end{equation}
-
-%% To calculate the numerator we proceed by marginalising over $\boldsymbol{\pi}$ as follows
-
-%% \begin{equation}
-%% p(Z|\beta) = \int p(z|\boldsymbol{\pi})p(\boldsymbol{\pi}|\beta) d\boldsymbol{\pi} = \frac{\Gamma(\beta)}{\Gamma(n + \beta)}\prod_{k=1}^{K}\frac{\Gamma(n_k + \beta_k)}{\Gamma(\beta_k)}.
-%% \end{equation}
-
-%% Hence, we arrive at the following probability:
-
-%% \begin{equation}
-%% \begin{split}
-%% p_0(z_i = k|z_{-i},\beta) = \frac{n_{k \backslash i} + \beta_k}{n + \sum \beta_k - 1}.
-%% \end{split}
-%% \end{equation}
-
-%% The conditional for the second term of \ref{equation::alloc} is more tricky. First note the following conditional distributions
-
-%% \begin{equation}
-%% \begin{split}
-%% {\bf x}_i |& z_i = k, X_{k\backslash i}, \phi_i = 1, \Phi, z_{-i} \sim \mathcal{N}({\bf x}_i|\theta_{k})\\
-%% {\bf x}_i |& z_i = k, X_{k\backslash i}, \phi_i = 0, \Phi, z_{-i} \sim \mathcal{T}({\bf x}_i|\kappa, {\bf M},V), \\
-%% {\bf x}_i |& z_i = k, X_{k\backslash i}, \phi_i, \Phi, z_{-i}\sim N({\bf x}_i|\theta_{k})^{\mathds{1}(\phi_i=1)}\mathcal{T}({\bf x}_i|,\kappa,{\bf M},V)^{\mathds{1}(\phi_i=0)}, \\
-%% \end{split}
-%% \end{equation}
-
-%% where we denote $X_{k\backslash i}$ as the observations associated
-%% with class $k$, besides $x_i$. Now, we first note that:
-
-%% \begin{equation}\label{equation::predicitve}
-%% \begin{split}
-%% p({\bf x}_i| z_i = k, X_{k\backslash i}, \phi_i, \Phi, H, z_{-i}) =  p({\bf x}_i|X_{k\backslash i}, \phi_i, \Phi, H) = \frac{p({\bf x}_i, X_{k\backslash i}|\phi_i, \Phi, H)}{p(X_{k\backslash i}|\phi_i, \Phi, H)}.
-%% \end{split}
-%% \end{equation}
-
-%% Thus, we find an equation for the numerator, using the fact that terms
-%% associated with $\phi_i = 0$ do not depend on $k$ and thus can be
-%% absorbed into the normalising constant.
-
-%% \begin{equation}
-%% \begin{split}
-%% p(X_{k}|\phi_i, \Phi, H) &\propto \prod_{i:\phi_i =1}\int p({\bf x}_i| z_i = k, \Phi, H, \theta_{k})p(\theta_{k}|H) d\theta_{k}.\\
-%% \end{split}
-%% \end{equation}
-
-%% This is the marginal likelihood of the data. Thus the ratio in \ref{equation::predicitve} is the posterior predictive which is given by the non-centred T-distribution with formula given by:
-%% \[\mathcal{T}\left(v_k - d + 1, m_k, \frac{(1+\lambda_k)S_k}{\lambda_k
-%%       (v_k - d + 1)} \right).\]
-%% Thus, we can compute the following:
-
-%% \begin{equation} \label{equation::alloc2}
-%% \begin{split}
-%% p(z_i = k|X,z_{-i},\Phi, \theta, \beta, u,v, H) & \propto p_0(z_i = k|z_{-i},\beta)p({\bf x}_i|{\bf x}_{-i},z_{-i},\Phi, z_i = k, H)\\
-%% & = \frac{n_{k \backslash i} + \beta_k}{n + \sum \beta_k - 1}\mathcal{T}\left({\bf x}_i|v_k - d + 1, m_k,  \frac{(1+\lambda_k)S_k}{\lambda_k (v_k - d + 1)} \right) .
-%% \end{split}
-%% \end{equation}
-
-%% It remains to compute the conditional for the $\phi_i$. By first
-%% recalling that $\phi_i$ is binary we see that
-
-%% \begin{equation}
-%% p(\phi_i|X,Z,\theta, \beta, u,v, H) \propto p_0(\phi_i)\prod_{i = 1}^{n}N({\bf x}_i|\theta_{z_i})^{\mathds{1}(\phi_i=1)}T({\bf x}_i|\kappa, M, V)^{\mathds{1}(\phi_i=0)}
-%% \end{equation}
-
-%% can be written as
-
-%% \begin{equation}
-%% \begin{split}
-%% p(\phi_i = 1|X,Z,\theta, \phi_{-i}, \beta, u,v, H) &\propto p_0(\phi_i = 1|\phi_{-i},u,v)p({\bf x}_i|{\bf x}_{-i},\phi_i =1,Z,\theta, \Phi, \beta, u,v, H), \\
-%% p(\phi_i = 0|X,Z,\theta,\phi_{-i}, \beta, u,v, H) &\propto p_0(\phi_i = 0|\phi_{-i},u,v)p({\bf x}_i|{\bf x}_{-i},\phi_i=0,Z,\theta, \Phi, \beta, u,v, H). \\
-%% \end{split}
-%% \end{equation}
-
-%% First we need to compute a formula for
-%% $p_0(\phi_i|\phi_{-i},u,v)$. First we see that
-
-%% \begin{equation}
-%% p_0(\phi_i|\phi_{-i},u,v) = \frac{p(\Phi|u,v)}{p(\phi_{-i}|u,v)}.
-%% \end{equation}
-
-%% The numerator can be computed by marginalising over $\epsilon$:
-
-%% \begin{equation}
-%% p(\Phi|u,v) = \int p(\Phi | \epsilon)p(\epsilon|u,v) d\epsilon.
-%% \end{equation}
-
-%% We denote $\sum\mathds{1}(\phi_i = 1) = \tau_1$ and
-%% $\sum\mathds{1}(\phi_i = 1) = \tau_0 = 1 -\tau_1$. Then it is easy to
-%% see that
-
-%% \begin{equation}
-%% \begin{split}
-%% p(\Phi|u,v) & = \int p(\Phi | \epsilon)p(\epsilon|u,v) d\epsilon\\
-%% & = \frac{1}{B(u,v)}\int (1-\epsilon)^{\tau_1 + v - 1}\epsilon^{\tau_0 + u - 1} d\epsilon\\
-%% & = \frac{B(\tau_0 + u,\tau_1 + v)}{B(u,v)}.
-%% \end{split}
-%% \end{equation}
-
-%% Hence,
-
-%% \begin{equation}
-%% \begin{split}
-%% p(\phi_i=1|\phi_{-i},u,v) &= \frac{B(\tau_0 + u,\tau_1 + v)}{B(u,v)} \cdot \frac{B(u,v)}{B(\tau_0 + u,\tau_1 + v -1)}\\
-%% = & \frac{\tau_1 + v - 1}{n+u+v-1},
-%% \end{split}
-%% \end{equation}
-
-%% where $n = \tau_1 + \tau_2$. In general,
-
-%% \begin{equation}
-%% \begin{split}
-%% p(\phi_i=s|\phi_{-i},u,v) &=  \frac{\tau_{s\backslash i} + v^{s}u^{1-s}}{n+u+v-1}.
-%% \end{split}
-%% \end{equation}
-
-%% Now we return to computing
-%% $p({\bf x}_i|{\bf x}_{-i},Z,\theta, \phi_i =1, \Phi, \beta, u,v,
-%% H)$. First we see that
-
-%% \begin{equation}
-%% p({\bf x}_i|{\bf x}_{-i},Z,\theta, \phi_i =1, \Phi, \beta, u,v, H)= \frac{p(X|Z,\theta, \phi_i =1, \Phi, \beta, u,v, H)}{p({\bf x}_{-i}|Z,\theta, \phi_i =1, \Phi, \beta, u,v, H)}.
-%% \end{equation}
-
-%% Thus if we integrate over the parameters, we would have a ratio of
-%% marginal likelihoods giving the posterior predictive which is a
-%% non-centred T-distribution:
-
-%% \begin{equation}
-%% p({\bf x}_i|{\bf x}_{-i},Z,\theta, \phi_i =1, \Phi, \beta, u,v, H) = \mathcal{T}\left( v_k - d + 1, m_k, \frac{(1+\lambda_k)S_k}{\lambda_k (v_k - d + 1)} \right).
-%% \end{equation}
-%% In the other case that $\phi = 0$, we have that
-%% \begin{equation}
-%% p(x_i|x_{-i},Z,\theta, \phi_i =0, \Phi, \beta, u,v, H) = \mathcal{T}(x_i|\kappa, {\bf M}, V).
-%% \end{equation}
-%% Thus we can compute:
-%% \begin{equation}
-%% p(\phi_i|X,Z,\theta, \phi_{-i}, \beta, u,v, H)
-%% \end{equation}
-
-%% and sample from the required distribution. Thus, we can summarise the
-%% collapsed Gibbs sampler as follows:
-
-%% \begin{enumerate}
-%% \item Update the priors with the labelled data
-%% \item For the unlabelled observations, in turn, compute the
-%%   probability of assigning to each component
-%% \item Sample a label according to this probability
-%% \item Compute the probability of belonging to this class or the
-%%   outlier component
-%% \item Sample an indicator to a class specific component or the outlier
-%%   component
-%% \item If we assign to the class specific component update the class
-%%   specific posterior distribution with the statistics of this
-%%   observation
-%% \item Update other posteriors as appropriate.
-%% \item Once all unlabelled observations have a been assigned, consider
-%%   the observations sequentially, removing the statistics from the
-%%   posteriors and then performing steps 2-7. We repeat this process for
-%%   all unlabelled observations.
-%% \item repeat 7-8 until convergence of the Markov-chain.
-%% \end{enumerate}
-
-%% The computational bottleneck in the algorithm is computing the
-%% posterior updates for the parameters
-
-%% \begin{equation}
-%% \begin{split}
-%% m_k = & \frac{n_k\bar{{\bf x}}_k + \lambda_0 \boldsymbol{\mu}_0}{\lambda_k}\\
-%% \lambda_k = & \lambda_0 + n_k\\
-%% \nu_k = & \nu_0 + n_k \\
-%% S_k = & S_0 + \sum_{i:z_i = k, \phi_i = 1}({\bf x}_i - \bar{{\bf x}})^{T}({\bf x}_i - \bar{{\bf x}}) + \frac{\lambda_0n_k}{\lambda_k}(\bar{{\bf x}}- \boldsymbol{\mu}_0)^T(\bar{{\bf x}} - \boldsymbol{\mu}_0), \\
-%% \end{split}
-%% \end{equation}
-%% We first note that
-%% \begin{equation}
-%% \begin{split}
-%% S_k = & S_0 + \sum_{i:z_i = k, \phi_i = 1}{\bf x}_i^{T}{\bf x}_i + \lambda_0\boldsymbol{\mu}_0^T\boldsymbol{\mu}_0 - \lambda_k\boldsymbol{\mu}_k^T \boldsymbol{\mu}_k \ \\
-%% \end{split}
-%% \end{equation}
-
-%% Let us denote
-%% $T = \sum_{i:z_i = k, \phi_i = 1}{\bf x}_i^{T}{\bf x}_i$. Thus we can
-%% derive a set of iterative updates to speed up computation when
-%% adding/removing statistics from clusters. More precisely, indicating
-%% updated posterior parameters by a prime, if we remove statistics of
-%% observation $i$ from cluster $k$, we see that
-
-%% \begin{equation}
-%% \begin{split}
-%% m'_k = & \frac{\lambda_k m_k - {\bf x}_i}{\lambda_k - 1}\\
-%% \lambda'_k = & \lambda_k -1\\
-%% \nu'_k = & \nu_k -1  \\
-%% T' = & T - {\bf x}_i^T{\bf x}_i \\
-%% S'_k = & S_0 + T' + \lambda_0\boldsymbol{\mu}_0^T\boldsymbol{\mu}_0 - \lambda_km_k'^T m_k'. \\
-%% \end{split}
-%% \end{equation}
-
-%% Likewise if we add the statistics of observation $i$ to cluster $k$,
-%% we see that
-
-%% \begin{equation}
-%% \begin{split}
-%% m'_k = & \frac{\lambda_k m_k + {\bf x}_i}{\lambda_k + 1}\\
-%% \lambda'_k = & \lambda_k +1\\
-%% \nu'_k = & \nu_k +1  \\
-%% T' = & T + {\bf x}_i^T{\bf x}_i \\
-%% S'_k = & S_0 + T' + \lambda_0\boldsymbol{\mu}_0^T\boldsymbol{\mu}_0 - \lambda_km_k'^T m_k'.\\
-%% \end{split}
-%% \end{equation}
-
-%% \clearpage
-
-%% \subsection{Appendix 3: Convergence diagnostics of EM algorithm} \label{app:logposterior}
-
-%% \begin{figure}[h]
-%%   \centering
-%% <<emconverge, echo=FALSE, out.width='0.6\\textwidth'>>=
-%% plot(resandyhl$loglike,
-%%      cex = 1, col = "blue",
-%%      type = "b",
-%%      xlab = "Iteration", ylab = "log-posterior",
-%%      main = "The log-posterior at each iteration of the EM algorithm")
-%% @
-
-%% \caption{Plot of the log-posterior at each iteration of the EM
-%%   algorithm to demonstrate monotonicity and convergence}
-%%   \label{figure::emconvergence}
-%% \end{figure}
-
-%% \clearpage
-
-%% \subsection{Appendix 4: Trace plots for assessing MCMC convergence}\label{app:mcmc}
-
-%% <<echo = FALSE>>=
-%% listmcmc <- list(mcmc(colSums(andydiag$andymcmc1)[501:1100]),
-%%                  mcmc(colSums(andydiag$andymcmc2)[501:1100]),
-%%                  mcmc(colSums(andydiag$andymcmc3)[501:1100]),
-%%                  mcmc(colSums(andydiag$andymcmc5)[501:1100]),
-%%                  mcmc(colSums(andydiag$andymcmc6)[501:1100]))
-%% listmcmc <- as.mcmc.list(listmcmc)
-%% gd <- gelman.diag(x = listmcmc, autoburnin = F)
-%% @
-
-%% \begin{figure}[ht]
-%%   \centering
-%% <<traceplots, echo=FALSE, out.width='0.75\\textwidth'>>=
-%% par(mfrow = c(2,3))
-%% plot(colSums(andydiag$andymcmc1), type = "b", cex = 0.1, col = "blue", ylim = c(3200,3450), xlab = "iteration", ylab = "Number of proteins allocated to known components", main = "Chain 1")
-%% plot(colSums(andydiag$andymcmc2), type = "b", cex = 0.1, col = "blue", ylim = c(3200,3450), xlab = "iteration", ylab = "Number of proteins allocated to known components", main = "Chain 2")
-%% plot(colSums(andydiag$andymcmc3), type = "b", cex = 0.1, col = "blue", ylim = c(3200,3450), xlab = "iteration", ylab = "Number of proteins allocated to known components", main = "Chain 3")
-%% plot(colSums(andydiag$andymcmc4), type = "b", cex = 0.1, col = "blue", ylim = c(3200,3450), xlab = "iteration", ylab = "Number of proteins allocated to known components", main = "Chain 4")
-%% plot(colSums(andydiag$andymcmc5), type = "b", cex = 0.1, col = "blue", ylim = c(3200,3450), xlab = "iteration", ylab = "Number of proteins allocated to known components", main = "Chain 5")
-%% plot(colSums(andydiag$andymcmc6), type = "b", cex = 0.1, col = "blue", ylim = c(3200,3450), xlab = "iteration", ylab = "Number of proteins allocated to known components", main = "Chain 6")
-%% @
-%% \caption{Trace plots of the number of proteins allocated to the known
-%%   components in each of 6 parallel MCMC runs. Chain $4$ is discarded
-%%   because of lack of convergence. $600$ samples are retained from
-%%   remaining chains and pooled.}
-%%   \label{figure::mcmcchains}
-%% \end{figure}
-
-
-%% \clearpage
-
-%% \subsection{Appendix 5: F1 t-tests}\label{app::ttestf1}
-
-%% <<echo=FALSE>>=
-%% f1ttesttan <- pairwise.t.test(tandfmetrics$value, tandfmetrics$variable , p.adjust.method = "BH",
-%%                            pool.sd = FALSE, paired = FALSE,
-%%                            alternative = "two.sided")
-
-%% f1ttesthall <- pairwise.t.test(halldfmetrics$value, halldfmetrics$variable , p.adjust.method = "BH",
-%%                            pool.sd = FALSE, paired = FALSE,
-%%                            alternative = "two.sided", mu = 0, var.equal = FALSE)
-
-%% f1ttestandy <- pairwise.t.test(andydfmetrics$value, andydfmetrics$variable , p.adjust.method = "BH",
-%%                            pool.sd = FALSE, paired = FALSE,
-%%                            alternative = "less")
-
-%% f1ttestitzhak <- pairwise.t.test(itzhakdfmetrics$value, itzhakdfmetrics$variable , p.adjust.method = "BH",
-%%                            pool.sd = F, paired = FALSE,
-%%                            alternative = "two.sided")
-
-%% f1ttestu2os <- pairwise.t.test(u2osdfmetrics$value, u2osdfmetrics$variable , p.adjust.method = "BH",
-%%                            pool.sd = F, paired = FALSE,
-%%                            alternative = "two.sided")
-
-%% plist <- vector(mode = "list", length = 14)
-
-%% for(j in 1:14) {
-%%     plist[[j]] <- pairwise.t.test(additionalF1compare[(additionalF1compare$set == levels(additionalF1compare$set)[j]),"value"],
-%%                                   additionalF1compare[(additionalF1compare$set == levels(additionalF1compare$set)[j]),"variable"], p.adjust.method = "BH",
-%%                                   pool.sd = F, paired = FALSE,
-%%                                   alternative = "two.sided")
-%% }
-
-%% @
-
-%% <<echo = FALSE, results = 'asis'>>=
-%% xtb <- xtable(f1ttesttan$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Drosophila dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(f1ttesthall$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Chicken DT40 dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(f1ttestandy$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the mouse dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(f1ttestitzhak$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(f1ttestu2os$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the U2-OS dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[1]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa wild (Hirst et al.) dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[2]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa KO1 (Hirst et al.) dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[3]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the HeLa KO2 (Hirst et al.) dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[4]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 24hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[5]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 48hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[6]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 72hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-
-%% xtb <- xtable(plist[[7]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 96hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[8]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts Mock 120hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[9]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 24hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[10]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 48hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[11]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 72hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[12]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 96hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[13]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Primary Fibroblasts HCMV 120hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[14]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the E14TG2a dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-%% @
-
-%% \clearpage
-
-%% \subsection{Appendix 6: Quadratic loss t-tests}
-
-%% <<quadtests, echo = FALSE>>=
-%% #ttest for quadratic losses
-%% ttesttanquad <- pairwise.t.test(tandfmetricsquad$value,
-%%                                 tandfmetricsquad$variable ,
-%%                                 p.adjust.method = "BH",
-%%                                 pool.sd = FALSE, paired = FALSE,
-%%                                 alternative = "two.sided")
-
-%% ttesthallquad <- pairwise.t.test(halldfmetricsquad$value,
-%%                                  halldfmetricsquad$variable ,
-%%                                  p.adjust.method = "BH",
-%%                                  pool.sd = FALSE, paired = FALSE,
-%%                                  alternative = "two.sided", mu = 0,
-%%                                  var.equal = FALSE)
-
-%% ttestandyquad <- pairwise.t.test(andydfmetricsquad$value,
-%%                                  andydfmetricsquad$variable ,
-%%                                  p.adjust.method = "BH",
-%%                                  pool.sd = FALSE, paired = FALSE,
-%%                                  alternative = "less")
-
-%% ttestitzhakquad <- pairwise.t.test(itzhakdfmetricsquad$value,
-%%                                    itzhakdfmetricsquad$variable,
-%%                                    p.adjust.method = "BH",
-%%                                    pool.sd = F, paired = FALSE,
-%%                                    alternative = "two.sided")
-
-%% ttestu2osquad <- pairwise.t.test(u2osdfmetricsquad$value,
-%%                                  u2osdfmetricsquad$variable ,
-%%                                  p.adjust.method = "BH",
-%%                                  pool.sd = F, paired = FALSE,
-%%                                  alternative = "two.sided")
-
-%% for (j in 1:14) {
-%%  plist[[j]] <- pairwise.t.test(additionalquadlosscompare[(additionalquadlosscompare$set == levels(additionalquadlosscompare$set)[j]),"value"],
-%%                                additionalquadlosscompare[(additionalquadlosscompare$set == levels(additionalquadlosscompare$set)[j]),"variable"],
-%%                                p.adjust.method = "BH",
-%%                                pool.sd = F, paired = FALSE,
-%%                                alternative = "two.sided")
-%% }
-
-%% @
-
-
-%% <<echo = FALSE, results = 'asis'>>=
-%% xtb <- xtable(ttesttanquad$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Drosphila dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(ttesthallquad$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Chicken DT40 dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(ttestandyquad$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the mouse dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(ttestitzhakquad$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(ttestu2osquad$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the U2-OS dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[1]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa wild (Hirst et al.) dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[2]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa KO1 (Hirst et al.) dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[3]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the HeLa KO2 (Hirst et al.) dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[4]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 24hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[5]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 48hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[6]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 72hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-
-%% xtb <- xtable(plist[[7]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 96hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[8]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts Mock 120hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[9]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 24hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[10]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 48hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[11]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 72hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[12]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 96hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[13]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the Primary Fibroblasts HCMV 120hpi dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% xtb <- xtable(plist[[14]]$p.value, digits = -1,
-%%        caption = "Adjusted P-values for pairwise T-tests for Quadratic Loss classifier evaluation on the E14TG2a dataset")
-%% print(xtb, floating=TRUE, table.placement = "H")
-
-%% @
-
-%% \clearpage
-
-%% \subsection{Appendix 7: GO enrichment analysis figures}
-
-%% <<enrichgo, cache=TRUE, echo = FALSE, eval=TRUE>>=
-%% ## Not evaluating this as it apparently doesn't cache.
-%% ego <- enrichGO(gene          = rownames(fData(andyMCMChl))[fData(andyMCMChl)$outlier.allocation < 0.95],
-%%                 universe      = rownames(exprs(andyMCMChl)),
-%%                 OrgDb         = org.Mm.eg.db,
-%%                 ont           = "CC",
-%%                 keyType       = "UNIPROT",
-%%                 pAdjustMethod = "BH",
-%%                 pvalueCutoff  = 0.01,
-%%                 qvalueCutoff  = 0.05,
-%%                 readable      = TRUE)
-
-%% egobp <- enrichGO(gene        = rownames(fData(andyMCMChl))[fData(andyMCMChl)$outlier.allocation < 0.95],
-%%                 universe      = rownames(exprs(andyMCMChl)),
-%%                 OrgDb         = org.Mm.eg.db,
-%%                 ont           = "BP",
-%%                 keyType       = "UNIPROT",
-%%                 pAdjustMethod = "BH",
-%%                 pvalueCutoff  = 0.01,
-%%                 qvalueCutoff  = 0.05,
-%%                 readable      = TRUE)
-
-%% egoMF <- enrichGO(gene          = rownames(fData(andyMCMChl))[fData(andyMCMChl)$outlier.allocation < 0.95],
-%%                   universe      = rownames(exprs(andyMCMChl)),
-%%                   OrgDb         = org.Mm.eg.db,
-%%                   ont           = "MF",
-%%                   keyType       = "UNIPROT",
-%%                   pAdjustMethod = "BH",
-%%                   pvalueCutoff  = 0.01,
-%%                   qvalueCutoff  = 0.05,
-%%                   readable      = TRUE)
-
-%% @
-
-%% \begin{figure}[h]
-%%   \centering
-%%   \begin{subfigure}[t]{0.5\textwidth}
-%%     \includegraphics[width=\textwidth]{CCenrich.pdf}
-%%   \end{subfigure}%
-%%   \begin{subfigure}[t]{0.5\textwidth}
-%%     \includegraphics[width=\textwidth]{BPenrich.pdf}
-%%   \end{subfigure}%
-%% ~
-
-%%   \begin{subfigure}[t]{0.5\textwidth}
-%%     \centering
-%%     \includegraphics[width=\textwidth]{MFenrich.pdf}
-%%   \end{subfigure}
-%%   \caption{Gene Ontology over representation analysis on outlier
-%%     proteins - that is proteins allocated with less than probability
-%%     $0.95$. We analyse the enrichment of terms in the cellular
-%%     compartment, biological process, and molecular function
-%%     ontologies. We display the top 10 significant results in the
-%%     dotplots.}
-%%   \label{fig:GOenrich}
-%% \end{figure}
-
-%% \clearpage
-
-%% \subsection{Appendix 8: Comparison of MCMC and MAP allocations}
-%% <<MAPandMCMC, echo = FALSE>>=
-%% V <- fData(andyhlMAP$object)[(as.numeric(fData(andyMCMChl)$predicted.probability)
-%%                               * as.numeric(fData(andyMCMChl)$outlier.allocation)
-%%                               * as.numeric(fData(andyhlMAP$object)$predicted.probability))  > 0.99,
-%%                              "predicted.allocation"]
-%% W <- fData(andyMCMChl)[(as.numeric(fData(andyMCMChl)$predicted.probability)
-%%                         * as.numeric(fData(andyMCMChl)$outlier.allocation)
-%%                         * as.numeric(fData(andyhlMAP$object)$predicted.probability)) > 0.99,"predicted.allocation"]
-
-
-%% cont <- table(V,W)
-%% mycol <- colorRampPalette(c("white", "red"))(50)
-%% cont <- cont/rowSums(cont)
-
-%% dimnames(cont) <- shortenOrgNames(dimnames(cont))
-%% @
-%% \begin{figure}[ht]
-%% \centering
-%% <<app8-heatmap, echo=FALSE, fig.height=6>>=
-%% par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
-%% lattice.options(
-%%   layout.heights=list(bottom.padding=list(x=0), top.padding=list(x=0)),
-%%   layout.widths=list(left.padding=list(x=0), right.padding=list(x=0))
-%% )
-%% levelplot(cont, xlab="TAGM (MAP)", ylab="TAGM (MCMC)",
-%%           main = "", ## scales = list(x = list(draw = FALSE)),
-%%           scales = list(x = list(rot=90)),
-%%           cuts = 50, pretty = TRUE,
-%%           col.regions = mycol,
-%%           at = seq(0, 50)/50, aspect = "fill")
-%% @
-%% \caption{A heatmap representation of a contingency table comparing allocation produced by
-%% MCMC and MAP methods with posterior probability threshold set at $0.99$ for both methods.
-%% The scale ranges from 0 to 1 with values indicating the proportion of assigned proteins to
-%% that sub-cellular location. Values along the diagonal represent agreement between classifiers
-%% whilst other values represent disagreement.
-%% The allocations of proteins by both methods are in strong agreement.}
-%% \end{figure}
-
-
-
-\clearpage
-
-\bibliographystyle{natbib}
+\bibliographystyle{vancouver}
 \bibliography{BayesProt}
 
 
