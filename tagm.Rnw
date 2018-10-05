@@ -373,44 +373,6 @@ principal components along with the first and fourth principal
 components as a representative example. For the TAGM model, we derive
 probability ellipses from the MAP estimates of the parameters.
 
-\begin{figure}[p]
-  \begin{subfigure}[t]{0.45\textwidth}
-    \centering
-<<pca12, echo=FALSE>>=
-par(mar = c(4,4,2,0))
-pRoloc:::plotEllipse_old(hl, method = "MAP", components = c(1,2),
-                         main = "Visualisation of probability ellipses",
-                         xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
-addLegend(hl, cex=0.7, where="bottomleft")
-@
-        \caption{}
-\end{subfigure}%
-\hfill
-\begin{subfigure}[t]{0.45\textwidth}
-        \centering
-<<pca14, echo=FALSE>>=
-par(mar = c(4,4,2,0))
-pRoloc:::plotEllipse_old(hl, method = "MAP", components = c(1,4),
-                         main = "Visualisation along 1st and 4th principal components")
-addLegend(hl, cex=0.7, where="topleft")
-@
-        \caption{}
-\end{subfigure}
-  \centering
-  \caption{ (a) PCA plot of the 1st and 2nd principal components for
-    the curated marker proteins of the mouse stem cell data. The
-    organelles are, in general, well separated. Though some organelles
-    overlap, they are separated along different principal
-    components. The densities used to produce the ellipses are derived
-    from the MAP estimates. (b) Marker resolution along the 1st and
-    4th principal components show that the mitochondrion and
-    peroxisome markers are well resolved, despite overlapping in the
-    1st and 2nd component.  We also see that the ER/Golgi apparatus
-    markers are better separated from the extracellular matrix
-    markers.}
-\label{figure::pcaellipse}
-\end{figure}
-
 
 <<echo=FALSE>>=
 # ouptut to check result below
@@ -441,44 +403,6 @@ collapsed Gibbs sampler is used to sample from the posterior of
 localisation probabilities. The remainder of this article focus on
 analysis of spatial proteomics in this fully Bayesian framework.
 
-
-\begin{figure}[p]
-    \begin{subfigure}[t]{0.5\textwidth}
-<<assignmentPCAMAP, echo=FALSE>>=
-ptsze <- as.numeric(fData(andyhlMAP$object)$predicted.probability)
-par(mfrow = c(1,1))
-plot2D(object = andyhlMAP$object,
-       fcol="predicted.allocation",
-       dims = c(1,2),
-       cex = ptsze,
-       main="TAGM-MAP localisation predictions",
-       mirrorY = TRUE)
-addLegend(andyhlMAP$object, cex=0.5, where="topleft")
-@
-    \end{subfigure}%
-    \begin{subfigure}[t]{0.5\textwidth}
-<<assignmentPCAMCMC, echo=FALSE>>=
-ptsze <- as.numeric(fData(andyMCMChl)$predicted.probability)
-names(ptsze) <- rownames(fData(andyMCMChl))
-ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.9999] <- 0.1
-
-par(mfrow = c(1,1))
-.pca <- plot2D(andyMCMChl, fcol="predicted.allocation", cex = ptsze,
-               main="TAGM-MCMC localisation prediction", mirrorY = TRUE)
-addLegend(andyMCMChl, cex=0.6, where="topleft")
-@
-    \end{subfigure}%
-  \centering
-  \caption{PCA plot of the protein quantitation data with colours
-    representing the predicted class (5032 proteins) illustrating
-    protein localisation preductions using TAGM-MAP (left) and
-    TAGM-MCMC (right) respectively. The pointer size of a protein is
-    scaled to the probability that particular protein was assigned to
-    that organelle. Markers, proteins whose localisations are already
-    known, are automatically assigned a probability of $1$ and the
-    size of the pointer reflects this.}
-  \label{fig:assignmentPCA} %% MAP and MCMC
-\end{figure}
 
 
 \subsubsection*{Uncertainty in the posterior localisation probabilities}
@@ -537,66 +461,6 @@ some uncertainty about whether it localises to the $40$S ribosome.
 This could suggest a dynamic role for this protein, which could be
 further explored with a more targeted experiment.
 
-\begin{figure}[p]
-  \begin{subfigure}[t]{0.45\textwidth}
-        \centering
-<<pca12-ellipses, echo=FALSE>>=
-par(mar = c(4,4,2,0))
-pRoloc:::plotEllipse_old(hl, method = "MCMC", components = c(1,2),
-                         main = "Visualisation of probability ellipses",
-                         xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
-addLegend(hl, cex=0.5, where="bottomleft")
-@
-        \caption{}
-\end{subfigure}%
-\hfill
-\begin{subfigure}[t]{0.45\textwidth}
-<<pca14-ellipses, echo=FALSE>>=
-par(mar = c(4,4,2,0))
-pRoloc:::plotEllipse_old(hl, method = "MCMC",
-                         components = c(1,4),
-                         main = "Visualisation along the 1st and 4th principal component")
-addLegend(hl, cex=0.5, where="topleft")
-@
-        \centering
-        \caption{}
-\end{subfigure}
-  \centering
-  \caption{(a) Probability ellipses produced from using the MCMC
-    method.  The density is the expected value from the NIW
-    distribution. (b) Probability ellipses visualised along the 1st
-    and 4th principal component also from the MCMC method.}
-\label{figure::pcaellipseMCMC}
-\end{figure}
-
-\begin{figure}[p]
-\centering
-<<violin-G5E870, echo = FALSE, fig.align="center", warning=FALSE, message=FALSE, out.width='0.7\\textwidth'>>=
-colnames(dfG5E870) <- getMarkerClasses(andyMCMChl)
-dfG5E870 <- melt(dfG5E870)
-colnames(dfG5E870) <- c("One","Organelle","Probability")
-
-gg <- ggplot(dfG5E870,
-             aes(Organelle, Probability, width = (Probability))) +
-    geom_violin(aes(fill = Organelle), scale = "width")
-gg <- gg + theme_bw() +
-    scale_fill_manual(values = getStockcol()[1:14]) +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1),
-          axis.title.x = element_blank())
-gg <- gg +
-    ylab("Membership Probability") +
-    ggtitle("Distribution of Subcellular Membership for Protein G5E870")
-gg <- gg + theme(legend.position="none")
-print(gg)
-@
-
-\caption{Violin plot revealing the posterior distribution of
-  localisation probabilities of protein E3 ubiquitin-protein ligase
-  (G5E870) to organelles and sub-cellular niches.  The most probable
-  localisation is nucleus non-chromatin, however there is uncertainty
-  associated with this assignment.}
-\label{fig:G5E870}
-\end{figure}
 
 
 \subsubsection*{Enrichment analysis of outlier proteins}
@@ -894,7 +758,7 @@ save("itzhakdfmetrics", file = "./data/itzhakdfmetrics.rda")
 save("u2osdfmetrics", file = "./data/u2osdfmetrics.rda")
 
 
-gg <- ggplot(data = dfmetrics, aes(x=variable, y=value)) +
+gg2 <- ggplot(data = dfmetrics, aes(x=variable, y=value)) +
   geom_boxplot(aes(fill=variable)) +
   scale_y_continuous(limits = c(0, 1)) +
   ggtitle("Boxplot of Macro F1 scores") +
@@ -906,16 +770,6 @@ gg <- ggplot(data = dfmetrics, aes(x=variable, y=value)) +
     theme(legend.position="none")
 
 @
-
-\begin{figure}[p]
-  \centering
-<<f1boxplots, echo=FALSE, fig.width=9, fig.height=10>>=
-print(gg)
-@
- \caption{Boxplots of the distributions of Macro F1 scores for all
-   spatial proteomics datasets.}
-  \label{figure::f1scores}
-\end{figure}
 
 
 The Macro-F1 scores do not take into account that whilst the TAGM
@@ -1000,7 +854,7 @@ save("itzhakdfmetricsquad", file = "./data/itzhakdfmetricsquad.rda")
 save("u2osdfmetricsquad", file = "./data/u2osdfmetricsquad.rda")
 
 
-gg2 <- ggplot(data = dfmetrics2, aes(x=variable, y=value)) +
+gg3 <- ggplot(data = dfmetrics2, aes(x=variable, y=value)) +
     geom_boxplot(aes(fill=variable)) +
     scale_y_continuous() +
     ggtitle("Boxplot of Quadratic Losses") +
@@ -1015,15 +869,6 @@ gg2 <- ggplot(data = dfmetrics2, aes(x=variable, y=value)) +
 
 @
 
-\begin{figure}[p]
-  \centering
-<<quadboxplots, echo=FALSE, fig.width=9, fig.height=10>>=
-print(gg2)
-@
-\caption{Boxplots of the distributions of Quadratic losses for all
-  spatial proteomics datasets.}
-  \label{figure::quadloss}
-\end{figure}
 
 
 Computing distributions of F1 scores and quadratic losses, which can
@@ -1071,53 +916,6 @@ dimnames(df4) <- shortenOrgNames(dimnames(df4))
 
 @
 
-\begin{figure}[p]
-  \begin{subfigure}[t]{0.5\textwidth}
-        \centering
-<<assigncomp1, echo=FALSE, fig.height=6>>=
-par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
-lattice.options(
-  layout.heights=list(bottom.padding=list(x=0), top.padding=list(x=0)),
-  layout.widths=list(left.padding=list(x=0), right.padding=list(x=0))
-)
-levelplot(cont, xlab="SVM", ylab="TAGM (MCMC)",
-          main = "", ## scales = list(x = list(draw = FALSE)),
-          scales = list(x = list(rot=90)),
-          colorkey = FALSE,
-          cuts = 50, pretty = TRUE,
-          col.regions = mycol,
-          at = seq(0, 10)/10, aspect = "fill")
-@
-
-\end{subfigure}%
-\begin{subfigure}[t]{0.5\textwidth}
-\centering
-<<assigncomp2, echo=FALSE, fig.height=6>>=
-par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
-lattice.options(
-  layout.heights=list(bottom.padding=list(x=0), top.padding=list(x=0)),
-  layout.widths=list(left.padding=list(x=0), right.padding=list(x=0))
-)
-levelplot(df4, xlab="SVM", ylab="TAGM (MCMC)",
-          main = "", ## scales = list(x = list(draw = FALSE)),
-          scales = list(x = list(rot=90)),
-          cuts = 50, pretty = TRUE,
-          col.regions = mycol,
-          at = seq(0, 10)/10, aspect = "fill")
-@
-\end{subfigure}
-\caption{A heatmap representation of a contingency table, where we
-  compare assignment results for proteins with unknown protein
-  localisation using the TAGM-MCMC and SVM. The scale ranges from 0 to
-  1 with values indicating the proportion of assigned proteins to that
-  sub-cellular location. Values along the diagonal represent agreement
-  between classifiers whilst other values represent disagreement. The
-  coherence between the classifers is very high.  (a) In this case we
-  set a probability threshold of 0.95 for the TAGM assignments with no
-  threshold for the SVM.  (b) In this case we set a 5\% FDR threshold
-  for the SVM and no threshold for the TAGM-MCMC.}
-\label{figure:contigencytables}
-\end{figure}
 
 In general, we see an extremely high level of coherence between the
 TAGM and the SVM, with almost all proteins predicted to concordant
@@ -1196,300 +994,6 @@ locations. This justifies including an outlier component in our model,
 else we may erroneously assign such proteins to a single location.
 
 
-\begin{figure}[p]
-  \centering
-  \begin{subfigure}[t]{0.5\textwidth}
-    \centering
-<<Q924C1-prob, echo = FALSE, fig.align="center", warning=FALSE>>=
-colnames(dfQ924C1) <- getMarkerClasses(andyMCMChl)
-dfQ924C1melt <- melt(dfQ924C1)
-colnames(dfQ924C1melt) <- c("One","Organelle","Probability")
-par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
-gg2 <- ggplot(dfQ924C1melt,
-              aes(Organelle, Probability, width = (Probability))) +
-    geom_violin(aes(fill = Organelle), scale = "width")
-gg2 <- gg2 + theme_bw() +
-    scale_fill_manual(values = getStockcol()[1:14]) +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1),
-          axis.title.x = element_blank())
-gg2 <- gg2 +
-    ylab("Membership Probability") +
-    ggtitle(paste0("Distribution of Subcellular Membership for Protein Q924C1" ))
-gg2 <- gg2 +
-    theme(legend.position="none")
-print(gg2)
-@
-    \caption{}
-  \end{subfigure}%
-  \begin{subfigure}[t]{0.5\textwidth}
-    \centering
-<<Q924C1-prof, echo = FALSE, fig.align="center">>=
-par(mar=c(5,6,4,2) + 1, las = 2)
-par(mai = c(2,0,1,0), oma = c(0,0,0,0))
-hlo <- andyMCMChl[, order(andyMCMChl$Iodixonal.Density)]
-plotDist(hlo[fData(hlo)$markers == "Cytosol", ],
-         pcol = getStockcol()[4], xlab= "", lwd = 10, type = "l")
-matlines(t(exprs(hlo[fData(hlo)$markers == "Nucleus - Non-chromatin" , ])),
-         lty = 1, col = getStockcol()[11], lwd = 1, type="l" )
-title(main = "Profile of Protein Q924C1 with marker distributions")
-legend("topright", c("Cytosol", "Nucleus - Non-chromatin"),
-       lty = 1, col = c(getStockcol()[4], getStockcol()[11]), bty = "n")
-matlines(t(exprs(hlo["Q924C1",])), lty = 1, lwd = 5, col="red", type="l" )
-par(las = 1)
-@
-    \caption{}
-  \end{subfigure}
-  \vspace{1cm}
-  \begin{subfigure}[t]{0.5\textwidth}
-    \centering
-<<Q924C1-dens, echo = FALSE, fig.align="center">>=
-par(mai = c(2,0,0,0), oma = c(0,0,0,0))
-gg <- ggplot(dfQ924C1melt[dfQ924C1melt$Organelle == c("Cytosol","Nucleus - Non-chromatin"),],
-             aes(Probability, fill = Organelle)) +
-    geom_density(aes(fill = Organelle), alpha = 0.1) +
-    xlim(c(0,1))
-gg <- gg +
-    scale_fill_manual(values = getStockcol()[c(4,11)]) +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1),
-          axis.title.x = element_blank())
-gg <- gg +
-    ylab("Density") +
-    xlab("Membership Probability") +
-    ggtitle("Density plot of Subcellular Membership for Protein Q924C1")
-gg <- gg + theme_bw()
-print(gg)
-@
-    \caption{}
-  \end{subfigure}%
-  \begin{subfigure}[t]{0.5\textwidth}
-    \centering
-<<Q924C1-pca,echo = FALSE>>=
-prots <- "Q924C1"
-par(oma = c(0,0,0,0))
-foi13s <- FeaturesOfInterest(description = "",
-                             fnames = prots,
-                             object = andyMCMChl)
-
-ptsze <- exp(as.numeric(fData(andyMCMChl)$predicted.probability)) - 1
-names(ptsze) <- rownames(fData(andyMCMChl))
-ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.99995] <- 0.1
-plot2D(andyMCMChl, fcol = "predicted.allocation", cex = ptsze,
-       dims = c(1,2), main = "PCA plot with Protein Q924C1 indicated")
-addLegend(where = "bottomleft", andyMCMChl, cex = .7)
-highlightOnPlot(andyMCMChl, foi13s, cex = 1.5, col = "black", pch = 19)
-highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2, col = "black", pch = 19, pos = 4)
-@
-    \caption{}
-  \end{subfigure}
-
-  \caption{Exportin 5 (Q924C1) showing localisation to the cytosol
-    with some uncertainty about association to the nucleus
-    non-chromatin.  (a) The violin plot shows uncertain localisation
-    between these two sub-cellular localisations. (b) The quantitative
-    profile of this protein shows mixed profile between the profiles
-    of the organelle markers. (c) The density plot shows a complex
-    distribution over localisations for this protein. (d) The protein
-    Q924C1 has steady state distribution between the cytosol and
-    nucleus non-chromatin.}
-  \label{fig:Q924C1}
-\end{figure}
-
-\begin{figure}[p]
-  \centering
-  \begin{subfigure}[t]{0.5\textwidth}
-    \centering
-<<Q9WUA2-prob, echo = FALSE, fig.align="center", warning=FALSE>>=
-colnames(dfQ9WUA2) <- getMarkerClasses(andyMCMChl)
-dfQ9WUA2melt <- melt(dfQ9WUA2)
-colnames(dfQ9WUA2melt) <- c("One","Organelle","Probability")
-par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
-gg2 <- ggplot(dfQ9WUA2melt,
-              aes(Organelle, Probability, width = (Probability))) +
-    geom_violin(aes(fill = Organelle), scale = "width")
-gg2 <- gg2 +
-    theme_bw() +
-    scale_fill_manual(values = getStockcol()[1:14]) +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1),
-          axis.title.x = element_blank())
-gg2 <- gg2 +
-    ylab("Membership Probability") +
-    ggtitle(paste0("Distribution of Subcellular Membership for Protein Q9WUA2" ))
-gg2 <- gg2 + theme(legend.position="none")
-print(gg2)
-@
-    \caption{}
-  \end{subfigure}%
-  \begin{subfigure}[t]{0.5\textwidth}
-    \centering
-<<Q9WUA2-prof, echo = FALSE, fig.align="center">>=
-par(mar=c(5,6,4,2)+1, las = 2)
-par(mai = c(2,0,1,0), oma = c(0,0,0,0))
-hlo <- andyMCMChl[, order(andyMCMChl$Iodixonal.Density)]
-plotDist(hlo[fData(hlo)$markers == "40S Ribosome", ],
-         pcol = getStockcol()[1], xlab= "", lwd = 10, type = "l")
-matlines(t(exprs(hlo[fData(hlo)$markers == "Nucleus - Non-chromatin" , ])),
-         lty = 1, col = getStockcol()[11], lwd = 1, type="l" )
-title(main = "Profile of Protein Q9WUA2 with marker distributions")
-legend("topright", c("40S Ribosome" , "Nucleus - Non-chromatin"),
-       lty = 1, col = c(getStockcol()[1], getStockcol()[11]), bty = "n")
-matlines(t(exprs(hlo["Q9WUA2",])), lty = 1, lwd = 5, col="red", type="l" )
-par(las = 1)
-@
-    \caption{}
-  \end{subfigure}
-  \vspace{1cm}
-  \begin{subfigure}[t]{0.5\textwidth}
-    \centering
-<<Q9WUA2-dens, echo = FALSE, fig.align="center">>=
-par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
-gg <- ggplot(dfQ9WUA2melt[dfQ9WUA2melt$Organelle == c("40S Ribosome","Nucleus - Non-chromatin"),],
-             aes(Probability, fill = Organelle)) +
-    geom_density(aes(fill = Organelle), alpha = 0.1) +
-    xlim(c(0,1))
-gg <- gg + scale_fill_manual(values = getStockcol()[c(1,11)]) +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1),
-          axis.title.x = element_blank())
-gg <- gg + ylab("Density") +
-    xlab("Membership Probability") +
-    ggtitle("Density plot of Subcellular Membership for Protein Q9WUA2")
-gg <- gg + theme_bw()
-print(gg)
-@
-    \caption{}
-  \end{subfigure}%
-  \begin{subfigure}[t]{0.5\textwidth}
-    \centering
-<<Q9WUA2-pca, echo = FALSE, fig.align="center">>=
-prots <- "Q9WUA2"
-par(oma = c(0,0,0,0))
-foi13s <- FeaturesOfInterest(description = "",
-                             fnames = prots,
-                             object = andyMCMChl)
-
-ptsze <- exp(as.numeric(fData(andyMCMChl)$predicted.probability)) - 1
-names(ptsze) <- rownames(fData(andyMCMChl))
-ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.99995] <- 0.1
-plot2D(andyMCMChl, fcol = "predicted.allocation", cex = ptsze,
-       dims = c(1,2), main = "PCA plot with Protein Q9WUA2 indicated")
-addLegend(where = "bottomleft", andyMCMChl, cex = .7)
-highlightOnPlot(andyMCMChl, foi13s, cex = 1.5, col = "black", pch = 19)
-highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2,
-                col = "black", pch = 19, pos = 4)
-@
-    \caption{}
-  \end{subfigure}
-
-  \caption{Phenylalanine-tRNA ligase beta subunit protein TRIP12
-    (Q9WUA2) showing localisation to the 40S Ribosome with some
-    uncertainty about association to the nucleus non-chromatin.  (a)
-    The violin plot shows uncertain localisation between these two
-    sub-cellular localisations. (b) The quantitative profile of this
-    protein shows mixed profile between the profiles of the organelle
-    markers. (c) The density plot shows a complex distribution over
-    localisations for this protein. (d) The protein Q9WUA2 has steady
-    state distribution skewed towards the 40S Ribosome and close to
-    the nucleus non-chromatin.}
-  \label{fig:Q9WUA2}
-\end{figure}
-
-\begin{figure}[p]
-  \centering
-  \begin{subfigure}[t]{0.5\textwidth}
-    \centering
-<<Q8VDR9-prob, echo = FALSE, fig.align="center", warning=FALSE>>=
-colnames(dfQ8VDR9) <- getMarkerClasses(andyMCMChl)
-dfQ8VDR9melt <- melt(dfQ8VDR9)
-colnames(dfQ8VDR9melt) <- c("One","Organelle","Probability")
-par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
-gg2 <- ggplot(dfQ8VDR9melt,
-              aes(Organelle, Probability, width = (Probability))) +
-    geom_violin(aes(fill = Organelle), scale = "width")
-gg2 <- gg2 + theme_bw() +
-    scale_fill_manual(values = getStockcol()[1:14]) +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1),
-          axis.title.x = element_blank())
-gg2 <- gg2 +
-    ylab("Membership Probability") +
-    ggtitle(paste0("Distribution of Subcellular Membership for Protein Q8VDR9" ))
-gg2 <- gg2 +
-    theme(legend.position="none")
-print(gg2)
-@
-    \caption{}
-  \end{subfigure}%
-  \begin{subfigure}[t]{0.5\textwidth}
-    \centering
-<<Q8VDR9-prof, echo = FALSE, fig.align="center">>=
-par(mar=c(5,6,4,2)+1, las = 2)
-par(mai = c(2,0,1,0), oma = c(0,0,0,0))
-hlo <- andyMCMChl[, order(andyMCMChl$Iodixonal.Density)]
-plotDist(hlo[fData(hlo)$markers == "Endoplasmic reticulum/Golgi apparatus", ],
-         pcol = getStockcol()[5], xlab= "", lwd = 10, type = "l")
-matlines(t(exprs(hlo[fData(hlo)$markers == "Extracellular matrix" , ])),
-         lty = 1, col = getStockcol()[7], lwd = 1, type="l" )
-title(main = "Profile of Protein Q8VDR9 with marker distributions ")
-legend("topright", c("Endoplasmic reticulum/Golgi apparatus", "Extracellular matrix" ),
-       lty = 1, col = c(getStockcol()[5], getStockcol()[7]), bty = "n")
-matlines(t(exprs(hlo["Q8VDR9",])), lty = 1, lwd = 5, col="red", type="l" )
-par(las = 1)
-@
-    \caption{}
-  \end{subfigure}
-  \vspace{1cm}
-  \begin{subfigure}[t]{0.5\textwidth}
-    \centering
-<<Q8VDR9-dens, echo = FALSE, fig.align="center">>=
-par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
-gg <- ggplot(dfQ8VDR9melt[dfQ8VDR9melt$Organelle == c("Endoplasmic reticulum/Golgi apparatus", "Extracellular matrix" ),],
-             aes(Probability, fill = Organelle)) +
-    theme_bw() +
-    geom_density(aes(fill = Organelle), alpha = 0.1) +
-    xlim(c(0,1))
-gg <- gg + scale_fill_manual(values = getStockcol()[c(5,7)]) +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1),
-          axis.title.x = element_blank())
-gg <- gg + ylab("Density") +
-    xlab("Membership Probability") +
-    ggtitle("Density plot of Subcellular Membership for Protein Q8VDR9")
-gg <- gg + theme_bw()
-print(gg)
-@
-    \caption{}
-  \end{subfigure}%
-  \begin{subfigure}[t]{0.5\textwidth}
-    \centering
-<<Q8VDR9-pca, echo = FALSE, fig.align="center">>=
-prots <- "Q8VDR9"
-par(oma = c(0,0,0,0))
-foi13s <- FeaturesOfInterest(description = "",
-                             fnames = prots,
-                             object = andyMCMChl)
-
-ptsze <- exp(as.numeric(fData(andyMCMChl)$predicted.probability)) - 1
-names(ptsze) <- rownames(fData(andyMCMChl))
-ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.99995] <- 0.1
-plot2D(andyMCMChl, fcol = "predicted.allocation", cex = ptsze,
-       dims = c(1,2), main = "PCA plot with Protein Q8VDR9 indicated")
-addLegend(where = "bottomleft", andyMCMChl, cex = .7)
-highlightOnPlot(andyMCMChl, foi13s, cex = 1.5, col = "black", pch = 19)
-highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2,
-                col = "black", pch = 19, pos = 4)
-@
-    \caption{}
-  \end{subfigure}
-
-  \caption{Q8VDR9 showing localisation to the outlier component.  (a)
-    The violin plot shows uncertain localisation between several
-    sub-cellular niches. (b) The quantitative profile of this protein
-    shows mixed profile between the profiles of the organelle
-    markers. (c) The density plot shows a similar localisation
-    probabilities for both the ER/Golgi and Extracellular matrix. (d)
-    The protein Q8VDR9 has steady state distribution in the centre of
-    the plot skewed toward the secretory pathway; in particular, the
-    ER/Golgi and Extracellular matrix components.}
-  \label{fig:Q8VDR9}
-\end{figure}
-
 
 
 \subsection*{Visualising whole sub-cellular proteome uncertainty}
@@ -1522,62 +1026,6 @@ Shannon entropy are correlated, figure
 is important to use both the localisation probabilities and the
 uncertainty in these assignments to make conclusions.
 
-\begin{figure}[p]
-  \centering
-  \begin{subfigure}[t]{0.5\textwidth}
-    \centering
-<<pca-tagm-map, echo = FALSE, fig.align="center">>=
-par(mar = c(4,4,2,0))
-ptsze <- 2*fData(andyMCMChl)$meanshannon
-par(mfrow = c(1,1))
-.pca <- plot2D(andyMCMChl, fcol="predicted.allocation",
-               cex = ptsze, main="Visualising whole proteome uncertainty",
-               mirrorY = TRUE)
-addLegend(andyMCMChl, cex=0.6, where="topleft")
-@
-    \caption{}
-  \end{subfigure}%
-~
-  \begin{subfigure}[t]{0.5\textwidth}
-    \centering
-<<pca-tagm-mcmc, echo = FALSE, fig.align="center">>=
-par(mar = c(4,4,2,0))
-ptsze <- as.numeric(fData(andyMCMChl)$predicted.probability)
-names(ptsze) <- rownames(fData(andyMCMChl))
-ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.9999] <- 0.1
-par(mfrow = c(1,1))
-.pca <- plot2D(andyMCMChl, fcol="predicted.allocation", cex = ptsze, main="Prediction of Protein Localisation", mirrorY = TRUE)
-addLegend(andyMCMChl, cex=0.6, where="topleft")
-@
-    \caption{}
-  \end{subfigure}%
-\\
-  \begin{subfigure}[t]{0.5\textwidth}
-    \centering
-<<prob-vs-shannon, echo = FALSE, fig.align="center">>=
-par(mar = c(4,4,2,0))
-plot(as.numeric(fData(andyMCMChl)$predicted.probability),
-     fData(andyMCMChl)$meanshannon,
-     col = getStockcol()[as.factor(fData(andyMCMChl)$predicted.allocation)],
-     pch = 19,
-     xlab = "Localisation Probability",
-     ylab = "Shannon Entropy",
-     main = "Protein localistaion probability and Shannon Entropy")
-@
-    \caption{}
-  \end{subfigure}
-
-  \caption{PCA plots of the mouse pluripotent embryonic stem cell data, where
-    each point represents a protein and is coloured
-    to its (probabilistically-)assigned organelle. (a) In this plot, the pointer is
-    scaled to the Shannon entropy of this protein, with
-    larger pointers indicating greater uncertainty.
-    (b) In this plot, the pointer is scaled to the probability
-    of that protein belonging to its assigned organelle. (c) We plot
-    the localisation probabilities against the Shannon entropy
-    with each protein.}
-  \label{figure:proteomeuncertainty}
- \end{figure}
 
 Figure \ref{figure:proteomeuncertainty} demonstrates that the regions
 of highest uncertainty are those in regions where organelles
@@ -1673,18 +1121,6 @@ differential centrifugation approaches and spatio-temporal proteomics methods.
 In our flexible software implementation, all hyperparameters for the priors can be
 changed if users have precise priors they wish to specify.}}
 
-\begin{figure}[p]
-
-\centering
-\includegraphics[width=.7\textwidth]{ConcludePlot.pdf}
-\caption{The barplot demonstrates the effect of applying different
-  methodologies on protein assignment when applied the mouse
-  pluripotent embryonic stem cell data. Roughly 2000 proteins are
-  classified using either SVM and TAGM-MCMC; however, TAGM-MCMC can
-  draw additional conclusions about an extra 1000 proteins by
-  quantifying uncertainty.}
-\label{figure:ConcludePlot}
-\end{figure}
 
 
 We have also provided a new set of visualisation methods to accompany
@@ -1872,13 +1308,6 @@ The full model, which we henceforth refer to as a T-augmented Gaussian
 Mixture model (TAGM), can then be summarised by the plate diagram
 shown in Figure \ref{plateDiagram}.
 
-\begin{figure}[p]
-  \includegraphics[width=8cm]{graphmodel2.pdf}
-  \centering
-  \caption{Plate diagram for TAGM model. This diagram specifies the
-    conditional independencies and parameters in our
-    model.}\label{plateDiagram}
-\end{figure}
 
 To perform inference for the parameters, we make use of both the
 labelled and unlabelled data. For the labelled data $X_L$, since $z_i$
@@ -2134,8 +1563,992 @@ The authors would also like to thank Dr Sean B. Holden, University of
 Cambridge, for helpful discussions.
 
 
-\bibliographystyle{vancouver}
-\bibliography{BayesProt}
 
+\bibliographystyle{vancouver}
+
+\begin{thebibliography}{10}
+
+\bibitem{Gibson:2009}
+Gibson T.
+\newblock Cell regulation: determined to signal discrete cooperation.
+\newblock Trends in biochemical sciences. 2009;34(10):471--482.
+
+\bibitem{Olkkonen:2006}
+Olkkonen V, Ikonen E.
+\newblock When intracellular logistics fails-genetic defects in membrane
+  trafficking.
+\newblock Journal of cell science. 2006;119(24):5031--5045.
+
+\bibitem{Luheshi:2008}
+Luheshi L, Crowther D, Dobson C.
+\newblock Protein misfolding and disease: from the test tube to the organism.
+\newblock Current opinion in chemical biology. 2008;12(1):25--31.
+
+\bibitem{Laurila:2009}
+Laurila K, Vihinen M.
+\newblock Prediction of disease-related mutations affecting protein
+  localization.
+\newblock BMC genomics. 2009;10(1):122.
+
+\bibitem{De:2011}
+De~Matteis M, Luini A.
+\newblock Mendelian disorders of membrane trafficking.
+\newblock New England Journal of Medicine. 2011;365(10):927--938.
+
+\bibitem{Cody:2013}
+Cody N, Iampietro C, L{\'e}cuyer E.
+\newblock The many functions of mRNA localization during normal development and
+  disease: from pillar to post.
+\newblock Wiley Interdisciplinary Reviews: Developmental Biology.
+  2013;2(6):781--796.
+
+\bibitem{Kau:2004}
+Kau T, Way J, Silver P.
+\newblock Nuclear transport and cancer: from mechanism to intervention.
+\newblock Nature Reviews Cancer. 2004;4(2):106--117.
+
+\bibitem{Rodriguez:2004}
+Rodriguez J, Au W, Henderson B.
+\newblock Cytoplasmic mislocalization of BRCA1 caused by cancer-associated
+  mutations in the BRCT domain.
+\newblock Experimental cell research. 2004;293(1):14--21.
+
+\bibitem{Latorre:2005}
+Latorre I, Roh M, Frese K, Weiss R, Margolis B, Javier R.
+\newblock Viral oncoprotein-induced mislocalization of select PDZ proteins
+  disrupts tight junctions and causes polarity defects in epithelial cells.
+\newblock Journal of cell science. 2005;118(18):4283--4293.
+
+\bibitem{Shin:2013}
+Shin S, Smith J, Rezniczek G, Pan S, Chen R, Brentnall T, et~al.
+\newblock Unexpected gain of function for the scaffolding protein plectin due
+  to mislocalization in pancreatic cancer.
+\newblock Proceedings of the National Academy of Sciences.
+  2013;110(48):19414--19419.
+
+\bibitem{Siljee:2018}
+Siljee J, Wang Y, Bernard A, Ersoy B, Zhang S, Marley A, et~al.
+\newblock Subcellular localization of {MC4R} with {ADCY3} at neuronal primary
+  cilia underlies a common pathway for genetic predisposition to obesity.
+\newblock Nat Genet. 2018 Jan;.
+
+\bibitem{Gatto:2010}
+Gatto L, Vizca{\'\i}no J, Hermjakob K, Huber W, Lilley K.
+\newblock Organelle proteomics experimental designs and analysis.
+\newblock Proteomics. 2010;10(22):3957--3969.
+
+\bibitem{hyper}
+Christoforou A, Mulvey C, Breckels L, Geladaki A, Hurrell T, Hayward P, et~al.
+\newblock A draft map of the mouse pluripotent stem cell spatial proteome.
+\newblock Nature communications. 2016;7:9992.
+
+\bibitem{Dunkley:2006}
+Dunkley T, Hester S, Shadforth I, Runions J, Weimar T, Hanton S, et~al.
+\newblock Mapping the Arabidopsis organelle proteome.
+\newblock Proceedings of the National Academy of Sciences.
+  2006;103(17):6518--6523.
+
+\bibitem{Itzhak:2016}
+Itzhak D, Tyanova S, Cox J, Borner G.
+\newblock Global, quantitative and dynamic mapping of protein subcellular
+  localization.
+\newblock Elife. 2016;5:e16950.
+
+\bibitem{Parsons:2014}
+Parsons H, Fern{\'a}ndez-Ni{\~n}o S, Heazlewood J.
+\newblock Separation of the plant Golgi apparatus and endoplasmic reticulum by
+  free-flow electrophoresis.
+\newblock Methods in molecular biology (Clifton, NJ). 2014;1072:527.
+
+\bibitem{Heard:2015}
+Heard W, Sklen{\'a}{\v{r}} J, Tome D, Robatzek S, Jones A.
+\newblock Identification of regulatory and cargo proteins of endosomal and
+  secretory pathways in Arabidopsis thaliana by proteomic dissection.
+\newblock Molecular \& Cellular Proteomics. 2015;14(7):1796--1813.
+
+\bibitem{Dunkley:2004}
+Dunkley T, Watson R, Griffin J, Dupree P, Lilley K.
+\newblock Localization of organelle proteins by isotope tagging (LOPIT).
+\newblock Molecular \& Cellular Proteomics. 2004;3(11):1128--1134.
+
+\bibitem{Sadowski:2006}
+Sadowski P, Dunkley T, Shadforth I, Dupree P, Bessant C, Griffin J, et~al.
+\newblock Quantitative proteomic approach to study subcellular localization of
+  membrane proteins.
+\newblock Nature protocols. 2006;1(4):1778--1789.
+
+\bibitem{Mulvey:2017}
+Mulvey C, Breckels L, Geladaki A, Britov{\v{s}}ek N, Nightingale D,
+  Christoforou A, et~al.
+\newblock Using {hyperLOPIT} to perform high-resolution mapping of the spatial
+  proteome.
+\newblock Nature Protocols. 2017;12(6):1110--1135.
+
+\bibitem{DeDuve:1981}
+De~Duve C, Beaufay H.
+\newblock A short history of tissue fractionation.
+\newblock The Journal of cell biology. 1981;91(3):293.
+
+\bibitem{ghrepo}
+Breckels L, Mulvey C, Lilley K, Gatto L.
+\newblock A Bioconductor workflow for processing and analysing spatial
+  proteomics data.
+\newblock F1000Research. 2016;5.
+
+\bibitem{Gatto:2014b}
+Gatto L, Breckels L, Burger T, Nightingale D, Groen A, Campbell C, et~al.
+\newblock A foundation for reliable spatial proteomics data analysis.
+\newblock Molecular \& Cellular Proteomics. 2014;p. mcp--M113.
+
+\bibitem{Breckels:2013}
+Breckels L, Gatto L, Christoforou A, Groen A, Lilley K, Trotter M.
+\newblock The effect of organelle discovery upon sub-cellular protein
+  localisation.
+\newblock Journal of proteomics. 2013;88:129--140.
+
+\bibitem{Breckels:2016}
+Breckels L, Holden S, Wojnar D, Mulvey C, Christoforou A, Groen A, et~al.
+\newblock Learning from heterogeneous data sources: an application in spatial
+  proteomics.
+\newblock PLoS computational biology. 2016;12(5):e1004920.
+
+\bibitem{Tan:2009}
+Tan D, Dvinge H, Christoforou A, Bertone P, Martinez~Arias A, Lilley K.
+\newblock Mapping organelle proteins and protein complexes in drosophila
+  melanogaster.
+\newblock Journal of proteome research. 2009;8(6):2667--2678.
+
+\bibitem{hall:2009}
+Hall S, Hester S, Griffin J, Lilley K, Jackson A.
+\newblock The organelle proteome of the DT40 lymphocyte cell line.
+\newblock Molecular \& Cellular Proteomics. 2009;8(6):1295--1305.
+
+\bibitem{Thul:2017}
+Thul P, Akesson L, Wiking M, Mahdessian D, Geladaki A, Ait~Blal H, et~al.
+\newblock A subcellular map of the human proteome.
+\newblock Science. 2017;.
+
+\bibitem{Groen::2014}
+Groen A, Sancho-Andres G, Breckels L, Gatto L, Aniento F, Lilley K.
+\newblock Identification of trans-Golgi network proteins in Arabidopsis
+  thaliana root tissue.
+\newblock Journal of proteome research. 2014;13(2):763--776.
+
+\bibitem{Ohta::2010}
+Ohta S, Bukowski-Wills J, Sanchez-Pulido L, de~Lima~Alves F, Wood L, Chen Z,
+  et~al.
+\newblock The protein composition of mitotic chromosomes determined using
+  multiclassifier combinatorial proteomics.
+\newblock Cell. 2010;142(5):810--821.
+
+\bibitem{Nikolovski::2012}
+Nikolovski N, Rubtsov D, Segura M, Miles G, Stevens T, Dunkley T, et~al.
+\newblock Putative glycosyltransferases and other plant Golgi apparatus
+  proteins are revealed by LOPIT proteomics.
+\newblock Plant physiology. 2012;160(2):1037--1051.
+
+\bibitem{Tardif::2012}
+Tardif M, Atteia A, Specht M, Cogne G, Rolland N, Brugi{\`e}re S, et~al.
+\newblock {PredAlgo}: a new subcellular localization prediction tool dedicated
+  to green algae.
+\newblock Molecular biology and evolution. 2012;29(12):3625--3639.
+
+\bibitem{Kirk:2015}
+Kirk P, Babtie A, Stumpf M.
+\newblock Systems biology (un) certainties.
+\newblock Science. 2015;350(6259):386--388.
+
+\bibitem{R}
+{R Core Team}. R: A Language and Environment for Statistical Computing. Vienna,
+  Austria; 2017.
+\newblock Available from: \url{https://www.R-project.org/}.
+
+\bibitem{MSnbase:2012}
+Gatto L, Lilley K.
+\newblock MSnbase - an R/Bioconductor package for isobaric tagged mass
+  spectrometry data visualization, processing and quantitation.
+\newblock Bioinformatics. 2012;28:288--289.
+
+\bibitem{pRoloc:2014}
+Gatto L, Breckels L, Wieczorek S, Burger Y, Lilley K.
+\newblock Mass-spectrometry based spatial proteomics data analysis using pRoloc
+  and pRolocdata.
+\newblock Bioinformatics. 2014;.
+
+\bibitem{Bioconductor::2004}
+Gentleman R, Carey V, Bates D, Bolstad B, Dettling M, Dudoit S, et~al.
+\newblock Bioconductor: open software development for computational biology and
+  bioinformatics.
+\newblock Genome biology. 2004;5(10):R80.
+
+\bibitem{Huber::2015}
+Huber W, Carey V, Gentleman R, Anders S, Carlson M, Carvalho B, et~al.
+\newblock Orchestrating high-throughput genomic analysis with Bioconductor.
+\newblock Nature methods. 2015;12(2):115.
+
+\bibitem{Mcalister::2014}
+McAlister G, Nusinow D, Jedrychowski M, Wühr M, Huttlin E, Erickson B, et~al.
+\newblock MultiNotch MS3 enables accurate, sensitive, and multiplexed detection
+  of differential expression across cancer cell line proteomes.
+\newblock Analytical chemistry. 2014;86(14):7150--7158.
+
+\bibitem{Ting:2011}
+Ting L, Rad R, Gygi S, Haas W.
+\newblock MS3 eliminates ratio distortion in isobaric multiplexed quantitative
+  proteomics.
+\newblock Nature methods. 2011;8(11):937.
+
+\bibitem{Gelman:1992}
+Gelman A, Rubin D.
+\newblock Inference from iterative simulation using multiple sequences.
+\newblock Statistical science. 1992;p. 457--472.
+
+\bibitem{Brooks:1998}
+Brooks S, Gelman A.
+\newblock General methods for monitoring convergence of iterative simulations.
+\newblock Journal of computational and graphical statistics.
+  1998;7(4):434--455.
+
+\bibitem{Boyle:2004}
+Boyle E, Weng S, Gollub J, Jin H, Botstein D, Cherry M, et~al.
+\newblock {GO::TermFinder} {--} open source software for accessing Gene
+  Ontology information and finding significantly enriched Gene Ontology terms
+  associated with a list of genes.
+\newblock Bioinformatics. 2004;20(18):3710--3715.
+
+\bibitem{Yu:2012}
+Yu G, Wang L, Han Y, He Q.
+\newblock {clusterProfiler}: an {R} package for comparing biological themes
+  among gene clusters.
+\newblock Omics: a journal of integrative biology. 2012;16(5):284--287.
+
+\bibitem{svm:2010}
+Hsu C, Chang C, Lin C. A practical guide to support vector classification;
+  2010.
+
+\bibitem{Hirst:2018}
+Hirst J, Itzhak D, Antrobus R, Borner G, Robinson M.
+\newblock Role of the AP-5 adaptor protein complex in late endosome-to-Golgi
+  retrieval.
+\newblock PLoS biology. 2018;16(1):e2004411.
+
+\bibitem{Jean_Beltran:2016}
+Beltran P, Mathias RA, Cristea I.
+\newblock A portrait of the human organelle proteome in space and time during
+  cytomegalovirus infection.
+\newblock Cell systems. 2016;3(4):361--373.
+
+\bibitem{FDR:1995}
+Benjamini Y, Hochberg Y.
+\newblock Controlling the false discovery rate: a practical and powerful
+  approach to multiple testing.
+\newblock Journal of the royal statistical society Series B (Methodological).
+  1995;p. 289--300.
+
+\bibitem{Jeffery:2009}
+Jeffery C.
+\newblock Moonlighting proteins - an update.
+\newblock Molecular BioSystems. 2009;5(4):345--350.
+
+\bibitem{shannon:1948}
+Shannon C.
+\newblock A mathematical theory of communication.
+\newblock The Bell System Technical Journal. 1948 July;27(3):379--423.
+
+\bibitem{Kirk:2016}
+Kirk P, Huvet M, Melamed A, Maertens G, Bangham C.
+\newblock Retroviruses integrate into a shared, non-palindromic DNA motif.
+\newblock Nature microbiology. 2016;2:16212.
+
+\bibitem{Liley:2017}
+Liley J, Todd J, Wallace C.
+\newblock A method for identifying genetic heterogeneity within phenotypically
+  defined disease subgroups.
+\newblock Nature genetics. 2017;49(2):310.
+
+\bibitem{Lonnberg:2017}
+Lönnberg T, Svensson V, James K, Fernandez-Ruiz D, Sebina I, Montandon R,
+  et~al.
+\newblock Single-cell RNA-seq and computational analysis using temporal mixture
+  modeling resolves TH1/TFH fate bifurcation in malaria.
+\newblock Science Immunology. 2017;2(9).
+
+\bibitem{Choi:2010}
+Choi H, Kim S, Gingras A, Nesvizhskii A.
+\newblock Analysis of protein complexes through model-based biclustering of
+  label-free quantitative AP-MS data.
+\newblock Molecular Systems Biology. 2010;6(1):385.
+\newblock Available from:
+  \url{https://onlinelibrary.wiley.com/doi/abs/10.1038/msb.2010.41}.
+
+\bibitem{Banfield::1993}
+Banfield J, Raftery A.
+\newblock Model-based Gaussian and non-Gaussian clustering.
+\newblock Biometrics. 1993;p. 803--821.
+
+\bibitem{Cooke::2011}
+Cooke E, Savage R, Kirk P, Darkins R, Wild D.
+\newblock Bayesian hierarchical clustering for microarray time series data with
+  replicates and outlier measurements.
+\newblock BMC bioinformatics. 2011;12(1):399.
+
+\bibitem{Coretto::2016}
+Coretto P, Hennig C.
+\newblock Robust improper maximum likelihood: tuning, computation, and a
+  comparison with other methods for robust Gaussian clustering.
+\newblock Journal of the American Statistical Association.
+  2016;111(516):1648--1659.
+
+\bibitem{Hennig::2004}
+Hennig C.
+\newblock Breakdown points for maximum likelihood estimators of location-scale
+  mixtures.
+\newblock Annals of Statistics. 2004;p. 1313--1340.
+
+\bibitem{Gelman:1995}
+Gelman A, Carlin J, Stern H, Rubin D.
+\newblock Bayesian Data Analysis.
+\newblock London: Chapman \& Hall; 1995.
+
+\bibitem{EM:1977}
+Dempster A, Laird N, Rubin D.
+\newblock Maximum likelihood from incomplete data via the EM algorithm.
+\newblock Journal of the royal statistical society Series B (methodological).
+  1977;p. 1--38.
+
+\bibitem{Murphy:2012}
+Murphy K.
+\newblock Machine learning: a probabilistic perspective; 2012.
+
+\bibitem{Fraley:2007}
+Fraley C, Raftery A.
+\newblock Bayesian regularization for normal mixture estimation and model-based
+  clustering.
+\newblock Journal of Classification. 2007;24(2):155--181.
+
+\bibitem{He::2009}
+He H, Garcia E.
+\newblock Learning from imbalanced data.
+\newblock IEEE Transactions on knowledge and data engineering.
+  2009;21(9):1263--1284.
+
+\bibitem{Gneiting:2007}
+Gneiting T, Raftery A.
+\newblock Strictly proper scoring rules, prediction, and estimation.
+\newblock Journal of the American Statistical Association.
+  2007;102(477):359--378.
+
+\bibitem{Meyer:2017}
+Meyer S, Dimitriadou E, Hornik K, Weingessel A, Leisch F. e1071: Misc Functions
+  of the Department of Statistics, Probability Theory Group (Formerly: E1071),
+  TU Wien; 2018.
+\newblock R package version 1.7-0.
+\newblock Available from: \url{https://CRAN.R-project.org/package=e1071}.
+
+\bibitem{Hazimeh:2015}
+Hazimeh H, Zhai C; ACM.
+\newblock Axiomatic analysis of smoothing methods in language models for
+  pseudo-relevance feedback.
+\newblock Proceedings of the 2015 International Conference on The Theory of
+  Information Retrieval. 2015;p. 141--150.
+
+\bibitem{Valcarce:2016}
+Valcarce D, Parapar J, Barreiro A.
+\newblock Additive Smoothing for Relevance-Based Language Modelling of
+  Recommender Systems.
+\newblock Proceedings of the 4th Spanish Conference on Information Retrieval.
+  2016;p. 1--8.
+\newblock Available from: \url{http://doi.acm.org/10.1145/2934732.2934737}.
+
+\bibitem{Manning:2008}
+Manning C, Raghavan P, Sch\"{u}tze H.
+\newblock Introduction to Information Retrieval.
+\newblock New York, NY, USA: Cambridge University Press; 2008.
+
+\bibitem{Foster:2006}
+Foster J, de~Hoog C, Zhang Y, Zhang Y, Xie X, Mootha V, et~al.
+\newblock A mammalian organelle map by protein correlation profiling.
+\newblock Cell. 2006;125(1):187--199.
+
+\end{thebibliography}
+
+
+%% Figures
+
+\begin{figure}[!p]
+  \begin{subfigure}[t]{0.45\textwidth}
+    \centering
+<<pca12, echo=FALSE>>=
+par(mar = c(4,4,2,0))
+pRoloc:::plotEllipse_old(hl, method = "MAP", components = c(1,2),
+                         main = "Visualisation of probability ellipses",
+                         xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
+addLegend(hl, cex=0.7, where="bottomleft")
+@
+        \caption{}
+\end{subfigure}%
+\hfill
+\begin{subfigure}[t]{0.45\textwidth}
+        \centering
+<<pca14, echo=FALSE>>=
+par(mar = c(4,4,2,0))
+pRoloc:::plotEllipse_old(hl, method = "MAP", components = c(1,4),
+                         main = "Visualisation along 1st and 4th principal components")
+addLegend(hl, cex=0.7, where="topleft")
+@
+        \caption{}
+\end{subfigure}
+  \centering
+  \caption{ (a) PCA plot of the 1st and 2nd principal components for
+    the curated marker proteins of the mouse stem cell data. The
+    organelles are, in general, well separated. Though some organelles
+    overlap, they are separated along different principal
+    components. The densities used to produce the ellipses are derived
+    from the MAP estimates. (b) Marker resolution along the 1st and
+    4th principal components show that the mitochondrion and
+    peroxisome markers are well resolved, despite overlapping in the
+    1st and 2nd component.  We also see that the ER/Golgi apparatus
+    markers are better separated from the extracellular matrix
+    markers.}
+\label{figure::pcaellipse}
+\end{figure}
+
+\begin{figure}[!p]
+    \begin{subfigure}[t]{0.5\textwidth}
+<<assignmentPCAMAP, echo=FALSE>>=
+ptsze <- as.numeric(fData(andyhlMAP$object)$predicted.probability)
+par(mfrow = c(1,1))
+plot2D(object = andyhlMAP$object,
+       fcol="predicted.allocation",
+       dims = c(1,2),
+       cex = ptsze,
+       main="TAGM-MAP localisation predictions",
+       mirrorY = TRUE)
+addLegend(andyhlMAP$object, cex=0.5, where="topleft")
+@
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.5\textwidth}
+<<assignmentPCAMCMC, echo=FALSE>>=
+ptsze <- as.numeric(fData(andyMCMChl)$predicted.probability)
+names(ptsze) <- rownames(fData(andyMCMChl))
+ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.9999] <- 0.1
+
+par(mfrow = c(1,1))
+.pca <- plot2D(andyMCMChl, fcol="predicted.allocation", cex = ptsze,
+               main="TAGM-MCMC localisation prediction", mirrorY = TRUE)
+addLegend(andyMCMChl, cex=0.6, where="topleft")
+@
+    \end{subfigure}%
+  \centering
+  \caption{PCA plot of the protein quantitation data with colours
+    representing the predicted class (5032 proteins) illustrating
+    protein localisation preductions using TAGM-MAP (left) and
+    TAGM-MCMC (right) respectively. The pointer size of a protein is
+    scaled to the probability that particular protein was assigned to
+    that organelle. Markers, proteins whose localisations are already
+    known, are automatically assigned a probability of $1$ and the
+    size of the pointer reflects this.}
+  \label{fig:assignmentPCA} %% MAP and MCMC
+\end{figure}
+
+\begin{figure}[!p]
+  \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+<<pca12-ellipses, echo=FALSE>>=
+par(mar = c(4,4,2,0))
+pRoloc:::plotEllipse_old(hl, method = "MCMC", components = c(1,2),
+                         main = "Visualisation of probability ellipses",
+                         xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
+addLegend(hl, cex=0.5, where="bottomleft")
+@
+        \caption{}
+\end{subfigure}%
+\hfill
+\begin{subfigure}[t]{0.45\textwidth}
+<<pca14-ellipses, echo=FALSE>>=
+par(mar = c(4,4,2,0))
+pRoloc:::plotEllipse_old(hl, method = "MCMC",
+                         components = c(1,4),
+                         main = "Visualisation along the 1st and 4th principal component")
+addLegend(hl, cex=0.5, where="topleft")
+@
+        \centering
+        \caption{}
+\end{subfigure}
+  \centering
+  \caption{(a) Probability ellipses produced from using the MCMC
+    method.  The density is the expected value from the NIW
+    distribution. (b) Probability ellipses visualised along the 1st
+    and 4th principal component also from the MCMC method.}
+\label{figure::pcaellipseMCMC}
+\end{figure}
+
+\begin{figure}[!p]
+\centering
+<<violin-G5E870, echo = FALSE, fig.align="center", warning=FALSE, message=FALSE, out.width='0.7\\textwidth'>>=
+colnames(dfG5E870) <- getMarkerClasses(andyMCMChl)
+dfG5E870 <- melt(dfG5E870)
+colnames(dfG5E870) <- c("One","Organelle","Probability")
+
+gg <- ggplot(dfG5E870,
+             aes(Organelle, Probability, width = (Probability))) +
+    geom_violin(aes(fill = Organelle), scale = "width")
+gg <- gg + theme_bw() +
+    scale_fill_manual(values = getStockcol()[1:14]) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1),
+          axis.title.x = element_blank())
+gg <- gg +
+    ylab("Membership Probability") +
+    ggtitle("Distribution of Subcellular Membership for Protein G5E870")
+gg <- gg + theme(legend.position="none")
+print(gg)
+@
+
+\caption{Violin plot revealing the posterior distribution of
+  localisation probabilities of protein E3 ubiquitin-protein ligase
+  (G5E870) to organelles and sub-cellular niches.  The most probable
+  localisation is nucleus non-chromatin, however there is uncertainty
+  associated with this assignment.}
+\label{fig:G5E870}
+\end{figure}
+
+\begin{figure}[!p]
+  \centering
+<<f1boxplots, echo=FALSE, fig.width=9, fig.height=10>>=
+print(gg2)
+@
+ \caption{Boxplots of the distributions of Macro F1 scores for all
+   spatial proteomics datasets.}
+  \label{figure::f1scores}
+\end{figure}
+
+\begin{figure}[!p]
+  \centering
+<<quadboxplots, echo=FALSE, fig.width=9, fig.height=10>>=
+print(gg3)
+@
+\caption{Boxplots of the distributions of Quadratic losses for all
+  spatial proteomics datasets.}
+  \label{figure::quadloss}
+\end{figure}
+
+\begin{figure}[!p]
+  \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+<<assigncomp1, echo=FALSE, fig.height=6>>=
+par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
+lattice.options(
+  layout.heights=list(bottom.padding=list(x=0), top.padding=list(x=0)),
+  layout.widths=list(left.padding=list(x=0), right.padding=list(x=0))
+)
+levelplot(cont, xlab="SVM", ylab="TAGM (MCMC)",
+          main = "", ## scales = list(x = list(draw = FALSE)),
+          scales = list(x = list(rot=90)),
+          colorkey = FALSE,
+          cuts = 50, pretty = TRUE,
+          col.regions = mycol,
+          at = seq(0, 10)/10, aspect = "fill")
+@
+
+\end{subfigure}%
+\begin{subfigure}[t]{0.5\textwidth}
+\centering
+<<assigncomp2, echo=FALSE, fig.height=6>>=
+par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
+lattice.options(
+  layout.heights=list(bottom.padding=list(x=0), top.padding=list(x=0)),
+  layout.widths=list(left.padding=list(x=0), right.padding=list(x=0))
+)
+levelplot(df4, xlab="SVM", ylab="TAGM (MCMC)",
+          main = "", ## scales = list(x = list(draw = FALSE)),
+          scales = list(x = list(rot=90)),
+          cuts = 50, pretty = TRUE,
+          col.regions = mycol,
+          at = seq(0, 10)/10, aspect = "fill")
+@
+\end{subfigure}
+\caption{A heatmap representation of a contingency table, where we
+  compare assignment results for proteins with unknown protein
+  localisation using the TAGM-MCMC and SVM. The scale ranges from 0 to
+  1 with values indicating the proportion of assigned proteins to that
+  sub-cellular location. Values along the diagonal represent agreement
+  between classifiers whilst other values represent disagreement. The
+  coherence between the classifers is very high.  (a) In this case we
+  set a probability threshold of 0.95 for the TAGM assignments with no
+  threshold for the SVM.  (b) In this case we set a 5\% FDR threshold
+  for the SVM and no threshold for the TAGM-MCMC.}
+\label{figure:contigencytables}
+\end{figure}
+
+\begin{figure}[!p]
+  \centering
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+<<Q924C1-prob, echo = FALSE, fig.align="center", warning=FALSE>>=
+colnames(dfQ924C1) <- getMarkerClasses(andyMCMChl)
+dfQ924C1melt <- melt(dfQ924C1)
+colnames(dfQ924C1melt) <- c("One","Organelle","Probability")
+par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
+gg4 <- ggplot(dfQ924C1melt,
+              aes(Organelle, Probability, width = (Probability))) +
+    geom_violin(aes(fill = Organelle), scale = "width")
+gg4 <- gg4 + theme_bw() +
+    scale_fill_manual(values = getStockcol()[1:14]) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1),
+          axis.title.x = element_blank())
+gg4 <- gg4 +
+    ylab("Membership Probability") +
+    ggtitle(paste0("Distribution of Subcellular Membership for Protein Q924C1" ))
+gg4 <- gg4 +
+    theme(legend.position="none")
+print(gg4)
+@
+    \caption{}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+<<Q924C1-prof, echo = FALSE, fig.align="center">>=
+par(mar=c(5,6,4,2) + 1, las = 2)
+par(mai = c(2,0,1,0), oma = c(0,0,0,0))
+hlo <- andyMCMChl[, order(andyMCMChl$Iodixonal.Density)]
+plotDist(hlo[fData(hlo)$markers == "Cytosol", ],
+         pcol = getStockcol()[4], xlab= "", lwd = 10, type = "l")
+matlines(t(exprs(hlo[fData(hlo)$markers == "Nucleus - Non-chromatin" , ])),
+         lty = 1, col = getStockcol()[11], lwd = 1, type="l" )
+title(main = "Profile of Protein Q924C1 with marker distributions")
+legend("topright", c("Cytosol", "Nucleus - Non-chromatin"),
+       lty = 1, col = c(getStockcol()[4], getStockcol()[11]), bty = "n")
+matlines(t(exprs(hlo["Q924C1",])), lty = 1, lwd = 5, col="red", type="l" )
+par(las = 1)
+@
+    \caption{}
+  \end{subfigure}
+  \vspace{1cm}
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+<<Q924C1-dens, echo = FALSE, fig.align="center">>=
+par(mai = c(2,0,0,0), oma = c(0,0,0,0))
+gg5 <- ggplot(dfQ924C1melt[dfQ924C1melt$Organelle == c("Cytosol","Nucleus - Non-chromatin"),],
+             aes(Probability, fill = Organelle)) +
+    geom_density(aes(fill = Organelle), alpha = 0.1) +
+    xlim(c(0,1))
+gg5 <- gg5 +
+    scale_fill_manual(values = getStockcol()[c(4,11)]) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1),
+          axis.title.x = element_blank())
+gg5 <- gg5 +
+    ylab("Density") +
+    xlab("Membership Probability") +
+    ggtitle("Density plot of Subcellular Membership for Protein Q924C1")
+gg5 <- gg5 + theme_bw()
+print(gg5)
+@
+    \caption{}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+<<Q924C1-pca,echo = FALSE>>=
+prots <- "Q924C1"
+par(oma = c(0,0,0,0))
+foi13s <- FeaturesOfInterest(description = "",
+                             fnames = prots,
+                             object = andyMCMChl)
+
+ptsze <- exp(as.numeric(fData(andyMCMChl)$predicted.probability)) - 1
+names(ptsze) <- rownames(fData(andyMCMChl))
+ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.99995] <- 0.1
+plot2D(andyMCMChl, fcol = "predicted.allocation", cex = ptsze,
+       dims = c(1,2), main = "PCA plot with Protein Q924C1 indicated")
+addLegend(where = "bottomleft", andyMCMChl, cex = .7)
+highlightOnPlot(andyMCMChl, foi13s, cex = 1.5, col = "black", pch = 19)
+highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2, col = "black", pch = 19, pos = 4)
+@
+    \caption{}
+  \end{subfigure}
+
+  \caption{Exportin 5 (Q924C1) showing localisation to the cytosol
+    with some uncertainty about association to the nucleus
+    non-chromatin.  (a) The violin plot shows uncertain localisation
+    between these two sub-cellular localisations. (b) The quantitative
+    profile of this protein shows mixed profile between the profiles
+    of the organelle markers. (c) The density plot shows a complex
+    distribution over localisations for this protein. (d) The protein
+    Q924C1 has steady state distribution between the cytosol and
+    nucleus non-chromatin.}
+  \label{fig:Q924C1}
+\end{figure}
+
+\begin{figure}[!p]
+  \centering
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+<<Q9WUA2-prob, echo = FALSE, fig.align="center", warning=FALSE>>=
+colnames(dfQ9WUA2) <- getMarkerClasses(andyMCMChl)
+dfQ9WUA2melt <- melt(dfQ9WUA2)
+colnames(dfQ9WUA2melt) <- c("One","Organelle","Probability")
+par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
+gg6 <- ggplot(dfQ9WUA2melt,
+              aes(Organelle, Probability, width = (Probability))) +
+    geom_violin(aes(fill = Organelle), scale = "width")
+gg6 <- gg6 +
+    theme_bw() +
+    scale_fill_manual(values = getStockcol()[1:14]) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1),
+          axis.title.x = element_blank())
+gg6 <- gg6 +
+    ylab("Membership Probability") +
+    ggtitle(paste0("Distribution of Subcellular Membership for Protein Q9WUA2" ))
+gg6 <- gg6 + theme(legend.position="none")
+print(gg6)
+@
+    \caption{}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+<<Q9WUA2-prof, echo = FALSE, fig.align="center">>=
+par(mar=c(5,6,4,2)+1, las = 2)
+par(mai = c(2,0,1,0), oma = c(0,0,0,0))
+hlo <- andyMCMChl[, order(andyMCMChl$Iodixonal.Density)]
+plotDist(hlo[fData(hlo)$markers == "40S Ribosome", ],
+         pcol = getStockcol()[1], xlab= "", lwd = 10, type = "l")
+matlines(t(exprs(hlo[fData(hlo)$markers == "Nucleus - Non-chromatin" , ])),
+         lty = 1, col = getStockcol()[11], lwd = 1, type="l" )
+title(main = "Profile of Protein Q9WUA2 with marker distributions")
+legend("topright", c("40S Ribosome" , "Nucleus - Non-chromatin"),
+       lty = 1, col = c(getStockcol()[1], getStockcol()[11]), bty = "n")
+matlines(t(exprs(hlo["Q9WUA2",])), lty = 1, lwd = 5, col="red", type="l" )
+par(las = 1)
+@
+    \caption{}
+  \end{subfigure}
+  \vspace{1cm}
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+<<Q9WUA2-dens, echo = FALSE, fig.align="center">>=
+par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
+gg7 <- ggplot(dfQ9WUA2melt[dfQ9WUA2melt$Organelle == c("40S Ribosome","Nucleus - Non-chromatin"),],
+             aes(Probability, fill = Organelle)) +
+    geom_density(aes(fill = Organelle), alpha = 0.1) +
+    xlim(c(0,1))
+gg7 <- gg7 + scale_fill_manual(values = getStockcol()[c(1,11)]) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1),
+          axis.title.x = element_blank())
+gg7 <- gg7 + ylab("Density") +
+    xlab("Membership Probability") +
+    ggtitle("Density plot of Subcellular Membership for Protein Q9WUA2")
+gg7 <- gg7 + theme_bw()
+print(gg7)
+@
+    \caption{}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+<<Q9WUA2-pca, echo = FALSE, fig.align="center">>=
+prots <- "Q9WUA2"
+par(oma = c(0,0,0,0))
+foi13s <- FeaturesOfInterest(description = "",
+                             fnames = prots,
+                             object = andyMCMChl)
+
+ptsze <- exp(as.numeric(fData(andyMCMChl)$predicted.probability)) - 1
+names(ptsze) <- rownames(fData(andyMCMChl))
+ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.99995] <- 0.1
+plot2D(andyMCMChl, fcol = "predicted.allocation", cex = ptsze,
+       dims = c(1,2), main = "PCA plot with Protein Q9WUA2 indicated")
+addLegend(where = "bottomleft", andyMCMChl, cex = .7)
+highlightOnPlot(andyMCMChl, foi13s, cex = 1.5, col = "black", pch = 19)
+highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2,
+                col = "black", pch = 19, pos = 4)
+@
+    \caption{}
+  \end{subfigure}
+
+  \caption{Phenylalanine-tRNA ligase beta subunit protein TRIP12
+    (Q9WUA2) showing localisation to the 40S Ribosome with some
+    uncertainty about association to the nucleus non-chromatin.  (a)
+    The violin plot shows uncertain localisation between these two
+    sub-cellular localisations. (b) The quantitative profile of this
+    protein shows mixed profile between the profiles of the organelle
+    markers. (c) The density plot shows a complex distribution over
+    localisations for this protein. (d) The protein Q9WUA2 has steady
+    state distribution skewed towards the 40S Ribosome and close to
+    the nucleus non-chromatin.}
+  \label{fig:Q9WUA2}
+\end{figure}
+
+\begin{figure}[!p]
+  \centering
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+<<Q8VDR9-prob, echo = FALSE, fig.align="center", warning=FALSE>>=
+colnames(dfQ8VDR9) <- getMarkerClasses(andyMCMChl)
+dfQ8VDR9melt <- melt(dfQ8VDR9)
+colnames(dfQ8VDR9melt) <- c("One","Organelle","Probability")
+par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
+gg8 <- ggplot(dfQ8VDR9melt,
+              aes(Organelle, Probability, width = (Probability))) +
+    geom_violin(aes(fill = Organelle), scale = "width")
+gg8 <- gg8 + theme_bw() +
+    scale_fill_manual(values = getStockcol()[1:14]) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1),
+          axis.title.x = element_blank())
+gg8 <- gg8 +
+    ylab("Membership Probability") +
+    ggtitle(paste0("Distribution of Subcellular Membership for Protein Q8VDR9" ))
+gg8 <- gg8 +
+    theme(legend.position="none")
+print(gg8)
+@
+    \caption{}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+<<Q8VDR9-prof, echo = FALSE, fig.align="center">>=
+par(mar=c(5,6,4,2)+1, las = 2)
+par(mai = c(2,0,1,0), oma = c(0,0,0,0))
+hlo <- andyMCMChl[, order(andyMCMChl$Iodixonal.Density)]
+plotDist(hlo[fData(hlo)$markers == "Endoplasmic reticulum/Golgi apparatus", ],
+         pcol = getStockcol()[5], xlab= "", lwd = 10, type = "l")
+matlines(t(exprs(hlo[fData(hlo)$markers == "Extracellular matrix" , ])),
+         lty = 1, col = getStockcol()[7], lwd = 1, type="l" )
+title(main = "Profile of Protein Q8VDR9 with marker distributions ")
+legend("topright", c("Endoplasmic reticulum/Golgi apparatus", "Extracellular matrix" ),
+       lty = 1, col = c(getStockcol()[5], getStockcol()[7]), bty = "n")
+matlines(t(exprs(hlo["Q8VDR9",])), lty = 1, lwd = 5, col="red", type="l" )
+par(las = 1)
+@
+    \caption{}
+  \end{subfigure}
+  \vspace{1cm}
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+<<Q8VDR9-dens, echo = FALSE, fig.align="center">>=
+par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
+gg9 <- ggplot(dfQ8VDR9melt[dfQ8VDR9melt$Organelle == c("Endoplasmic reticulum/Golgi apparatus", "Extracellular matrix" ),],
+             aes(Probability, fill = Organelle)) +
+    theme_bw() +
+    geom_density(aes(fill = Organelle), alpha = 0.1) +
+    xlim(c(0,1))
+gg9 <- gg9 + scale_fill_manual(values = getStockcol()[c(5,7)]) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1),
+          axis.title.x = element_blank())
+gg9 <- gg9 + ylab("Density") +
+    xlab("Membership Probability") +
+    ggtitle("Density plot of Subcellular Membership for Protein Q8VDR9")
+gg9 <- gg9 + theme_bw()
+print(gg9)
+@
+    \caption{}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+<<Q8VDR9-pca, echo = FALSE, fig.align="center">>=
+prots <- "Q8VDR9"
+par(oma = c(0,0,0,0))
+foi13s <- FeaturesOfInterest(description = "",
+                             fnames = prots,
+                             object = andyMCMChl)
+
+ptsze <- exp(as.numeric(fData(andyMCMChl)$predicted.probability)) - 1
+names(ptsze) <- rownames(fData(andyMCMChl))
+ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.99995] <- 0.1
+plot2D(andyMCMChl, fcol = "predicted.allocation", cex = ptsze,
+       dims = c(1,2), main = "PCA plot with Protein Q8VDR9 indicated")
+addLegend(where = "bottomleft", andyMCMChl, cex = .7)
+highlightOnPlot(andyMCMChl, foi13s, cex = 1.5, col = "black", pch = 19)
+highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2,
+                col = "black", pch = 19, pos = 4)
+@
+    \caption{}
+  \end{subfigure}
+
+  \caption{Q8VDR9 showing localisation to the outlier component.  (a)
+    The violin plot shows uncertain localisation between several
+    sub-cellular niches. (b) The quantitative profile of this protein
+    shows mixed profile between the profiles of the organelle
+    markers. (c) The density plot shows a similar localisation
+    probabilities for both the ER/Golgi and Extracellular matrix. (d)
+    The protein Q8VDR9 has steady state distribution in the centre of
+    the plot skewed toward the secretory pathway; in particular, the
+    ER/Golgi and Extracellular matrix components.}
+  \label{fig:Q8VDR9}
+\end{figure}
+
+\begin{figure}[!p]
+  \centering
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+<<pca-tagm-map, echo = FALSE, fig.align="center">>=
+par(mar = c(4,4,2,0))
+ptsze <- 2*fData(andyMCMChl)$meanshannon
+par(mfrow = c(1,1))
+.pca <- plot2D(andyMCMChl, fcol="predicted.allocation",
+               cex = ptsze, main="Visualising whole proteome uncertainty",
+               mirrorY = TRUE)
+addLegend(andyMCMChl, cex=0.6, where="topleft")
+@
+    \caption{}
+  \end{subfigure}%
+~
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+<<pca-tagm-mcmc, echo = FALSE, fig.align="center">>=
+par(mar = c(4,4,2,0))
+ptsze <- as.numeric(fData(andyMCMChl)$predicted.probability)
+names(ptsze) <- rownames(fData(andyMCMChl))
+ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.9999] <- 0.1
+par(mfrow = c(1,1))
+.pca <- plot2D(andyMCMChl, fcol="predicted.allocation", cex = ptsze, main="Prediction of Protein Localisation", mirrorY = TRUE)
+addLegend(andyMCMChl, cex=0.6, where="topleft")
+@
+    \caption{}
+  \end{subfigure}%
+\\
+  \begin{subfigure}[t]{0.5\textwidth}
+    \centering
+<<prob-vs-shannon, echo = FALSE, fig.align="center">>=
+par(mar = c(4,4,2,0))
+plot(as.numeric(fData(andyMCMChl)$predicted.probability),
+     fData(andyMCMChl)$meanshannon,
+     col = getStockcol()[as.factor(fData(andyMCMChl)$predicted.allocation)],
+     pch = 19,
+     xlab = "Localisation Probability",
+     ylab = "Shannon Entropy",
+     main = "Protein localistaion probability and Shannon Entropy")
+@
+    \caption{}
+  \end{subfigure}
+
+  \caption{PCA plots of the mouse pluripotent embryonic stem cell data, where
+    each point represents a protein and is coloured
+    to its (probabilistically-)assigned organelle. (a) In this plot, the pointer is
+    scaled to the Shannon entropy of this protein, with
+    larger pointers indicating greater uncertainty.
+    (b) In this plot, the pointer is scaled to the probability
+    of that protein belonging to its assigned organelle. (c) We plot
+    the localisation probabilities against the Shannon entropy
+    with each protein.}
+  \label{figure:proteomeuncertainty}
+ \end{figure}
+
+\begin{figure}[!p]
+\centering
+\includegraphics[width=.7\textwidth]{ConcludePlot.pdf}
+\caption{The barplot demonstrates the effect of applying different
+  methodologies on protein assignment when applied the mouse
+  pluripotent embryonic stem cell data. Roughly 2000 proteins are
+  classified using either SVM and TAGM-MCMC; however, TAGM-MCMC can
+  draw additional conclusions about an extra 1000 proteins by
+  quantifying uncertainty.}
+\label{figure:ConcludePlot}
+\end{figure}
+
+\begin{figure}[!p]
+  \includegraphics[width=8cm]{graphmodel2.pdf}
+  \centering
+  \caption{Plate diagram for TAGM model. This diagram specifies the
+    conditional independencies and parameters in our
+    model.}\label{plateDiagram}
+\end{figure}
 
 \end{document}
