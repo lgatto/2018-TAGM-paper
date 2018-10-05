@@ -41,7 +41,7 @@
 \author[2]{Claire M. Mulvey}
 \author[3]{Paul D.W. Kirk}
 \author[2]{Kathryn S. Lilley}
-\author[1,2,4,*]{Laurent Gatto\thanks{\url{laurent.gatto@uclouvain.be}}~}
+\author[1,2,4]{Laurent Gatto\thanks{\url{laurent.gatto@uclouvain.be}}~}
 
 
 
