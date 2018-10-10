@@ -1,101 +1,186 @@
-\documentclass[12pt,english]{article}
-\usepackage[numbers]{natbib}
-\usepackage{amsmath,mathtools,amssymb,mathrsfs,dsfont,amsthm}
-\usepackage[margin=1in]{geometry}
-\usepackage{algpseudocode}
-\usepackage{algorithm}
-\usepackage{caption}
-\usepackage[T1]{fontenc}
-\usepackage{babel}
-\usepackage{graphicx}
-\usepackage{float}
-\usepackage{color}
+\documentclass[10pt,letterpaper]{article}
+\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+
+
+\usepackage{amsmath,amssymb}
+
+% Use adjustwidth environment to exceed column width (see example table in text)
+\usepackage{changepage}
+
+% Use Unicode characters when possible
+\usepackage[utf8x]{inputenc}
+
+% textcomp package and marvosym package for additional characters
+\usepackage{textcomp,marvosym}
+
+% cite package, to clean up citations in the main text. Do not remove.
+\usepackage{cite}
+
+% Use nameref to cite supporting information files (see Supporting Information section for more info)
+\usepackage{nameref,hyperref}
+
+% line numbers
+\usepackage[right]{lineno}
+
+% ligatures disabled
+\usepackage{microtype}
+\DisableLigatures[f]{encoding = *, family = * }
+
+% color can be used to apply background shading to table cells only
+\usepackage[table]{xcolor}
+
+% array package and thick rules for tables
+\usepackage{array}
+
+% create "+" rule type for thick vertical lines
+\newcolumntype{+}{!{\vrule width 2pt}}
+
+% create \thickcline for thick horizontal lines of variable length
+\newlength\savedwidth
+\newcommand\thickcline[1]{%
+  \noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+  \cline{#1}%
+  \noalign{\vskip\arrayrulewidth}%
+  \noalign{\global\arrayrulewidth\savedwidth}%
+}
+
+% \thickhline command for thick horizontal lines that span the table
+\newcommand\thickhline{\noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+\hline
+\noalign{\global\arrayrulewidth\savedwidth}}
+
+
+% Remove comment for double spacing
+%\usepackage{setspace}
+%\doublespacing
+
+% Text layout
+\raggedright
+\setlength{\parindent}{0.5cm}
+\textwidth 5.25in
+\textheight 8.75in
+
+% Bold the 'Figure #' in the caption and separate it from the title/caption with a period
+% Captions will be left justified
+\usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=off]{caption}
+\renewcommand{\figurename}{Fig}
+
+% Use the PLoS provided BiBTeX style
+\bibliographystyle{plos2015}
+
+% Remove brackets from numbering in List of References
+\makeatletter
+\renewcommand{\@biblabel}[1]{\quad#1.}
+\makeatother
+
+
+
+% Header and Footer with logo
+\usepackage{lastpage,fancyhdr,graphicx}
+\usepackage{epstopdf}
+%\pagestyle{myheadings}
+\pagestyle{fancy}
+\fancyhf{}
+%\setlength{\headheight}{27.023pt}
+%\lhead{\includegraphics[width=2.0in]{PLOS-submission.eps}}
+\rfoot{\thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrule}{\hrule height 2pt \vspace{2mm}}
+\fancyheadoffset[L]{2.25in}
+\fancyfootoffset[L]{2.25in}
+\lfoot{\today}
+
+%% Include all macros below
+
+\newcommand{\lorem}{{\bf LOREM}}
+\newcommand{\ipsum}{{\bf IPSUM}}
+
+%% own packages
+%% \usepackage[numbers]{natbib}
+%% \usepackage{amsmath,mathtools,amssymb,mathrsfs,dsfont,amsthm}
+%% \usepackage{caption}
+%% \usepackage[T1]{fontenc}
+%% \usepackage{babel}
+%% \usepackage{graphicx}
+%% \usepackage{float}
+%% \usepackage{color}
 \usepackage{subcaption}
-\graphicspath{ {figs/} }
-\usepackage[colorlinks]{hyperref}
-\hypersetup{citecolor=blue}
-\usepackage{enumitem}
-\usepackage{authblk}
-\usepackage{lineno}
-\usepackage[normalem]{ulem}
+%% \graphicspath{ {figs/} }
+%% \usepackage{enumitem}
+%% \usepackage{authblk}
+%% \usepackage{lineno}
+%% \usepackage[normalem]{ulem}
 
-\usepackage{float}
-\usepackage[nomarkers,figuresonly,nolists]{endfloat}
+%% \usepackage{float}
+%% \usepackage[nomarkers,figuresonly,nolists]{endfloat}
 
-%% \usepackage[toc,page]{appendix}
-
-% !Rnw weave = knitr
-
-\renewcommand\Affilfont{\itshape\scriptsize}
-\renewcommand\Authfont{\small}
-
-\DeclareCaptionFormat{algor}{%
-  \hrulefill\par\offinterlineskip\vskip1pt%
-  \textbf{#1#2}#3\offinterlineskip\hrulefill}
-\DeclareCaptionStyle{algori}{singlelinecheck=off,format=algor,labelsep=space}
-\captionsetup[algorithm]{style=algori}
 
 \begin{document}
+\vspace*{0.2in}
+
+% Title must be 250 characters or less.
+\begin{flushleft}
+{\Large
+\textbf\newline{A bayesian mixture modelling approach for spatial proteomics}
+}
+\newline
+%%
+\\
+Oliver M. Crook\textsuperscript{1,2,3},
+Claire M. Mulvey\textsuperscript{2},
+Paul D.W. Kirk\textsuperscript{3},
+Kathryn S. Lilley\textsuperscript{2},
+Laurent Gatto\textsuperscript{1,2\textcurrency *}
+\\
+\bigskip
+\textbf{1} Computational Proteomics Unit, Department of  Biochemistry, University of Cambridge, Cambridge, UK
+\\
+\textbf{2} Cambridge Centre for Proteomics, Department of Biochemistry, University of Cambridge, Cambridge, UK
+\\
+\textbf{3} MRC Biostatistics Unit, Cambridge Institute for Public   Health, Cambridge, UK
+\\
+\bigskip
 
 
-\author[1,2,3]{Oliver M. Crook}
-\author[2]{Claire M. Mulvey}
-\author[3]{Paul D.W. Kirk}
-\author[2]{Kathryn S. Lilley}
-\author[1,2,4,*]{Laurent Gatto}
+\textcurrency Current Address: de Duve Institute, UCLouvain, Avenue  Hippocrate 75, 1200 Brussels, Belgium
+
+* laurent.gatto@uclouvain.be
 
 
 
-\affil[1]{Computational Proteomics Unit, Department of
-  Biochemistry, University of Cambridge, Cambridge, UK}
-\affil[2]{Cambridge Centre for Proteomics, Department of Biochemistry,
-  University of Cambridge, Cambridge, UK}
-\affil[3]{MRC Biostatistics Unit, Cambridge Institute for Public
-  Health, Cambridge, UK}
-\affil[4]{Current address: de Duve Institute, UCLouvain, Avenue
-  Hippocrate 75, 1200 Brussels, Belgium}
-\affil[*]{\url{laurent.gatto@uclouvain.be}}
+\end{flushleft}
+% Please keep the abstract below 300 words
+\section*{Abstract}
+Analysis of the spatial sub-cellular distribution of proteins is of
+vital importance to fully understand context specific protein
+function. Some proteins can be found with a single location within a
+cell, but up to half of proteins may reside in multiple locations, can
+dynamically re-localise, or reside within an unknown functional
+compartment. These considerations lead to uncertainty in associating a
+protein to a single location. Currently, mass spectrometry (MS) based
+spatial proteomics relies on supervised machine learning algorithms to
+assign proteins to sub-cellular locations based on common gradient
+profiles. However, such methods fail to quantify uncertainty
+associated with sub-cellular class assignment. Here we reformulate the
+framework on which we perform statistical analysis. We propose a
+Bayesian generative classifier based on Gaussian mixture models to
+assign proteins probabilistically to sub-cellular niches, thus
+proteins have a probability distribution over sub-cellular locations,
+with Bayesian computation performed using the expectation-maximisation
+(EM) algorithm, as well as Markov-chain Monte-Carlo (MCMC). Our
+methodology allows proteome-wide uncertainty quantification, thus
+adding a further layer to the analysis of spatial proteomics. Our
+framework is flexible, allowing many different systems to be analysed
+and reveals new modelling opportunities for spatial proteomics. We
+find our methods perform competitively with current state-of-the art
+machine learning methods, whilst simultaneously providing more
+information. We highlight several examples where classification based
+on the support vector machine is unable to make any conclusions, while
+uncertainty quantification using our approach provides biologically
+intriguing results.  To our knowledge this is the first Bayesian model
+of MS-based spatial proteomics data.
 
-
-\title{A Bayesian Mixture Modelling Approach For Spatial Proteomics}
-
-\date{\small \today}
-
-\maketitle
-%% \linenumbers
-\begin{abstract}
-  Analysis of the spatial sub-cellular distribution of proteins is of
-  vital importance to fully understand context specific protein
-  function. Some proteins can be found with a single location within a
-  cell, but up to half of proteins may reside in multiple locations,
-  can dynamically re-localise, or reside within an unknown functional
-  compartment. These considerations lead to uncertainty in associating
-  a protein to a single location. Currently, mass spectrometry (MS)
-  based spatial proteomics relies on supervised machine learning
-  algorithms to assign proteins to sub-cellular locations based on
-  common gradient profiles. However, such methods fail to quantify
-  uncertainty associated with sub-cellular class assignment. Here we
-  reformulate the framework on which we perform statistical
-  analysis. We propose a Bayesian generative classifier based on
-  Gaussian mixture models to assign proteins probabilistically to
-  sub-cellular niches, thus proteins have a probability distribution
-  over sub-cellular locations, with Bayesian computation
-  performed using the expectation-maximisation (EM) algorithm, as well
-  as Markov-chain Monte-Carlo (MCMC). Our methodology allows
-  proteome-wide uncertainty quantification, thus adding a further
-  layer to the analysis of spatial proteomics. Our framework is
-  flexible, allowing many different systems to be analysed and reveals
-  new modelling opportunities for spatial proteomics. We find our
-  methods perform competitively with current state-of-the art
-  machine learning methods, whilst simultaneously providing more
-  information. We highlight several examples where classification
-  based on the support vector machine is unable to make any
-  conclusions, while uncertainty quantification using our approach provides
-  biologically intriguing results.  To our knowledge this is the first
-  Bayesian model of MS-based spatial proteomics data.
-\end{abstract}
-
-\subsection*{Author summary}
+\section*{Author summary}
 
 Sub-cellular localisation of proteins provides insights into
 sub-cellular biological processes. For a protein to carry out its
@@ -217,57 +302,57 @@ localised in a cell is a fundamental question, since a protein must be
 localised to its required sub-cellular compartment to interact with
 its binding partners (for example, proteins, nucleic acids, metabolic
 substrates) and carry out its function
-\citep{Gibson:2009}. Furthermore, mis-localisations of proteins are
+\cite{Gibson:2009}. Furthermore, mis-localisations of proteins are
 also critical to our understanding of biology, as aberrant protein
 localisation have been implicated in many pathologies
-\citep{Olkkonen:2006, Luheshi:2008, Laurila:2009, De:2011, Cody:2013},
-including cancer \citep{Kau:2004, Rodriguez:2004, Latorre:2005,
-  Shin:2013} and obesity \citep{Siljee:2018}.
+\cite{Olkkonen:2006, Luheshi:2008, Laurila:2009, De:2011, Cody:2013},
+including cancer \cite{Kau:2004, Rodriguez:2004, Latorre:2005,
+  Shin:2013} and obesity \cite{Siljee:2018}.
 
 Sub-cellular localisations of proteins
 can be studied by high-throughput mass spectrometry (MS)
-\citep{Gatto:2010}. MS-based spatial proteomics experiments enable us
+\cite{Gatto:2010}. MS-based spatial proteomics experiments enable us
 to confidently determine the sub-cellular localisation of thousands of
-proteins within in a cell \citep{hyper}, given the availability of
-rigorous data analysis and interpretation \citep{Gatto:2010}.
+proteins within in a cell \cite{hyper}, given the availability of
+rigorous data analysis and interpretation \cite{Gatto:2010}.
 
 In a typical MS-based spatial proteomics experiment, cells first
 undergo lysis in a fashion which maintains the integrity of their
 organelles. The cell content is then separated using a variety of
-methods, such as density separation \citep{Dunkley:2006,hyper},
-differential centrifugation \citep{Itzhak:2016}, free-flow
-electrophoresis \citep{Parsons:2014}, or affinity purification
-\citep{Heard:2015}. In LOPIT \citep{Dunkley:2004, Dunkley:2006,
-  Sadowski:2006} and \textit{hyper}LOPIT \citep{hyper,Mulvey:2017}, cell
+methods, such as density separation \cite{Dunkley:2006,hyper},
+differential centrifugation \cite{Itzhak:2016}, free-flow
+electrophoresis \cite{Parsons:2014}, or affinity purification
+\cite{Heard:2015}. In LOPIT \cite{Dunkley:2004, Dunkley:2006,
+  Sadowski:2006} and \textit{hyper}LOPIT \cite{hyper,Mulvey:2017}, cell
 lysis is proceeded by separation of the content along a density
 gradient. Organelles and macro-molecular complexes are thus
 characterised by density-specific profiles along the gradient
-\citep{DeDuve:1981}.  Discrete fractions along the continuous density
+\cite{DeDuve:1981}.  Discrete fractions along the continuous density
 gradient are then collected, and quantitative protein profiles that
 match the organelle profiles along the gradient, are measured using
-high accuracy mass spectrometry \citep{Mulvey:2017}.
+high accuracy mass spectrometry \cite{Mulvey:2017}.
 
 The data are first visualised using principal component analysis (PCA)
 and known sub-cellular compartments are annotated
-\citep{ghrepo}. Supervised machine learning algorithms are then
+\cite{ghrepo}. Supervised machine learning algorithms are then
 typically employed to create classifiers that associate un-annotated
-proteins to specific organelles \citep{Gatto:2014b}, as well as
+proteins to specific organelles \cite{Gatto:2014b}, as well as
 semi-supervised methods that detect novel sub-cellular clusters using
-both labelled and un-labelled features \citep{Breckels:2013}. More
+both labelled and un-labelled features \cite{Breckels:2013}. More
 recently, a state-of-the-art transfer learning (TL) algorithm has been
 shown to improve the quantity and reliability of sub-cellular protein
-assignments \citep{Breckels:2016}. Applications of such methods have
+assignments \cite{Breckels:2016}. Applications of such methods have
 led to organelle-specific localisation information of proteins in
-plants \citep{Dunkley:2006}, \textit{Drosophila} \citep{Tan:2009},
-chicken \citep{hall:2009}, human cell lines \citep{Breckels:2013},
-mouse pluripotent embryonic stem cells \citep{hyper} and cancer cell
-lines \citep{Thul:2017}.
+plants \cite{Dunkley:2006}, \textit{Drosophila} \cite{Tan:2009},
+chicken \cite{hall:2009}, human cell lines \cite{Breckels:2013},
+mouse pluripotent embryonic stem cells \cite{hyper} and cancer cell
+lines \cite{Thul:2017}.
 
 Classification methods which have previously been used include partial
-least squares discriminate analysis \citep{Dunkley:2006}, K nearest
-neighbours \citep{Groen::2014}, random forests \citep{Ohta::2010},
-naive Bayes \citep{Nikolovski::2012}, neural networks
-\citep{Tardif::2012} and the support vector machine amongst others
+least squares discriminate analysis \cite{Dunkley:2006}, K nearest
+neighbours \cite{Groen::2014}, random forests \cite{Ohta::2010},
+naive Bayes \cite{Nikolovski::2012}, neural networks
+\cite{Tardif::2012} and the support vector machine amongst others
 (see \cite{Gatto:2014b} for an overview). Although these methods have
 proved successful within the field they have limitations. Typically,
 such classifiers output an assignment of proteins to discrete
@@ -277,7 +362,7 @@ sub-cellular location, which may be a manifestation of proteins in so
 far uncharaterised organelles or proteins that are distributed amongst
 multiple locations. These factors lead to uncertainty in the
 assignment of proteins to sub-cellular localisations, and thus
-quantifying this uncertainty is of vital importance \citep{Kirk:2015}.
+quantifying this uncertainty is of vital importance \cite{Kirk:2015}.
 
 To overcome the task of uncertainty quantification, this article
 presents a probabilistic generative model for MS-based spatial
@@ -312,7 +397,7 @@ spatial proteomics datasets and find that all classifiers we
 considered perform competitively. To demonstrate the additional
 biological advantages our method can provide, we apply our method to a
 \textit{hyper}LOPIT dataset on mouse pluripotent embryonic stem cells
-\citep{hyper}. We consider several examples of proteins that were
+\cite{hyper}. We consider several examples of proteins that were
 unable to be assigned using traditional machine-learning classifiers
 and show that, by considering the full posterior distribution of
 localisation probabilities, we can draw meaningful biological results
@@ -322,13 +407,13 @@ proteins, simultaneously. This approach reveals global patterns of
 protein organisation and their distribution across sub-cellular
 compartments.
 
-We make extensive use of the R programming language \citep{R} and
-existing MS and proteomics packages \citep{MSnbase:2012,
+We make extensive use of the R programming language \cite{R} and
+existing MS and proteomics packages \cite{MSnbase:2012,
   pRoloc:2014}. We are highly committed to creating open software
 tools for high quality processing, visualisation, and analysis of
 spatial proteomics data.  We build upon an already extensive set of
-open software tools \citep{pRoloc:2014} as part of the Bioconductor
-project \citep{Bioconductor::2004, Huber::2015} and our methods are
+open software tools \cite{pRoloc:2014} as part of the Bioconductor
+project \cite{Bioconductor::2004, Huber::2015} and our methods are
 made available as part of this project.
 
 \section*{Results}
@@ -336,21 +421,21 @@ made available as part of this project.
 \subsection*{Application to mouse pluripotent embryonic stem cell data}
 
 We model mouse pluripotent embryonic stem cell (E14TG2a) data
-\citep{hyper}, which contains quantitation data for $5032$
+\cite{hyper}, which contains quantitation data for $5032$
 proteins. This high-resolution map was produced using the
-\textit{hyper}LOPIT workflow \citep{Mulvey:2017}, which uses a
+\textit{hyper}LOPIT workflow \cite{Mulvey:2017}, which uses a
 sophisticated sub-cellular fractionation scheme. This fractionation
 scheme is made possible by the use of Tandem Mass Tag (TMT) 10-plex
 and high accuracy TMT quantification was facilitated by using
-synchronous precursor selection MS3 (SPS-MS3) \citep{Mcalister::2014},
+synchronous precursor selection MS3 (SPS-MS3) \cite{Mcalister::2014},
 which reduces well documented issues with ratio distortion in
-isobaric multiplexed quantitative proteomics \citep{Ting:2011}. The
+isobaric multiplexed quantitative proteomics \cite{Ting:2011}. The
 data resolves $14$ sub-cellular niches with an additional chromatin
 preparation resolving the nuclear chromatin and non-chromatin
 components. Two biological replicates of the data are concatenated,
 each with $10$ fractions along the density gradient. {\color{black}{We defined gold
 standard organelle markers as those with unambiguous single annotation
-\citep{Gatto:2014b}. A protein marker list for the mouse pluripotent embryonic
+\cite{Gatto:2014b}. A protein marker list for the mouse pluripotent embryonic
 stem cells was manually curated using information from the UniProt database,
 the Gene Ontology and the literature, as was performed in \cite{hyper}}}. The following
 section applies our statistical methodology to these data and we
@@ -371,13 +456,49 @@ components can be misleading, since proteins can be more (or less)
 separated in subsequent principal components.  We visualise the first two
 principal components along with the first and fourth principal
 components as a representative example. For the TAGM model, we derive
-probability ellipses from the MAP estimates of the parameters.
+probability ellipses from the MAP estimates of the parameters \ref{figure:pcaellipse}.
 
 
 <<echo=FALSE>>=
 # ouptut to check result below
 a <- abs(resandyhl$loglike[200] - resandyhl$loglike[199])
 @
+
+\begin{figure}[!p]
+  \begin{subfigure}[t]{0.45\textwidth}
+    \centering
+<<pca12, echo=FALSE>>=
+par(mar = c(4,4,2,0))
+pRoloc:::plotEllipse_old(hl, method = "MAP", components = c(1,2),
+                         main = "Visualisation of probability ellipses",
+                         xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
+addLegend(hl, cex=0.7, where="bottomleft")
+@
+\end{subfigure}%
+\hfill
+\begin{subfigure}[t]{0.45\textwidth}
+        \centering
+<<pca14, echo=FALSE>>=
+par(mar = c(4,4,2,0))
+pRoloc:::plotEllipse_old(hl, method = "MAP", components = c(1,4),
+                         main = "Visualisation along 1st and 4th principal components")
+addLegend(hl, cex=0.7, where="topleft")
+@
+\end{subfigure}
+  \centering
+  \caption{ (a) PCA plot of the 1st and 2nd principal components for
+    the curated marker proteins of the mouse stem cell data. The
+    organelles are, in general, well separated. Though some organelles
+    overlap, they are separated along different principal
+    components. The densities used to produce the ellipses are derived
+    from the MAP estimates. (b) Marker resolution along the 1st and
+    4th principal components show that the mitochondrion and
+    peroxisome markers are well resolved, despite overlapping in the
+    1st and 2nd component.  We also see that the ER/Golgi apparatus
+    markers are better separated from the extracellular matrix
+    markers.}
+\label{figure::pcaellipse}
+\end{figure}
 
 
 We now apply the statistical methodology described in section
@@ -402,6 +523,7 @@ uncertainty in the localisation probabilities.  In our case a
 collapsed Gibbs sampler is used to sample from the posterior of
 localisation probabilities. The remainder of this article focus on
 analysis of spatial proteomics in this fully Bayesian framework.
+
 
 
 
@@ -430,7 +552,7 @@ we do not consider it to have converged.  For the remaining $5$
 chains we further discard the first $500$ samples by visual
 inspection.  We then have $600$ retained samples from $5$ separate
 chains. For further analysis, we compute the Gelman-Rubin convergence
-diagnostic \citep{Gelman:1992, Brooks:1998}, which is computed as
+diagnostic \cite{Gelman:1992, Brooks:1998}, which is computed as
 $\hat{R} \approx 1.05$.  Values of $\hat{R}$ far from 1 indicate
 non-convergence and since our statistic is less than $1.1$, we
 conclude our chains have converged. The remaining samples are then
@@ -475,7 +597,7 @@ using an additional T-distribution outlier component
 It is biologically interesting to decipher what functional role
 proteins that are far away from known components play. We perform an
 over-representation analysis of gene ontology (GO) terms to asses the
-biological relevance of the outlier component \citep{Boyle:2004,
+biological relevance of the outlier component \cite{Boyle:2004,
   Yu:2012}. We take 1111 proteins that were allocated to known
 components with probability less than $0.95$.  Note that these 1111
 proteins exclude proteins that are likely to belong to a known
@@ -510,13 +632,13 @@ stratified 5-fold cross-validation. The hyperparameter for the KNN
 algorithm, the number of nearest neighbours, is optimised via an
 additional internal 5-fold cross-validation and the hyperparameters
 for the SVM, sigma and cost, are also optimised via internal 5-fold
-cross validation \citep{svm:2010}.
+cross validation \cite{svm:2010}.
 
 We test our methods on the following datasets \textit{Drosophila}
-\citep{Tan:2009}, chicken \citep{hall:2009}, mouse pluripotent
+\cite{Tan:2009}, chicken \cite{hall:2009}, mouse pluripotent
 embryonic stem cells from \cite{hyper} and \cite{Breckels:2016}, the
 human bone osteosarcoma epithelial (U2-OS) cell line
-\citep{Thul:2017}, the HeLa cell line of \cite{Itzhak:2016}, the $3$
+\cite{Thul:2017}, the HeLa cell line of \cite{Itzhak:2016}, the $3$
 HeLa cell lines from \cite{Hirst:2018} and $10$ primary fibroblast
 datasets from \cite{Jean_Beltran:2016}.  These datasets represent a
 great variety of spatial proteomics experiments across many different
@@ -552,9 +674,9 @@ different spatial proteomics maps.
 In each case, a dataset specific marker list was used, which is
 curated specifically for the each cell line. We removed
 "high-curvature ER" annotations from the HeLa dataset
-\citep{Itzhak:2016}, as well as the "ER Tubular", "Nuclear pore
+\cite{Itzhak:2016}, as well as the "ER Tubular", "Nuclear pore
 complex" and "Peroxisome" annotations from the HeLa CRISPR-CAS9
-knockout experiments \citep{Hirst:2018} as there are too few proteins
+knockout experiments \cite{Hirst:2018} as there are too few proteins
 to correctly perform cross-validation. Table \ref{table:data}
 summarises these datasets, including information about number of
 quantified proteins, the workflow used and the number of fractions.
@@ -596,7 +718,7 @@ classifier consistently outperforms any other across all datasets,
 with results being highly consistent across all methods, as well as
 across datasets. We perform a pairwise unpaired t-test with multiple
 testing correction applied using the Benjamini-H\"ochberg procedure
-\citep{FDR:1995} to detect differences between classifier performance.
+\cite{FDR:1995} to detect differences between classifier performance.
 
 In the \textit{Drosophila} dataset only the KNN algorithm outpeforms
 the SVM at significance level of $0.01$, whilst no other significant
@@ -939,7 +1061,7 @@ yet uncharacterised functional compartments, can be some of the
 reasons why a protein might have an unknown or uncertain
 localisation. Furthermore many proteins are known to reside in
 multiple locations with possibly different functional duties in each
-location \citep{Jeffery:2009}. With these considerations in mind, it is pertinent to
+location \cite{Jeffery:2009}. With these considerations in mind, it is pertinent to
 quantify the uncertainty in our allocation of proteins to organelles.
 This section explores several situations where proteins display
 uncertain localisation and considers the biological factors that
@@ -1003,7 +1125,7 @@ proteome wide uncertainy quantification. Regions where organelle
 assignments overlap are areas were uncertainty is expected to be the
 greatest, as well as areas with no dominant component. We take an
 information theoretic approach to summarising uncertainty in protein
-localisation by computing the Shannon entropy \citep{shannon:1948} for
+localisation by computing the Shannon entropy \cite{shannon:1948} for
 each Monte-Carlo sample $t = 1,...,T$ of the posterior localisation
 probabilities of each protein
 
@@ -1116,7 +1238,7 @@ the localisation of proteins to their sub-cellular niches, which had
 been previously unavailable.
 {\color{black}{We note that our method is general enough
 to be applied to many MS-based spatial proteomics protocols including:
-LOPIT, \textit{hyper}LOPIT, protein correlation profiling (PCP) \citep{Foster:2006},
+LOPIT, \textit{hyper}LOPIT, protein correlation profiling (PCP) \cite{Foster:2006},
 differential centrifugation approaches and spatio-temporal proteomics methods.
 In our flexible software implementation, all hyperparameters for the priors can be
 changed if users have precise priors they wish to specify.}}
@@ -1128,9 +1250,9 @@ our model, which allow us to easily interrogate our data. High quality
 visualisation tools are essential for rigorous quality control and
 sound biological conclusions.  Our methods have been developed in the
 R statistical programming language and we continue to contribute to
-the Bioconductor project \citep{Bioconductor::2004, Huber::2015} with
+the Bioconductor project \cite{Bioconductor::2004, Huber::2015} with
 inclusion of our methods within the pRoloc package ($>=$ 1.21.1)
-\citep{pRoloc:2014}. The underlying source code used to generate this
+\cite{pRoloc:2014}. The underlying source code used to generate this
 document is available at
 \url{https://github.com/lgatto/2018-TAGM-paper}.
 
@@ -1214,10 +1336,10 @@ of measured proteins as being composed of $K$ subpopulations, each
 corresponding to a different organelle or sub-cellular
 compartment. The literature of mixture model applications to biology
 is rich and some recent example include applications to retroviral
-integration sites \citep{Kirk:2016}, genome-wide associations studies
-\citep{Liley:2017}, single-cell transcriptomics
-\citep{Lonnberg:2017} {\color{black}{and affinity purification MS proteomics}}
-\citep{Choi:2010}.
+integration sites \cite{Kirk:2016}, genome-wide associations studies
+\cite{Liley:2017}, single-cell transcriptomics
+\cite{Lonnberg:2017} {\color{black}{and affinity purification MS proteomics}}
+\cite{Choi:2010}.
 
 Though some proteins are well described as belonging to a single
 component, many proteins multi-localise or might belong to
@@ -1277,7 +1399,7 @@ is designed to be large such that is relatively flat when compared with multivar
 distributions which describe annotated components. }} Similar approaches for modelling
 outliers have been explored in the literature and often the outlier
 term is considered constant or as a Poisson process, independent of
-the observation \citep{Banfield::1993, Cooke::2011, Coretto::2016,
+the observation \cite{Banfield::1993, Cooke::2011, Coretto::2016,
   Hennig::2004}.
 
 
@@ -1313,7 +1435,7 @@ To perform inference for the parameters, we make use of both the
 labelled and unlabelled data. For the labelled data $X_L$, since $z_i$
 and $\phi_i$ are known for these proteins, we can update the
 parameters with their data analytically by exploiting conjugacy of the
-priors \citep[see, for example,][]{Gelman:1995}. For the unlabelled
+priors (see, for example \cite{Gelman:1995}). For the unlabelled
 data we do not have such information and so in the next sections we
 explain how to make inferences of the latent variables.
 
@@ -1346,7 +1468,7 @@ parameters.
 
 \subsubsection*{Maximum a posteriori prediction}
 
-We use the Expectation-Maximisation (EM) algorithm \citep{EM:1977} to
+We use the Expectation-Maximisation (EM) algorithm \cite{EM:1977} to
 find {\em maximum a posteriori} (MAP) estimates for the parameters
 \cite[see, for example,][]{Murphy:2012}. To specify the parameters of
 the prior distributions, we use a simple set of heuristics provided by
@@ -1479,8 +1601,8 @@ the proteins in the test partition for generalisation accuracy. How
 each classifier is trained is specific to that classifier.  The KNN
 and SVM have hyperparameters optimised using $5$-fold
 cross-validation. This $80/20$ data stratification is performed $100$
-times in order to produce $100$ sets of macro-F1 \citep{He::2009}
-scores and class specific F1 scores \citep{Breckels:2016}. The F1
+times in order to produce $100$ sets of macro-F1 \cite{He::2009}
+scores and class specific F1 scores \cite{Breckels:2016}. The F1
 score is the harmonic mean of the precision and recall, more
 precisely:
 \[\text{precision}=\frac{tp}{tp+fp}, \text{recall} = \frac{tp}{tp+fn}.\]
@@ -1501,14 +1623,14 @@ make an incorrect assignment it may do so with low probability. The F1
 score is unforgiving in this situation and will not use this
 information.  To measure this uncertainty, we introduce the quadratic
 loss which allows us to compare probabilistic assignments
-\citep{Gneiting:2007}.  For the SVM, a logistic distribution is fitted
+\cite{Gneiting:2007}.  For the SVM, a logistic distribution is fitted
 using maximum likelihood estimation to the decision values of all
 binary classifiers. Then, the membership probabilities for the
 multi-class classification is calculated using quadratic optimisation.
 The logistic regression model assumes errors which are distributed
 according to a centred Laplace distribution for the predictions, where
 maximum likelihood estimation is used to estimate the scale parameter
-\citep{Meyer:2017}.  For the KNN classifier, we interpret the
+\cite{Meyer:2017}.  For the KNN classifier, we interpret the
 proportion of neighbours belonging to each class as a non-parametric
 posterior probability. To avoid non-zero probabilities for classes we
 perform Laplace smoothing; that is, the posterior allocation
@@ -1525,7 +1647,7 @@ validation) and $d_k$ is the incidence rate of each class in the
 training set. Finally, $\alpha >0$ is the pseudo-count smoothing
 parameter. Motivated by a Bayesian interpretation of placing a
 Jeffrey's type Dirichlet prior over multinomial counts, we choose
-$\alpha = 0.5$ \citep{Hazimeh:2015, Valcarce:2016, Manning:2008}.  The
+$\alpha = 0.5$ \cite{Hazimeh:2015, Valcarce:2016, Manning:2008}.  The
 quadratic loss is given by the following formula:
 
 \begin{equation}
@@ -1562,9 +1684,6 @@ of the quadratic loss.
 The authors would also like to thank Dr Sean B. Holden, University of
 Cambridge, for helpful discussions.
 
-
-
-\bibliographystyle{vancouver}
 
 \begin{thebibliography}{10}
 
@@ -1787,7 +1906,7 @@ Huber W, Carey V, Gentleman R, Anders S, Carlson M, Carvalho B, et~al.
 \newblock Nature methods. 2015;12(2):115.
 
 \bibitem{Mcalister::2014}
-McAlister G, Nusinow D, Jedrychowski M, Wühr M, Huttlin E, Erickson B, et~al.
+McAlister G, Nusinow D, Jedrychowski M, W{\:u}hr M, Huttlin E, Erickson B, et~al.
 \newblock MultiNotch MS3 enables accurate, sensitive, and multiplexed detection
   of differential expression across cancer cell line proteomes.
 \newblock Analytical chemistry. 2014;86(14):7150--7158.
@@ -1975,43 +2094,6 @@ Foster J, de~Hoog C, Zhang Y, Zhang Y, Xie X, Mootha V, et~al.
 
 %% Figures
 
-\begin{figure}[!p]
-  \begin{subfigure}[t]{0.45\textwidth}
-    \centering
-<<pca12, echo=FALSE>>=
-par(mar = c(4,4,2,0))
-pRoloc:::plotEllipse_old(hl, method = "MAP", components = c(1,2),
-                         main = "Visualisation of probability ellipses",
-                         xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
-addLegend(hl, cex=0.7, where="bottomleft")
-@
-        \caption{}
-\end{subfigure}%
-\hfill
-\begin{subfigure}[t]{0.45\textwidth}
-        \centering
-<<pca14, echo=FALSE>>=
-par(mar = c(4,4,2,0))
-pRoloc:::plotEllipse_old(hl, method = "MAP", components = c(1,4),
-                         main = "Visualisation along 1st and 4th principal components")
-addLegend(hl, cex=0.7, where="topleft")
-@
-        \caption{}
-\end{subfigure}
-  \centering
-  \caption{ (a) PCA plot of the 1st and 2nd principal components for
-    the curated marker proteins of the mouse stem cell data. The
-    organelles are, in general, well separated. Though some organelles
-    overlap, they are separated along different principal
-    components. The densities used to produce the ellipses are derived
-    from the MAP estimates. (b) Marker resolution along the 1st and
-    4th principal components show that the mitochondrion and
-    peroxisome markers are well resolved, despite overlapping in the
-    1st and 2nd component.  We also see that the ER/Golgi apparatus
-    markers are better separated from the extracellular matrix
-    markers.}
-\label{figure::pcaellipse}
-\end{figure}
 
 \begin{figure}[!p]
     \begin{subfigure}[t]{0.5\textwidth}
@@ -2061,7 +2143,6 @@ pRoloc:::plotEllipse_old(hl, method = "MCMC", components = c(1,2),
                          xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
 addLegend(hl, cex=0.5, where="bottomleft")
 @
-        \caption{}
 \end{subfigure}%
 \hfill
 \begin{subfigure}[t]{0.45\textwidth}
@@ -2073,7 +2154,6 @@ pRoloc:::plotEllipse_old(hl, method = "MCMC",
 addLegend(hl, cex=0.5, where="topleft")
 @
         \centering
-        \caption{}
 \end{subfigure}
   \centering
   \caption{(a) Probability ellipses produced from using the MCMC
@@ -2203,7 +2283,6 @@ gg4 <- gg4 +
     theme(legend.position="none")
 print(gg4)
 @
-    \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
@@ -2221,7 +2300,6 @@ legend("topright", c("Cytosol", "Nucleus - Non-chromatin"),
 matlines(t(exprs(hlo["Q924C1",])), lty = 1, lwd = 5, col="red", type="l" )
 par(las = 1)
 @
-    \caption{}
   \end{subfigure}
   \vspace{1cm}
   \begin{subfigure}[t]{0.5\textwidth}
@@ -2243,7 +2321,6 @@ gg5 <- gg5 +
 gg5 <- gg5 + theme_bw()
 print(gg5)
 @
-    \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
@@ -2263,7 +2340,6 @@ addLegend(where = "bottomleft", andyMCMChl, cex = .7)
 highlightOnPlot(andyMCMChl, foi13s, cex = 1.5, col = "black", pch = 19)
 highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2, col = "black", pch = 19, pos = 4)
 @
-    \caption{}
   \end{subfigure}
 
   \caption{Exportin 5 (Q924C1) showing localisation to the cytosol
@@ -2301,7 +2377,6 @@ gg6 <- gg6 +
 gg6 <- gg6 + theme(legend.position="none")
 print(gg6)
 @
-    \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
@@ -2319,7 +2394,6 @@ legend("topright", c("40S Ribosome" , "Nucleus - Non-chromatin"),
 matlines(t(exprs(hlo["Q9WUA2",])), lty = 1, lwd = 5, col="red", type="l" )
 par(las = 1)
 @
-    \caption{}
   \end{subfigure}
   \vspace{1cm}
   \begin{subfigure}[t]{0.5\textwidth}
@@ -2339,7 +2413,6 @@ gg7 <- gg7 + ylab("Density") +
 gg7 <- gg7 + theme_bw()
 print(gg7)
 @
-    \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
@@ -2360,7 +2433,6 @@ highlightOnPlot(andyMCMChl, foi13s, cex = 1.5, col = "black", pch = 19)
 highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2,
                 col = "black", pch = 19, pos = 4)
 @
-    \caption{}
   \end{subfigure}
 
   \caption{Phenylalanine-tRNA ligase beta subunit protein TRIP12
@@ -2399,7 +2471,6 @@ gg8 <- gg8 +
     theme(legend.position="none")
 print(gg8)
 @
-    \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
@@ -2417,7 +2488,6 @@ legend("topright", c("Endoplasmic reticulum/Golgi apparatus", "Extracellular mat
 matlines(t(exprs(hlo["Q8VDR9",])), lty = 1, lwd = 5, col="red", type="l" )
 par(las = 1)
 @
-    \caption{}
   \end{subfigure}
   \vspace{1cm}
   \begin{subfigure}[t]{0.5\textwidth}
@@ -2438,7 +2508,6 @@ gg9 <- gg9 + ylab("Density") +
 gg9 <- gg9 + theme_bw()
 print(gg9)
 @
-    \caption{}
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
@@ -2459,7 +2528,6 @@ highlightOnPlot(andyMCMChl, foi13s, cex = 1.5, col = "black", pch = 19)
 highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2,
                 col = "black", pch = 19, pos = 4)
 @
-    \caption{}
   \end{subfigure}
 
   \caption{Q8VDR9 showing localisation to the outlier component.  (a)
@@ -2487,7 +2555,6 @@ par(mfrow = c(1,1))
                mirrorY = TRUE)
 addLegend(andyMCMChl, cex=0.6, where="topleft")
 @
-    \caption{}
   \end{subfigure}%
 ~
   \begin{subfigure}[t]{0.5\textwidth}
@@ -2501,7 +2568,6 @@ par(mfrow = c(1,1))
 .pca <- plot2D(andyMCMChl, fcol="predicted.allocation", cex = ptsze, main="Prediction of Protein Localisation", mirrorY = TRUE)
 addLegend(andyMCMChl, cex=0.6, where="topleft")
 @
-    \caption{}
   \end{subfigure}%
 \\
   \begin{subfigure}[t]{0.5\textwidth}
@@ -2516,7 +2582,6 @@ plot(as.numeric(fData(andyMCMChl)$predicted.probability),
      ylab = "Shannon Entropy",
      main = "Protein localistaion probability and Shannon Entropy")
 @
-    \caption{}
   \end{subfigure}
 
   \caption{PCA plots of the mouse pluripotent embryonic stem cell data, where
@@ -2533,7 +2598,7 @@ plot(as.numeric(fData(andyMCMChl)$predicted.probability),
 
 \begin{figure}[!p]
 \centering
-\includegraphics[width=.7\textwidth]{ConcludePlot.pdf}
+\includegraphics[width=.7\textwidth]{./figs/ConcludePlot.pdf}
 \caption{The barplot demonstrates the effect of applying different
   methodologies on protein assignment when applied the mouse
   pluripotent embryonic stem cell data. Roughly 2000 proteins are
@@ -2544,7 +2609,7 @@ plot(as.numeric(fData(andyMCMChl)$predicted.probability),
 \end{figure}
 
 \begin{figure}[!p]
-  \includegraphics[width=8cm]{graphmodel2.pdf}
+  \includegraphics[width=8cm]{./figs/graphmodel2.pdf}
   \centering
   \caption{Plate diagram for TAGM model. This diagram specifies the
     conditional independencies and parameters in our
