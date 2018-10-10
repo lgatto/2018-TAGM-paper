@@ -6,6 +6,7 @@
 %% \usepackage{algorithm}
 \usepackage{caption}
 \renewcommand\thefigure{\Alph{figure}}
+%% \renewcommand\thetable{\Alph{table}}
 
 \usepackage[T1]{fontenc}
 \usepackage{babel}
