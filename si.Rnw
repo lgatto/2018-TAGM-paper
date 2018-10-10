@@ -2,9 +2,11 @@
 \usepackage{natbib}
 \usepackage{amsmath,mathtools,amssymb,mathrsfs,dsfont,amsthm}
 \usepackage[margin=1in]{geometry}
-\usepackage{algpseudocode}
-\usepackage{algorithm}
+%% \usepackage{algpseudocode}
+%% \usepackage{algorithm}
 \usepackage{caption}
+\renewcommand\thefigure{\Alph{figure}}
+
 \usepackage[T1]{fontenc}
 \usepackage{babel}
 \usepackage{graphicx}
@@ -33,6 +35,8 @@
   \textbf{#1#2}#3\offinterlineskip\hrulefill}
 \DeclareCaptionStyle{algori}{singlelinecheck=off,format=algor,labelsep=space}
 \captionsetup[algorithm]{style=algori}
+
+\def\thesection{S\arabic{section}}
 
 \begin{document}
 
@@ -81,7 +85,7 @@ require(DOSE)
 
 
 
-\section{S1: Derivation of EM algorithm for TAGM model}\label{apd:EMderv}
+\section{Derivation of EM algorithm for TAGM model}\label{apd:EMderv}
 
 This appendix give a formal derivation of the EM algorithm used for
 our model. Computations are standard but useful and similar technical
@@ -411,7 +415,7 @@ $\lvert Q(\boldsymbol{\theta}|\boldsymbol{\theta}_{t}) -
 Q(\boldsymbol{\theta}|\boldsymbol{\theta_{t-1}})\rvert < \delta$ for
 some pre-specified $\delta >0$.
 
-\section{S2: Derivation of collapsed Gibbs sampler for TAGM model}\label{app::gibbs}
+\section{Derivation of collapsed Gibbs sampler for TAGM model}\label{app::gibbs}
 
 To derive the Gibbs sampler we write down all the conditional
 probabilities. Then, exploiting conjugacy, we can marginalise
@@ -676,7 +680,7 @@ S'_k = & S_0 + T' + \lambda_0\boldsymbol{\mu}_0^T\boldsymbol{\mu}_0 - \lambda_km
 
 \clearpage
 
-\section{S3: Convergence diagnostics of EM algorithm} \label{app:logposterior}
+\section{Convergence diagnostics of EM algorithm} \label{app:logposterior}
 
 \begin{figure}[h]
   \centering
@@ -696,7 +700,7 @@ plot(resandyhl$loglike,
 
 \clearpage
 
-\section{S4: Trace plots for assessing MCMC convergence}\label{app:mcmc}
+\section{Trace plots for assessing MCMC convergence}\label{app:mcmc}
 
 <<echo = FALSE>>=
 load("./data/andydiagtest.rda")
@@ -730,7 +734,7 @@ plot(colSums(andydiag$andymcmc6), type = "b", cex = 0.1, col = "blue", ylim = c(
 
 \clearpage
 
-\section{S5: F1 t-tests}\label{app::ttestf1}
+\section{F1 t-tests}\label{app::ttestf1}
 
 
 <<echo=FALSE>>=
@@ -853,7 +857,7 @@ print(xtb, floating=TRUE, table.placement = "H")
 
 \clearpage
 
-\section{S6: Quadratic loss t-tests}
+\section{Quadratic loss t-tests}
 
 <<quadtests, echo = FALSE>>=
 
@@ -989,7 +993,7 @@ print(xtb, floating=TRUE, table.placement = "H")
 
 \clearpage
 
-\section{S7: GO enrichment analysis figures}
+\section{GO enrichment analysis figures}
 
 <<enrichgo, cache=TRUE, echo = FALSE, eval=TRUE>>=
 ## Not evaluating this as it apparently doesn't cache.
@@ -1050,7 +1054,7 @@ egoMF <- enrichGO(gene          = rownames(fData(andyMCMChl))[fData(andyMCMChl)$
 
 \clearpage
 
-\section{S8: Comparison of MCMC and MAP allocations}
+\section{Comparison of MCMC and MAP allocations}
 <<MAPandMCMC, echo = FALSE>>=
 
 load("./data/andyMAPres.rda")
