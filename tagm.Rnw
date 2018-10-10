@@ -467,7 +467,7 @@ a <- abs(resandyhl$loglike[200] - resandyhl$loglike[199])
 \begin{figure}[!p]
   \begin{subfigure}[t]{0.45\textwidth}
     \centering
-<<pca12, echo=FALSE>>=
+<<pca12, echo=FALSE, fig.show="hide">>=
 par(mar = c(4,4,2,0))
 pRoloc:::plotEllipse_old(hl, method = "MAP", components = c(1,2),
                          main = "Visualisation of probability ellipses",
@@ -478,7 +478,7 @@ addLegend(hl, cex=0.7, where="bottomleft")
 \hfill
 \begin{subfigure}[t]{0.45\textwidth}
         \centering
-<<pca14, echo=FALSE>>=
+<<pca14, echo=FALSE, fig.show="hide">>=
 par(mar = c(4,4,2,0))
 pRoloc:::plotEllipse_old(hl, method = "MAP", components = c(1,4),
                          main = "Visualisation along 1st and 4th principal components")
@@ -2097,7 +2097,7 @@ Foster J, de~Hoog C, Zhang Y, Zhang Y, Xie X, Mootha V, et~al.
 
 \begin{figure}[!p]
     \begin{subfigure}[t]{0.5\textwidth}
-<<assignmentPCAMAP, echo=FALSE>>=
+<<assignmentPCAMAP, echo=FALSE, fig.show="hide">>=
 ptsze <- as.numeric(fData(andyhlMAP$object)$predicted.probability)
 par(mfrow = c(1,1))
 plot2D(object = andyhlMAP$object,
@@ -2110,7 +2110,7 @@ addLegend(andyhlMAP$object, cex=0.5, where="topleft")
 @
     \end{subfigure}%
     \begin{subfigure}[t]{0.5\textwidth}
-<<assignmentPCAMCMC, echo=FALSE>>=
+<<assignmentPCAMCMC, echo=FALSE, fig.show="hide">>=
 ptsze <- as.numeric(fData(andyMCMChl)$predicted.probability)
 names(ptsze) <- rownames(fData(andyMCMChl))
 ptsze[as.numeric(fData(andyMCMChl)$outlier.allocation) <0.9999] <- 0.1
@@ -2136,7 +2136,7 @@ addLegend(andyMCMChl, cex=0.6, where="topleft")
 \begin{figure}[!p]
   \begin{subfigure}[t]{0.45\textwidth}
         \centering
-<<pca12-ellipses, echo=FALSE>>=
+<<pca12-ellipses, echo=FALSE, fig.show="hide">>=
 par(mar = c(4,4,2,0))
 pRoloc:::plotEllipse_old(hl, method = "MCMC", components = c(1,2),
                          main = "Visualisation of probability ellipses",
@@ -2146,7 +2146,7 @@ addLegend(hl, cex=0.5, where="bottomleft")
 \end{subfigure}%
 \hfill
 \begin{subfigure}[t]{0.45\textwidth}
-<<pca14-ellipses, echo=FALSE>>=
+<<pca14-ellipses, echo=FALSE, fig.show="hide">>=
 par(mar = c(4,4,2,0))
 pRoloc:::plotEllipse_old(hl, method = "MCMC",
                          components = c(1,4),
@@ -2165,7 +2165,7 @@ addLegend(hl, cex=0.5, where="topleft")
 
 \begin{figure}[!p]
 \centering
-<<violin-G5E870, echo = FALSE, fig.align="center", warning=FALSE, message=FALSE, out.width='0.7\\textwidth'>>=
+<<violin-G5E870, echo = FALSE, fig.align="center", warning=FALSE, message=FALSE, out.width='0.7\\textwidth', fig.show="hide">>=
 colnames(dfG5E870) <- getMarkerClasses(andyMCMChl)
 dfG5E870 <- melt(dfG5E870)
 colnames(dfG5E870) <- c("One","Organelle","Probability")
@@ -2194,7 +2194,7 @@ print(gg)
 
 \begin{figure}[!p]
   \centering
-<<f1boxplots, echo=FALSE, fig.width=9, fig.height=10>>=
+<<f1boxplots, echo=FALSE, fig.width=9, fig.height=10, fig.show="hide">>=
 print(gg2)
 @
  \caption{Boxplots of the distributions of Macro F1 scores for all
@@ -2204,7 +2204,7 @@ print(gg2)
 
 \begin{figure}[!p]
   \centering
-<<quadboxplots, echo=FALSE, fig.width=9, fig.height=10>>=
+<<quadboxplots, echo=FALSE, fig.width=9, fig.height=10, fig.show="hide">>=
 print(gg3)
 @
 \caption{Boxplots of the distributions of Quadratic losses for all
@@ -2215,7 +2215,7 @@ print(gg3)
 \begin{figure}[!p]
   \begin{subfigure}[t]{0.5\textwidth}
         \centering
-<<assigncomp1, echo=FALSE, fig.height=6>>=
+<<assigncomp1, echo=FALSE, fig.height=6, fig.show="hide">>=
 par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
 lattice.options(
   layout.heights=list(bottom.padding=list(x=0), top.padding=list(x=0)),
@@ -2233,7 +2233,7 @@ levelplot(cont, xlab="SVM", ylab="TAGM (MCMC)",
 \end{subfigure}%
 \begin{subfigure}[t]{0.5\textwidth}
 \centering
-<<assigncomp2, echo=FALSE, fig.height=6>>=
+<<assigncomp2, echo=FALSE, fig.height=6, fig.show="hide">>=
 par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
 lattice.options(
   layout.heights=list(bottom.padding=list(x=0), top.padding=list(x=0)),
@@ -2264,7 +2264,7 @@ levelplot(df4, xlab="SVM", ylab="TAGM (MCMC)",
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<Q924C1-prob, echo = FALSE, fig.align="center", warning=FALSE>>=
+<<Q924C1-prob, echo = FALSE, fig.align="center", warning=FALSE, fig.show="hide">>=
 colnames(dfQ924C1) <- getMarkerClasses(andyMCMChl)
 dfQ924C1melt <- melt(dfQ924C1)
 colnames(dfQ924C1melt) <- c("One","Organelle","Probability")
@@ -2286,7 +2286,7 @@ print(gg4)
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<Q924C1-prof, echo = FALSE, fig.align="center">>=
+<<Q924C1-prof, echo = FALSE, fig.align="center", fig.show="hide">>=
 par(mar=c(5,6,4,2) + 1, las = 2)
 par(mai = c(2,0,1,0), oma = c(0,0,0,0))
 hlo <- andyMCMChl[, order(andyMCMChl$Iodixonal.Density)]
@@ -2304,7 +2304,7 @@ par(las = 1)
   \vspace{1cm}
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<Q924C1-dens, echo = FALSE, fig.align="center">>=
+<<Q924C1-dens, echo = FALSE, fig.align="center", fig.show="hide">>=
 par(mai = c(2,0,0,0), oma = c(0,0,0,0))
 gg5 <- ggplot(dfQ924C1melt[dfQ924C1melt$Organelle == c("Cytosol","Nucleus - Non-chromatin"),],
              aes(Probability, fill = Organelle)) +
@@ -2324,7 +2324,7 @@ print(gg5)
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<Q924C1-pca,echo = FALSE>>=
+<<Q924C1-pca,echo = FALSE, fig.show="hide">>=
 prots <- "Q924C1"
 par(oma = c(0,0,0,0))
 foi13s <- FeaturesOfInterest(description = "",
@@ -2358,7 +2358,7 @@ highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2, col = "black", pch =
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<Q9WUA2-prob, echo = FALSE, fig.align="center", warning=FALSE>>=
+<<Q9WUA2-prob, echo = FALSE, fig.align="center", warning=FALSE, fig.show="hide">>=
 colnames(dfQ9WUA2) <- getMarkerClasses(andyMCMChl)
 dfQ9WUA2melt <- melt(dfQ9WUA2)
 colnames(dfQ9WUA2melt) <- c("One","Organelle","Probability")
@@ -2380,7 +2380,7 @@ print(gg6)
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<Q9WUA2-prof, echo = FALSE, fig.align="center">>=
+<<Q9WUA2-prof, echo = FALSE, fig.align="center", fig.show="hide">>=
 par(mar=c(5,6,4,2)+1, las = 2)
 par(mai = c(2,0,1,0), oma = c(0,0,0,0))
 hlo <- andyMCMChl[, order(andyMCMChl$Iodixonal.Density)]
@@ -2398,7 +2398,7 @@ par(las = 1)
   \vspace{1cm}
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<Q9WUA2-dens, echo = FALSE, fig.align="center">>=
+<<Q9WUA2-dens, echo = FALSE, fig.align="center", fig.show="hide">>=
 par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
 gg7 <- ggplot(dfQ9WUA2melt[dfQ9WUA2melt$Organelle == c("40S Ribosome","Nucleus - Non-chromatin"),],
              aes(Probability, fill = Organelle)) +
@@ -2416,7 +2416,7 @@ print(gg7)
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<Q9WUA2-pca, echo = FALSE, fig.align="center">>=
+<<Q9WUA2-pca, echo = FALSE, fig.align="center", fig.show="hide">>=
 prots <- "Q9WUA2"
 par(oma = c(0,0,0,0))
 foi13s <- FeaturesOfInterest(description = "",
@@ -2452,7 +2452,7 @@ highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2,
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<Q8VDR9-prob, echo = FALSE, fig.align="center", warning=FALSE>>=
+<<Q8VDR9-prob, echo = FALSE, fig.align="center", warning=FALSE, fig.show="hide">>=
 colnames(dfQ8VDR9) <- getMarkerClasses(andyMCMChl)
 dfQ8VDR9melt <- melt(dfQ8VDR9)
 colnames(dfQ8VDR9melt) <- c("One","Organelle","Probability")
@@ -2474,7 +2474,7 @@ print(gg8)
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<Q8VDR9-prof, echo = FALSE, fig.align="center">>=
+<<Q8VDR9-prof, echo = FALSE, fig.align="center", fig.show="hide">>=
 par(mar=c(5,6,4,2)+1, las = 2)
 par(mai = c(2,0,1,0), oma = c(0,0,0,0))
 hlo <- andyMCMChl[, order(andyMCMChl$Iodixonal.Density)]
@@ -2492,7 +2492,7 @@ par(las = 1)
   \vspace{1cm}
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<Q8VDR9-dens, echo = FALSE, fig.align="center">>=
+<<Q8VDR9-dens, echo = FALSE, fig.align="center", fig.show="hide">>=
 par(mar = c(0,0,0,0), mai = c(2,0,0,0), oma = c(0,0,0,0))
 gg9 <- ggplot(dfQ8VDR9melt[dfQ8VDR9melt$Organelle == c("Endoplasmic reticulum/Golgi apparatus", "Extracellular matrix" ),],
              aes(Probability, fill = Organelle)) +
@@ -2511,7 +2511,7 @@ print(gg9)
   \end{subfigure}%
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<Q8VDR9-pca, echo = FALSE, fig.align="center">>=
+<<Q8VDR9-pca, echo = FALSE, fig.align="center", fig.show="hide">>=
 prots <- "Q8VDR9"
 par(oma = c(0,0,0,0))
 foi13s <- FeaturesOfInterest(description = "",
@@ -2546,7 +2546,7 @@ highlightOnPlot(andyMCMChl, foi13s, labels = TRUE, cex = 2,
   \centering
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<pca-tagm-map, echo = FALSE, fig.align="center">>=
+<<pca-tagm-map, echo = FALSE, fig.align="center", fig.show="hide">>=
 par(mar = c(4,4,2,0))
 ptsze <- 2*fData(andyMCMChl)$meanshannon
 par(mfrow = c(1,1))
@@ -2559,7 +2559,7 @@ addLegend(andyMCMChl, cex=0.6, where="topleft")
 ~
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<pca-tagm-mcmc, echo = FALSE, fig.align="center">>=
+<<pca-tagm-mcmc, echo = FALSE, fig.align="center", fig.show="hide">>=
 par(mar = c(4,4,2,0))
 ptsze <- as.numeric(fData(andyMCMChl)$predicted.probability)
 names(ptsze) <- rownames(fData(andyMCMChl))
@@ -2572,7 +2572,7 @@ addLegend(andyMCMChl, cex=0.6, where="topleft")
 \\
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
-<<prob-vs-shannon, echo = FALSE, fig.align="center">>=
+<<prob-vs-shannon, echo = FALSE, fig.align="center", fig.show="hide">>=
 par(mar = c(4,4,2,0))
 plot(as.numeric(fData(andyMCMChl)$predicted.probability),
      fData(andyMCMChl)$meanshannon,
@@ -2598,7 +2598,7 @@ plot(as.numeric(fData(andyMCMChl)$predicted.probability),
 
 \begin{figure}[!p]
 \centering
-\includegraphics[width=.7\textwidth]{./figs/ConcludePlot.pdf}
+%% \includegraphics[width=.7\textwidth]{./figs/ConcludePlot.pdf}
 \caption{The barplot demonstrates the effect of applying different
   methodologies on protein assignment when applied the mouse
   pluripotent embryonic stem cell data. Roughly 2000 proteins are
@@ -2609,11 +2609,44 @@ plot(as.numeric(fData(andyMCMChl)$predicted.probability),
 \end{figure}
 
 \begin{figure}[!p]
-  \includegraphics[width=8cm]{./figs/graphmodel2.pdf}
+  %% \includegraphics[width=8cm]{./figs/graphmodel2.pdf}
   \centering
   \caption{Plate diagram for TAGM model. This diagram specifies the
     conditional independencies and parameters in our
     model.}\label{plateDiagram}
 \end{figure}
+
+\clearpage
+
+\section*{Supporting Information Legends}
+
+\noindent Figure A: Plot of the log-posterior at each iteration of the
+EM algorithm to demonstrate monotonicity and convergence
+
+\bigskip
+
+\noindent Figure B: Trace plots of the number of proteins allocated to
+the known components in each of 6 parallel MCMC runs. Chain $4$ is
+discarded because of lack of convergence. $600$ samples are retained
+from remaining chains and pooled.
+
+\bigskip
+
+\noindent Figure C: Gene Ontology over representation analysis on
+outlier proteins - that is proteins allocated with less than
+probability $0.95$. We analyse the enrichment of terms in the cellular
+compartment, biological process, and molecular function ontologies. We
+display the top 10 significant results in the dotplots.
+
+\bigskip
+
+\noindent Figure D: A heatmap representation of a contingency table
+comparing allocation produced by MCMC and MAP methods with posterior
+probability threshold set at $0.99$ for both methods.  The scale
+ranges from 0 to 1 with values indicating the proportion of assigned
+proteins to that sub-cellular location. Values along the diagonal
+represent agreement between classifiers whilst other values represent
+disagreement.  The allocations of proteins by both methods are in
+strong agreement.
 
 \end{document}
