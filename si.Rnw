@@ -6,7 +6,7 @@
 %% \usepackage{algorithm}
 \usepackage{caption}
 \renewcommand\thefigure{\Alph{figure}}
-%% \renewcommand\thetable{\Alph{table}}
+\renewcommand\thetable{\arabic{table}}
 
 \usepackage[T1]{fontenc}
 \usepackage{babel}
@@ -777,6 +777,7 @@ for(j in 1:14) {
 
 @
 
+\renewcommand\thetable{A\arabic{table}}
 <<echo = FALSE, results = 'asis'>>=
 xtb <- xtable(f1ttesttan$p.value, digits = -1,
        caption = "Adjusted P-values for pairwise T-tests for Macro F-1 score classifier evaluation on the Drosophila dataset")
@@ -911,6 +912,8 @@ for (j in 1:14) {
 
 @
 
+\setcounter{table}{0}
+\renewcommand\thetable{B\arabic{table}}
 
 <<echo = FALSE, results = 'asis'>>=
 xtb <- xtable(ttesttanquad$p.value, digits = -1,
