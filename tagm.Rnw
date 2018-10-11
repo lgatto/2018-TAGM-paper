@@ -453,10 +453,11 @@ density.  The outer ellipse contains $99\%$ of the total probability
 whilst the middle and inner ellipses contain $95\%$ and $90\%$ of the
 probability respectively. Visualising only the first two principal
 components can be misleading, since proteins can be more (or less)
-separated in subsequent principal components.  We visualise the first two
-principal components along with the first and fourth principal
+separated in subsequent principal components.  We visualise the first
+two principal components along with the first and fourth principal
 components as a representative example. For the TAGM model, we derive
-probability ellipses from the MAP estimates of the parameters \ref{figure:pcaellipse}.
+probability ellipses from the MAP estimates of the parameters (figure
+\ref{figure::pcaellipse}).
 
 
 <<echo=FALSE>>=
