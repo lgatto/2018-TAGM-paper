@@ -449,7 +449,7 @@ plot2D(object = andyhlMAP$object,
        cex = ptsze,
        main="TAGM-MAP localisation predictions",
        mirrorY = TRUE)
-addLegend(andyhlMAP$object, cex=0.5, where="topleft")
+addLegend(andyhlMAP$object, cex=0.6, where="topleft")
 @
     \end{subfigure}%
     \begin{subfigure}[t]{0.5\textwidth}
