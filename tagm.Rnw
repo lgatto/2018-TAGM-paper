@@ -1546,7 +1546,7 @@ plot(as.numeric(fData(andyMCMChl)$predicted.probability),
      pch = 19,
      xlab = "Localisation Probability",
      ylab = "Shannon Entropy",
-     main = "Protein localistaion probability and Shannon Entropy")
+     main = "Protein localisation probability and Shannon Entropy")
 @
     \caption{}
   \end{subfigure}
