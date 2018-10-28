@@ -541,7 +541,7 @@ par(mar = c(4,4,2,0))
 pRoloc:::plotEllipse_old(hl, method = "MCMC", components = c(1,2),
                          main = "Visualisation of probability ellipses",
                          xlim = c(-0.8,0.3), ylim = c(-0.5,0.5))
-addLegend(hl, cex=0.5, where="bottomleft")
+addLegend(hl, cex=0.7, where="bottomleft")
 @
         \caption{}
 \end{subfigure}%
@@ -552,7 +552,7 @@ par(mar = c(4,4,2,0))
 pRoloc:::plotEllipse_old(hl, method = "MCMC",
                          components = c(1,4),
                          main = "Visualisation along the 1st and 4th principal component")
-addLegend(hl, cex=0.5, where="topleft")
+addLegend(hl, cex=0.7, where="topleft")
 @
         \centering
         \caption{}
