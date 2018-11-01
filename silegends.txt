@@ -1,0 +1,21 @@
+Figure A: Plot of the log-posterior at each iteration of the EM
+algorithm to demonstrate monotonicity and convergence
+
+Figure B: Trace plots of the number of proteins allocated to the known
+components in each of 6 parallel MCMC runs. Chain 4 is discarded
+because of lack of convergence. 600 samples are retained from
+remaining chains and pooled.
+
+Figure C: Gene Ontology over representation analysis on outlier
+proteins - that is proteins allocated with less than probability
+0.95. We analyse the enrichment of terms in the cellular compartment,
+biological process, and molecular function ontologies. We display the
+top 10 significant results in the dotplots.
+
+Figure C: A heatmap representation of a contingency table comparing
+allocation produced by MCMC and MAP methods with posterior probability
+threshold set at 0.99 for both methods.  The scale ranges from 0 to 1
+with values indicating the proportion of assigned proteins to that
+sub-cellular location. Values along the diagonal represent agreement
+between classifiers whilst other values represent disagreement.  The
+allocations of proteins by both methods are in strong agreement.
